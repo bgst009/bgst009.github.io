@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bgst009.github.io/</id>
     <title>BGST</title>
-    <updated>2021-01-28T13:11:28.142Z</updated>
+    <updated>2021-01-28T13:16:43.086Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bgst009.github.io/"/>
     <link rel="self" href="https://bgst009.github.io/atom.xml"/>
@@ -17,7 +17,8 @@
         </link>
         <updated>2020-10-09T02:46:33.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
-<p>阅读下面的内容，理解每一个细节，然后构选程序来描述函数指针数组的用法和向函数传函数指针的方法</p>
+<p>阅读下面的内容，理解每一个细节，然后构选程序来描述函数指针数组的用法和向函数<br>
+传函数指针的方法</p>
 <p>关于函数指针</p>
 <p>指针的值是地址，函数指针的值是函数的入口地址</p>
 <p>下面与<code>int</code>·型变量对比，说明函数指针变量的定义方法</p>
