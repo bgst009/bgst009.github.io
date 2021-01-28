@@ -1,0 +1,458 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>1007_综合研究6-7问题研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="1007_综合研究6-7问题研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="综合研究六
+
+
+了解浮点型数据在内存中是怎么存储的。
+
+
+把双精度的十进制转换为二进制科学计数法然后对应下图存储到内存中
+
+
+
+
+
+假设 a=8则其二进制科学计数法表示为 1.000∗231.000*2^31.000∗23,双精度浮点数的存..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              1007_综合研究6-7问题研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-07
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="综合研究六">综合研究六</h1>
+<ul>
+<li>
+<p>了解浮点型数据在内存中是怎么存储的。</p>
+<ul>
+<li>
+<p>把双精度的十进制转换为二进制科学计数法然后对应下图存储到内存中</p>
+</li>
+<li>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007103509.png" alt="image-20201007103509309" loading="lazy"></figure>
+</li>
+<li>
+<p>假设 <code>a=8</code>则其二进制科学计数法表示为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1.000</mn><mo>∗</mo><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">1.000*2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>,双精度浮点数的存储格式为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mi>s</mi></msup><mo>∗</mo><mn>1.</mn><mi>f</mi><mo>∗</mo><msup><mn>2</mn><mrow><mi>e</mi><mo>−</mo><mn>1023</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(-1)^s*1.f*2^{e-1023}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">2</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span>,符号位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">s=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,指数位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo>=</mo><mn>1026</mn><mo>=</mo><mn>010000000010</mn></mrow><annotation encoding="application/x-tex">e=1026=0100 0000 0010</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span></span></span></span>,有效位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,故对应的二进制表示为<code>0100 0000 0010 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000</code>十六进制为 <code>40 20 00 00 00 00 00 00 00</code></p>
+</li>
+<li>
+<p>编写程序验证</p>
+<ul>
+<li>
+<p>程序</p>
+<pre><code class="language-c">double da = 8;
+main() {
+    int i;
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;da) + i));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>可以看到下图结果和预测的一致</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007105359.png" alt="image-20201007105359297" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一维数组和一级指针区别</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007110810.png" alt="数组与指针" loading="lazy"></figure>
+<ul>
+<li>
+<p>代码</p>
+<pre><code class="language-c">int *pi;
+int i;
+void f();
+main() {
+    f();
+    for (i = 0; i &lt; 10; i++) {
+        printf(&quot;%d &quot;, pi[i]);
+    }
+}
+void f() {
+    int ia[10];
+    for (i = 0; i &lt; 10; i++) {
+        ia[i] = i + 1;
+        printf(&quot;%d &quot;, ia[i]);
+    }
+    printf(&quot;\n&quot;);
+    for (i = 0; i &lt; 10; i++) {
+        printf(&quot;%d &quot;, *(ia + i));
+    }
+    printf(&quot;\n&quot;);
+
+    pi = ia;
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007124701.png" alt="image-20201007124701011" loading="lazy"></figure>
+</li>
+<li>
+<p>通过上图可以看到在函数返回后再次打印结果只保存前两个数据</p>
+</li>
+</ul>
+</li>
+<li>
+<p>C中的延时函数</p>
+<ul>
+<li>
+<p><code>sleep（）</code></p>
+</li>
+<li>
+<p>测试</p>
+<pre><code class="language-c">double start, stop, durationTime;
+main() {
+    printf(&quot;start\n&quot;);
+    start = clock();
+    sleep(1 * 2);
+    stop = clock();
+    printf(&quot;end\n&quot;);
+    durationTime = ((double)(stop - start)) / 10;
+    printf(&quot;duration %lfs&quot;, durationTime);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007111945.png" alt="image-20201007111945051" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>int型变量（存储一般类型（char、int、long等）变量的地址）和指针变量加一操作的区别。</p>
+<ul>
+<li>
+<p>变量加一为值加一，而指针变量加一为指针变量增加变量长度。</p>
+</li>
+<li>
+<p>code</p>
+<pre><code class="language-c">char ca = 'a';
+int ia = 6;
+long la = 7;
+char *pca = &amp;ca;
+int *pia = &amp;ia;
+long *pla = &amp;la;
+main() {
+    printf(&quot;char ca: %c , ca+1: %c\n&quot;, ca, ca + 1);
+    printf(&quot;int  ia: %d , ia+1: %d\n&quot;, ia, ia + 1);
+    printf(&quot;long la: %ld , la+1: %ld\n&quot;, la, la + 1);
+    printf(&quot;size\n&quot;);
+    printf(&quot;char %d,int %d,long %d\n&quot;, sizeof(char), sizeof(int), sizeof(long));
+    printf(&quot;pchar pca: %x , pca+1: %x\n&quot;, pca, pca + 1);
+    printf(&quot;pint pia: %x , pia+1: %x\n&quot;, pia, pia + 1);
+    printf(&quot;plong pla: %x , pla+1: %x\n&quot;, pla, pla + 1);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007113030.png" alt="image-20201007113030495" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="综合研究7">综合研究7</h1>
+<ul>
+<li>
+<p>了解C语言中的输入函数（写程序验证不同输入函数功能上的区别）。</p>
+</li>
+<li>
+<p><code>kbhit()</code></p>
+<pre><code class="language-c">main() {
+    char ch;
+    //检查当前是否有键盘输入，若有则返回一个非0值，否则返回0
+    while (!kbhit()) {
+        cprintf(&quot;hello world\n&quot;);
+        sleep(1);
+        if (kbhit()) {
+            ch = getch();
+            if (ch == 27)//ESE
+                break;
+        }
+    }
+    cprintf(&quot;end\n&quot;);
+}
+</code></pre>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007130341.png" alt="image-20201007130341728" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p><code>bioskey</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f2() {
+    int a;
+    /* 当用户再循环时不按下任何键时，bioskey(1) 一直为0，则 !bioskey(1)
+     * 为1，条件成立，继续循环，printf（），直到，用户任意按下一个键时，bioskey(1)不为0，成功退出。
+     */
+    a = 1;
+    while (!bioskey(a)) {
+        cprintf(&quot;biosKey\n&quot;);
+        sleep(1);
+    }
+    cprintf(&quot;end\n&quot;);
+
+    /*  当cmd是0，bioskey()返回下一个在键盘键入的值（它将等待到按下一个键）。
+     *  它返回一个16位的二进制数，包括两个不同的值。当按下一个普通键时，
+     * 它的低8位数存放该字符的ASCII码,高8位存放该键的扫描码；对于特殊键（如方向键、F1～F12等等），
+     * 低8位为0，高8位字节存放该键的扫描码。
+     */
+    a = 0;
+    printf(&quot;\n%c\n&quot;, bioskey(0));
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007131456.png" alt="image-20201007131455820" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>scanf</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f3() {
+    int a, b, c, d;
+    scanf(&quot;%d&quot;, &amp;a);           /*输入整数并赋值给变量a */
+    scanf(&quot;%d&quot;, &amp;b);           /* 输入整数并赋值给变量b */
+    printf(&quot;a+b=%d\n&quot;, a + b); /* 计算a+b的值 */
+    scanf(&quot;%d %d&quot;, &amp;c, &amp;d);    /* 输入两个整数并分别赋值给c、d */
+    printf(&quot;c*d=%d\n&quot;, c * d); /* 计算c*d的值 */
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007131934.png" alt="image-20201007131934192" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>getche()</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f4(){
+    char c;
+    c = getche();
+    printf(&quot;c='%c'\n&quot;, c);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007132418.png" alt="image-20201007132418853" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>getch</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f5() {
+    char c = getch();
+    printf(&quot;c='%c'\n&quot;, c);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<p>​	<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007132728.png" alt="image-20201007132728673" loading="lazy"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>gets</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f6() {
+    /* gets() 会读取用户输入的整行内容，包括空格。而 scanf()
+     * 遇到空格就结束读取，也就是说，使用 scanf()
+     * 读取的字符串中永远不会包含空格。 */
+    char str1[30], str2[30]; /* 定义两个字符数组 */
+    gets(str1);
+    scanf(&quot;%s&quot;, str2);
+    puts(str1);
+    puts(str2);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007133158.png" alt="image-20201007133158613" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%BB%BC%E5%90%88%E7%A0%94%E7%A9%B6%E5%85%AD">综合研究六</a></li>
+<li><a href="#%E7%BB%BC%E5%90%88%E7%A0%94%E7%A9%B67">综合研究7</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-8/">
+              <h3 class="post-title">
+                C语言综合研究与高强度程序8
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

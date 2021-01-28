@@ -1,0 +1,284 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-转移指令 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-转移指令 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="转移指令
+1. 操作符 offset
+
+
+取得标号的偏移地址
+
+2. jmp 指令
+
+
+无条件转移指令
+可同时修改 cs 和 ip 或者 ip
+给出两种信息
+
+目的地址
+转移的距离（段间，段内短转移，段内近转移）
+
+
+
+3. 依据位移进行的..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-转移指令
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="转移指令">转移指令</h1>
+<h2 id="1-操作符-offset">1. 操作符 offset</h2>
+<hr>
+<ul>
+<li>取得标号的偏移地址</li>
+</ul>
+<h2 id="2-jmp-指令">2. jmp 指令</h2>
+<hr>
+<ul>
+<li>无条件转移指令</li>
+<li>可同时修改 cs 和 ip 或者 ip</li>
+<li>给出两种信息
+<ul>
+<li>目的地址</li>
+<li>转移的距离（段间，段内短转移，段内近转移）</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-依据位移进行的jmp指令">3. 依据位移进行的jmp指令</h2>
+<hr>
+<h3 id="jmp-short-标号">jmp short 标号</h3>
+<hr>
+<ul>
+<li>在编译是就已经处理好 要偏移的地址</li>
+<li>无论 本 命令在哪 只有 偏移地址</li>
+</ul>
+<h3 id="jmp-near-ptr-标号">jmp near ptr 标号</h3>
+<hr>
+<ul>
+<li>段内短转移</li>
+</ul>
+<h2 id="4-转移的目的地址在指令中的jmp指令">4. 转移的目的地址在指令中的jmp指令</h2>
+<hr>
+<h3 id="jmp-far-ptr-标号">jmp far ptr 标号</h3>
+<hr>
+<ul>
+<li>同时修改 cs 和 ip</li>
+</ul>
+<h2 id="5-转移地址在寄存器中的jmp指令">5. 转移地址在寄存器中的jmp指令</h2>
+<hr>
+<ul>
+<li>jmp ax</li>
+</ul>
+<h2 id="6-在内存中转移">6 .在内存中转移</h2>
+<hr>
+<h4 id="jmp-word-ptr-标号">jmp word ptr 标号</h4>
+<ul>
+<li>jmp word ptr ds:[0]</li>
+<li>只修改 IP</li>
+<li>段内转移</li>
+</ul>
+<h4 id="jmp-dword-ptr-标号">jmp dword ptr 标号</h4>
+<ul>
+<li>段间转移</li>
+<li>ip[X+0],cs[X+2]</li>
+</ul>
+<h3 id="jcxz-短转移">jcxz （短转移）</h3>
+<hr>
+<ul>
+<li><strong>所有的有条件的跳转指令都是短转移</strong></li>
+<li>jmp cx zero</li>
+<li>只有在cx 为0 的情况下 才 执行 转移</li>
+</ul>
+<h3 id="loop短转移">loop（短转移）</h3>
+<hr>
+<ul>
+<li><strong>所有的循环指令都是短转移</strong></li>
+<li>cx 不为0 执行loop</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4">转移指令</a>
+<ul>
+<li><a href="#1-%E6%93%8D%E4%BD%9C%E7%AC%A6-offset">1. 操作符 offset</a></li>
+<li><a href="#2-jmp-%E6%8C%87%E4%BB%A4">2. jmp 指令</a></li>
+<li><a href="#3-%E4%BE%9D%E6%8D%AE%E4%BD%8D%E7%A7%BB%E8%BF%9B%E8%A1%8C%E7%9A%84jmp%E6%8C%87%E4%BB%A4">3. 依据位移进行的jmp指令</a>
+<ul>
+<li><a href="#jmp-short-%E6%A0%87%E5%8F%B7">jmp short 标号</a></li>
+<li><a href="#jmp-near-ptr-%E6%A0%87%E5%8F%B7">jmp near ptr 标号</a></li>
+</ul>
+</li>
+<li><a href="#4-%E8%BD%AC%E7%A7%BB%E7%9A%84%E7%9B%AE%E7%9A%84%E5%9C%B0%E5%9D%80%E5%9C%A8%E6%8C%87%E4%BB%A4%E4%B8%AD%E7%9A%84jmp%E6%8C%87%E4%BB%A4">4. 转移的目的地址在指令中的jmp指令</a>
+<ul>
+<li><a href="#jmp-far-ptr-%E6%A0%87%E5%8F%B7">jmp far ptr 标号</a></li>
+</ul>
+</li>
+<li><a href="#5-%E8%BD%AC%E7%A7%BB%E5%9C%B0%E5%9D%80%E5%9C%A8%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD%E7%9A%84jmp%E6%8C%87%E4%BB%A4">5. 转移地址在寄存器中的jmp指令</a></li>
+<li><a href="#6-%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E8%BD%AC%E7%A7%BB">6 .在内存中转移</a><br>
+*
+<ul>
+<li><a href="#jmp-word-ptr-%E6%A0%87%E5%8F%B7">jmp word ptr 标号</a></li>
+<li><a href="#jmp-dword-ptr-%E6%A0%87%E5%8F%B7">jmp dword ptr 标号</a></li>
+<li><a href="#jcxz-%E7%9F%AD%E8%BD%AC%E7%A7%BB">jcxz （短转移）</a></li>
+<li><a href="#loop%E7%9F%AD%E8%BD%AC%E7%A7%BB">loop（短转移）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-数据处理的两个基本问题/">
+              <h3 class="post-title">
+                汇编语言-数据处理的两个基本问题
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

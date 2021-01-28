@@ -1,0 +1,1770 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://bgst009.github.io/</id>
+    <title>Gridea</title>
+    <updated>2021-01-28T12:08:27.686Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://bgst009.github.io/"/>
+    <link rel="self" href="https://bgst009.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://bgst009.github.io/images/avatar.png</logo>
+    <icon>https://bgst009.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[C语言综合研究与高强度程序设计训练10]]></title>
+        <id>https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-10/</id>
+        <link href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-10/">
+        </link>
+        <updated>2020-10-09T02:46:33.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>阅读下面的内容，理解每一个细节，然后构选程序来描述函数指针数组的用法和向函数传函数指针的方法</p>
+<p>关于函数指针</p>
+<p>指针的值是地址，函数指针的值是函数的入口地址</p>
+<p>下面与<code>int</code>·型变量对比，说明函数指针变量的定义方法</p>
+<p><code>int a;</code>整型变量a</p>
+<p><code>int*a;</code>整型指针变量a</p>
+<p><code>int a(char,char)</code>;函数<code>a</code>，函数类型为:返回值为<code>int</code>，参数为<code>char</code>、<code>char</code></p>
+<p><code>int (*a)(char,char);</code>返回值为<code>int</code>，参数为 <code>charchar</code>的函数的函数指针变量a</p>
+<p>可见类型加 <code>*</code> 则表示指向某种类型的指针。</p>
+<p>为什么<code>int*a</code>直接加<code>＊</code>，而<code>int（*a）（char，char）</code>要用括号？</p>
+<p>如果不加括号<code>:int＊a（char，char）</code>是返回<code>int＊</code>的函数。为了不和函数<code>int*a（ char char）</code>混淆加上括号，<code>int（*a）（char，char</code>）表示一个指向函数的指针。</p>
+<p>下面与<code>int</code>型对比，说明函数指针类型的描述方法:</p>
+<p><code>int a;</code>整型变量a</p>
+<p><code>int</code>整型</p>
+<p><code>int (*a)(char,char);</code>函数指针a</p>
+<p><code>int (*)(char,char);</code>函数指针<code>a</code>返回值为<code>int</code>型，参数为<code>char</code>、<code>char</code>的函数的函数指针</p>
+</blockquote>
+<blockquote>
+<p>函数指针使用举例:</p>
+</blockquote>
+<ul>
+<li>
+<p>程序1</p>
+<pre><code class="language-c">int f(char, char);
+main() {
+    int a;
+    int b;
+    long c;
+    int (*p)(char, char);
+
+    p = f;
+    b = (int)f;
+    c = (long)f;
+
+    printf(&quot;main=%x f=%x\n&quot;, main, f);
+    printf(&quot;p=%x    b=%x c=%lx\n&quot;, p, b, c);
+
+    a = p(1, 2);
+    printf(&quot;%d\n&quot;, a);
+
+    a = ((int (*)(char, char))b)(1, 2);
+    printf(&quot;%d\n&quot;, a);
+}
+int f(char a, char b) { return a + b; }
+</code></pre>
+</li>
+<li>
+<p>程序2</p>
+<pre><code class="language-c">int far f(char, char);
+main() {
+    int a;
+    int b;
+    long c;
+    int(far * p)(char, char);
+
+    p = f;
+    b = (int)f;
+    c = (long)f;
+
+    printf(&quot;main offset=%x\n&quot;, main);
+    printf(&quot;main=%lx\n&quot;, (long)main);
+    printf(&quot;f offset=%x\n&quot;, (int)f);
+    printf(&quot;f=%lx\n&quot;, f);
+    printf(&quot;p=%lx b=%x c=%lx\n&quot;, p, b, c);
+
+    a = p(1, 2);
+    printf(&quot;%d\n&quot;, a);
+
+    a = ((int(far *)(char, char))c)(1, 2);
+    printf(&quot;%d\n&quot;, a);
+}
+int far f(char a, char b) { return a + b; }
+</code></pre>
+</li>
+</ul>
+<h2 id="向函数传函数指针">向函数传函数指针</h2>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">int add(int a, int b) { return a + b; }
+int f2(int (*p)(int, int));
+int a;
+main() {
+    p = add;
+    a = f2(p);
+    printf(&quot;%d\n&quot;, a);
+}
+int f2(int (*p)(int, int)) {
+    printf(&quot;---------------f2-----------------\n&quot;);
+    return p(1, 2) + 1;
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201009102929.png" alt="image-20201009102929141" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="函数指针数组的用法">函数指针数组的用法</h2>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">int add(int a, int b) { return a + b; }
+int sub(int a, int b) { return a - b; }
+int mul(int a, int b) { return a * b; }
+int div(int a, int b) { return a / b; }
+int f2(int (*p)(int, int));
+void f3(int (*p[])(int, int), int);
+int (*p)(int, int);
+int (*pb[4])(int, int) = {add, sub, mul, div};
+int a;
+int i;
+main() {
+    p = add;
+    a = f2(p);
+    printf(&quot;%d\n&quot;, a);
+    f3(pb, 4);
+}
+int f2(int (*p)(int, int)) {
+    printf(&quot;---------------f2-----------------\n&quot;);
+    return p(1, 2) + 1;
+}
+void f3(int (*p[])(int, int), int size) {
+    printf(&quot;---------------f3-----------------\n&quot;);
+    for (i = 0; i &lt; size; i++) {
+        a = p[i](8, 4);
+        printf(&quot;%d\n&quot;, a);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201009103102.png" alt="image-20201009103102619" loading="lazy"></figure>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言综合研究与高强度程序设计训练9]]></title>
+        <id>https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-9/</id>
+        <link href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-9/">
+        </link>
+        <updated>2020-10-08T02:45:57.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>写一个函数，<code>showstr（char…）</code>，打印多个字符串，它可以接收不定数量的char型参<br>
+数，最后一个参数可传入0， <code>showstr</code>通过此可以识别何时停止打印，返回<br>
+例子，调用 <code>showstr</code>在屏幕上打印字符串<code>“This is program＂.“Welcome to＂Hello world！＂</code></p>
+</blockquote>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">void showstr(char *, ...);
+char *p1 = &quot;This is a c program.&quot;;
+char *p2 = &quot;Welcome to c !&quot;;
+char *p3 = &quot;Hello world !&quot;;
+int i = 0;
+main() { showstr(p1, p2, p3, 0); }
+void showstr(char *str, ...) {
+    for (i = 0; (*(int *)(_BP + 4 + i)) != 0; i += 2) {
+        printf(&quot;%s\n&quot;, *(int *)(_BP + 4 + i));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201008130007.png" alt="image-20201008130007166" loading="lazy"></figure>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[1007_综合研究6-7问题研究报告]]></title>
+        <id>https://bgst009.github.io/post/1007_-zong-he-yan-jiu-6-7-wen-ti-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/1007_-zong-he-yan-jiu-6-7-wen-ti-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-10-07T02:45:26.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="综合研究六">综合研究六</h1>
+<ul>
+<li>
+<p>了解浮点型数据在内存中是怎么存储的。</p>
+<ul>
+<li>
+<p>把双精度的十进制转换为二进制科学计数法然后对应下图存储到内存中</p>
+</li>
+<li>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007103509.png" alt="image-20201007103509309" loading="lazy"></figure>
+</li>
+<li>
+<p>假设 <code>a=8</code>则其二进制科学计数法表示为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1.000</mn><mo>∗</mo><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">1.000*2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>,双精度浮点数的存储格式为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mi>s</mi></msup><mo>∗</mo><mn>1.</mn><mi>f</mi><mo>∗</mo><msup><mn>2</mn><mrow><mi>e</mi><mo>−</mo><mn>1023</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(-1)^s*1.f*2^{e-1023}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mord mtight">0</span><span class="mord mtight">2</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span>,符号位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">s=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,指数位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo>=</mo><mn>1026</mn><mo>=</mo><mn>010000000010</mn></mrow><annotation encoding="application/x-tex">e=1026=0100 0000 0010</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">1</span><span class="mord">0</span></span></span></span>,有效位<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,故对应的二进制表示为<code>0100 0000 0010 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000</code>十六进制为 <code>40 20 00 00 00 00 00 00 00</code></p>
+</li>
+<li>
+<p>编写程序验证</p>
+<ul>
+<li>
+<p>程序</p>
+<pre><code class="language-c">double da = 8;
+main() {
+    int i;
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;da) + i));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>可以看到下图结果和预测的一致</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007105359.png" alt="image-20201007105359297" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一维数组和一级指针区别</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007110810.png" alt="数组与指针" loading="lazy"></figure>
+<ul>
+<li>
+<p>代码</p>
+<pre><code class="language-c">int *pi;
+int i;
+void f();
+main() {
+    f();
+    for (i = 0; i &lt; 10; i++) {
+        printf(&quot;%d &quot;, pi[i]);
+    }
+}
+void f() {
+    int ia[10];
+    for (i = 0; i &lt; 10; i++) {
+        ia[i] = i + 1;
+        printf(&quot;%d &quot;, ia[i]);
+    }
+    printf(&quot;\n&quot;);
+    for (i = 0; i &lt; 10; i++) {
+        printf(&quot;%d &quot;, *(ia + i));
+    }
+    printf(&quot;\n&quot;);
+
+    pi = ia;
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007124701.png" alt="image-20201007124701011" loading="lazy"></figure>
+</li>
+<li>
+<p>通过上图可以看到在函数返回后再次打印结果只保存前两个数据</p>
+</li>
+</ul>
+</li>
+<li>
+<p>C中的延时函数</p>
+<ul>
+<li>
+<p><code>sleep（）</code></p>
+</li>
+<li>
+<p>测试</p>
+<pre><code class="language-c">double start, stop, durationTime;
+main() {
+    printf(&quot;start\n&quot;);
+    start = clock();
+    sleep(1 * 2);
+    stop = clock();
+    printf(&quot;end\n&quot;);
+    durationTime = ((double)(stop - start)) / 10;
+    printf(&quot;duration %lfs&quot;, durationTime);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007111945.png" alt="image-20201007111945051" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>int型变量（存储一般类型（char、int、long等）变量的地址）和指针变量加一操作的区别。</p>
+<ul>
+<li>
+<p>变量加一为值加一，而指针变量加一为指针变量增加变量长度。</p>
+</li>
+<li>
+<p>code</p>
+<pre><code class="language-c">char ca = 'a';
+int ia = 6;
+long la = 7;
+char *pca = &amp;ca;
+int *pia = &amp;ia;
+long *pla = &amp;la;
+main() {
+    printf(&quot;char ca: %c , ca+1: %c\n&quot;, ca, ca + 1);
+    printf(&quot;int  ia: %d , ia+1: %d\n&quot;, ia, ia + 1);
+    printf(&quot;long la: %ld , la+1: %ld\n&quot;, la, la + 1);
+    printf(&quot;size\n&quot;);
+    printf(&quot;char %d,int %d,long %d\n&quot;, sizeof(char), sizeof(int), sizeof(long));
+    printf(&quot;pchar pca: %x , pca+1: %x\n&quot;, pca, pca + 1);
+    printf(&quot;pint pia: %x , pia+1: %x\n&quot;, pia, pia + 1);
+    printf(&quot;plong pla: %x , pla+1: %x\n&quot;, pla, pla + 1);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007113030.png" alt="image-20201007113030495" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="综合研究7">综合研究7</h1>
+<ul>
+<li>
+<p>了解C语言中的输入函数（写程序验证不同输入函数功能上的区别）。</p>
+</li>
+<li>
+<p><code>kbhit()</code></p>
+<pre><code class="language-c">main() {
+    char ch;
+    //检查当前是否有键盘输入，若有则返回一个非0值，否则返回0
+    while (!kbhit()) {
+        cprintf(&quot;hello world\n&quot;);
+        sleep(1);
+        if (kbhit()) {
+            ch = getch();
+            if (ch == 27)//ESE
+                break;
+        }
+    }
+    cprintf(&quot;end\n&quot;);
+}
+</code></pre>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007130341.png" alt="image-20201007130341728" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p><code>bioskey</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f2() {
+    int a;
+    /* 当用户再循环时不按下任何键时，bioskey(1) 一直为0，则 !bioskey(1)
+     * 为1，条件成立，继续循环，printf（），直到，用户任意按下一个键时，bioskey(1)不为0，成功退出。
+     */
+    a = 1;
+    while (!bioskey(a)) {
+        cprintf(&quot;biosKey\n&quot;);
+        sleep(1);
+    }
+    cprintf(&quot;end\n&quot;);
+
+    /*  当cmd是0，bioskey()返回下一个在键盘键入的值（它将等待到按下一个键）。
+     *  它返回一个16位的二进制数，包括两个不同的值。当按下一个普通键时，
+     * 它的低8位数存放该字符的ASCII码,高8位存放该键的扫描码；对于特殊键（如方向键、F1～F12等等），
+     * 低8位为0，高8位字节存放该键的扫描码。
+     */
+    a = 0;
+    printf(&quot;\n%c\n&quot;, bioskey(0));
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007131456.png" alt="image-20201007131455820" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>scanf</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f3() {
+    int a, b, c, d;
+    scanf(&quot;%d&quot;, &amp;a);           /*输入整数并赋值给变量a */
+    scanf(&quot;%d&quot;, &amp;b);           /* 输入整数并赋值给变量b */
+    printf(&quot;a+b=%d\n&quot;, a + b); /* 计算a+b的值 */
+    scanf(&quot;%d %d&quot;, &amp;c, &amp;d);    /* 输入两个整数并分别赋值给c、d */
+    printf(&quot;c*d=%d\n&quot;, c * d); /* 计算c*d的值 */
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007131934.png" alt="image-20201007131934192" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>getche()</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f4(){
+    char c;
+    c = getche();
+    printf(&quot;c='%c'\n&quot;, c);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007132418.png" alt="image-20201007132418853" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>getch</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f5() {
+    char c = getch();
+    printf(&quot;c='%c'\n&quot;, c);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<p>​	<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007132728.png" alt="image-20201007132728673" loading="lazy"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>gets</code></p>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">void f6() {
+    /* gets() 会读取用户输入的整行内容，包括空格。而 scanf()
+     * 遇到空格就结束读取，也就是说，使用 scanf()
+     * 读取的字符串中永远不会包含空格。 */
+    char str1[30], str2[30]; /* 定义两个字符数组 */
+    gets(str1);
+    scanf(&quot;%s&quot;, str2);
+    puts(str1);
+    puts(str2);
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007133158.png" alt="image-20201007133158613" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言综合研究与高强度程序8]]></title>
+        <id>https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-8/</id>
+        <link href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-8/">
+        </link>
+        <updated>2020-10-05T02:44:37.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>（1）定义一个描述学生成绩的数据类型:<br>
+<code>struct stu｛ unsigned char c； unsigned char os； unsigned char masm； unsigned char java； struct stu far ＊next； ｝</code><br>
+<code>struct stu</code>型数据的前四个数据项存储学生的几门课程的成绩；数据项<code>next</code>存储下一个学生成绩的地址。<br>
+（2）定义一个数组: <code>struct stu［375］</code>；<br>
+（3）将内存0:0处的3000个数据当作375个 struct stu型的数据，将它们的c、os、masmjava数据项的内容拷贝到数组a的对应数据项中。<br>
+（4）查找数组a中课程成绩总分小于400大于200的数据，用next数据项将它们连接起来。（5）将连接起来的数据打印出来。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">struct stu {
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    unsigned char java;
+    struct stu *next;
+};
+
+int n;
+struct stu a[375];
+struct stu *s;
+int sum;
+main() {
+    long address = 0x00000000;
+
+    for (n = 0; n &lt; 375; n++) {
+        a[n].c = *(char far *)address++;
+        a[n].os = *(char far *)address++;
+        a[n].masm = *(char far *)address++;
+        a[n].java = *(char far *)address++;
+    }
+
+    s-&gt;next = 0;
+    for (n = 0; n &lt; 375; n++) {
+        if (a[n].c + a[n].os + a[n].masm + a[n].java &lt; 400 &amp;&amp;
+            a[n].c + a[n].os + a[n].masm + a[n].java &gt; 200) {
+            a[n].next = s-&gt;next;
+            s-&gt;next = &amp;a[n];
+        }
+    }
+
+    n = 0;
+    while (s-&gt;next) {
+        s = s-&gt;next;
+        if (!s)
+            break;
+        printf(&quot;%d: &quot;, ++n);
+        sum = s-&gt;c + s-&gt;os + s-&gt;masm + s-&gt;java;
+        printf(&quot;c: %c,os: %c,masm: %c,java: %c,sum: %d\n&quot;, s-&gt;c, s-&gt;os, s-&gt;masm,
+               s-&gt;java, sum);
+    }
+}
+
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005181125.png" alt="image-20201005181125417" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言综合研究与高强度程序设计训练7]]></title>
+        <id>https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-7/</id>
+        <link href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-7/">
+        </link>
+        <updated>2020-10-04T02:44:00.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>写一个程序，进行如下工作:<br>
+（1）从内存偏移地址2000h处开始，读取偏移地址n处的整型数据d，按照如下格式打印<br>
+偏移地址n数据d<br>
+（2）将数据d当作新的偏移地址n，读取偏移地址n处的整型数据d按照上面的格式打印。直到偏移地址为xff为，或用户从键盘输入字符“q”</p>
+</blockquote>
+<h2 id="1">1</h2>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">int n = 0x2000;
+int c;
+int t;
+main() {
+    while (n != 0xffff &amp;&amp; c != 'q') {
+        printf(&quot;offset address %xh -&gt; data %c\n&quot;, n, *(char *)n);
+        printf(&quot;stop input q: &quot;);
+        scanf(&quot;%c&quot;, &amp;c);
+        printf(&quot;\ninput n: &quot;);
+        scanf(&quot;%x&quot;, &amp;t);
+        n += t;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005123641.png" alt="image-20201005123640831" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="2">2</h2>
+<ul>
+<li>
+<p><code>b.c</code></p>
+<pre><code class="language-c">int n = 0x2000;
+int c;
+int t;
+main() {
+    while (n != 0xffff &amp;&amp; c != 'q') {
+        printf(&quot;offset address %xh -&gt; data %c\n&quot;, n, *(int *)n);
+
+        printf(&quot;stop input q: &quot;);
+        scanf(&quot;%c&quot;, &amp;c);
+
+        printf(&quot;\ninput n: &quot;);
+        scanf(&quot;%x&quot;, &amp;t);
+        t += n;
+        n += *(int *)t;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005124652.png" alt="image-20201005124652055" loading="lazy"></figure>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[1003_综合研究4-5补充研究报告]]></title>
+        <id>https://bgst009.github.io/post/1003_-zong-he-yan-jiu-4-5-bu-chong-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/1003_-zong-he-yan-jiu-4-5-bu-chong-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-10-03T02:43:22.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="4">4</h1>
+<h2 id="1">1</h2>
+<blockquote>
+<p>了解tlib如何生成list文件，查看list文件中是什么内容？</p>
+</blockquote>
+<ul>
+<li>
+<p>通过查看使用说明尝试生成list文件</p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003183838.png" alt="image-20201003183838110" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>通过生成的<mark>CSLISTFI.LST</mark>可以看到文件中包含着标号，大小，但不知道标号是<mark>obj</mark>文件的名称还是其中的函数名称故通过自己的 c 文件生成<mark>obj</mark>然后加入<mark>cs.lib</mark>中来进行验证</p>
+<ul>
+<li>
+<p>生成的list文件</p>
+<pre><code class="language-c">Publics by module
+
+ABS     	size = 16
+	_abs                            
+
+ABSREAD 	size = 76
+	_absread                          _abswrite
+
+ACCESS  	size = 57
+	_access                         
+
+ALLOCMEM	size = 36
+	_allocmem                       
+
+ATEXIT  	size = 104
+	__atexitcnt                       __atexittbl
+	_atexit                         
+
+ATOL    	size = 128
+    .............
+</code></pre>
+</li>
+<li>
+<p>test.c</p>
+<pre><code class="language-c">int t1(int a, int b) {
+    int c;
+    c = a + b;
+    return c;
+}
+int t2(int a, int b) {
+    int c;
+    c = a - b;
+    return c;
+}
+int t3(int a, int b) { return a + b + 1; }
+</code></pre>
+</li>
+<li>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003185025.png" alt="image-20201003185025478" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>查看 <mark>cslsitfile</mark></p>
+<ul>
+<li>可以看到标号为obj文件的名称，大小的obj文件的大小，带下划线的为函数名</li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003185310.png" alt="image-20201003185310200" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+<h2 id="2">2</h2>
+<blockquote>
+<p>使用tlib进行操作时，会进行检测。写程序测试是检测函数名、obj文件名，还是两个都检测？如果都检测，那先检测哪一个？</p>
+</blockquote>
+<ul>
+<li>
+<p>紧接着在添加完test.obj后重新写一个不一样的test.c生成obj并加入cs.lib可以看到添加失败可以看到如果obj名称一致尽管函数名不一致也会添加失败</p>
+<ul>
+<li>
+<p>不一样的test.c</p>
+<pre><code class="language-c">int f3(int a, int b) { return a + b + 1; }
+</code></pre>
+</li>
+<li>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003190042.png" alt="image-20201003190042310" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>然后将test.c的obj文件拷贝重命名然后在添加到cs.lib中，可以看到虽然obj文件名不一致tlib还检查函数名</p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003200900.png" alt="image-20201003200721444" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>通过以上可以看出tlib会对函数名和obg文件名进行检查，现在接着将原始的test.obj再加入cslib中tlib会提示obj文件名一致添加失败，所以tlib先检查obj文件名然后检查函数名</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003201631.png" alt="image-20201003201631248" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="3">3</h2>
+<blockquote>
+<p>将同一个.obj文件放入cs.lib和maths.lib中，会从哪个中取该文件中的函数？</p>
+</blockquote>
+<ul>
+<li>
+<p>稍微修改一下test.c然后再生成obj加入maths.lib</p>
+<ul>
+<li>
+<p>test.c</p>
+<pre><code class="language-c">int t1(int a, int b) {
++   int c = 9;
+    c = a + b;
+    return c;
+}
+int t2(int a, int b) {
++    int c = 8;
+    c = a - b;
+    return c;
+}
+int t3(int a, int b) { return a + b + 1; }
+</code></pre>
+</li>
+<li>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003202038.png" alt="image-20201003202038759" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>编写测试程序</p>
+<ul>
+<li>
+<p>main.c</p>
+<pre><code class="language-CQL">main() {
+    int a = 1;
+    int b = 2;
+    int c;
+    c = t1(a, b);
+    printf(&quot;c = %d&quot;, c);
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>debug查看生成的可执行文件</p>
+<ul>
+<li>
+<p>可以看出会从maths.lib中去函数</p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201003202551.png" alt="image-20201003202550847" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[02020930_综合研究6研究报告]]></title>
+        <id>https://bgst009.github.io/post/02020930_-zong-he-yan-jiu-6-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/02020930_-zong-he-yan-jiu-6-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-09-30T02:42:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1">1</h2>
+<blockquote>
+<p>（1）写一个C程序，打印int、long、 double型变量所占的字节数、地址、各个字节的地址和内容。</p>
+</blockquote>
+<pre><code class="language-c">int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+        printf(&quot;value  %d &quot;, *((&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
+        printf(&quot;value  %ld &quot;, *((&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %lf &quot;, *((&amp;da) + i));
+    }
+}int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+        printf(&quot;value  %d &quot;, *((&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
+        printf(&quot;value  %ld &quot;, *((&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %lf &quot;, *((&amp;da) + i));
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930184753.png" alt="image-20200930184753489" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    /*     printf(&quot;%x %x %x %x\n&quot;, &amp;ia, ((int)(&amp;ia) + 1), (char *)((char)(&amp;ia) +
+     *1), (char *)((char)(&amp;ia) + 1)); */
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+ +       printf(&quot;value  %x &quot;, *(char *)((int)(&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
++        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
++        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;da) + i));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007094453.png" alt="image-20201007094453071" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2">2</h2>
+<blockquote>
+<p>（2）写一个C程序，打印stu型变量所占的字节数、地址、各数据项地址、内容和各个字节的内容。</p>
+</blockquote>
+<pre><code class="language-c">  typedef struct
+  {
+  int num；
+  unsigned char c；
+  unsigned char osi
+  unsigned char masm；
+  char name［20］
+  }stu；
+</code></pre>
+<blockquote>
+<p>提示:研究 sizeof的用法；可将任何一个变量的存储空间，看做一个数组。</p>
+</blockquote>
+<pre><code class="language-c">typedef struct {
+    int num;
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    char name[20];
+} stu;
+
+main() {
+    int i = 0;
+    stu s;
+    s.num = 9;
+    s.c = '1';
+    s.os = '2';
+    s.masm = '3';
+    s.name[0] = 'L';
+    s.name[1] = 'i';
+    s.name[2] = 'L';
+    s.name[3] = '\0';
+
+    printf(&quot;size: %d,address: %lx\n&quot;, sizeof(s), (long)&amp;s);
+    printf(&quot;num :    %d,address: %lx\n&quot;, s.num, (long)&amp;(s.num));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.num) + i);
+        printf(&quot;value  %d &quot;, *(&amp;(s.num) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;c   :    %c,address: %lx\n&quot;, s.c, (long)&amp;(s.c));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.c) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.c) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;os  :    %c,address: %lx\n&quot;, s.os, (long)&amp;(s.os));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.os) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.os) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;masm:    %c,address: %lx\n&quot;, s.masm, (long)&amp;(s.masm));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.masm) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.masm) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;name:  %s,address: %lx\n&quot;, s.name, (long)&amp;(s.name));
+    /* printf(&quot;%d&quot;, sizeof(char *)); */
+    for (i = 0; i &lt; 20; i++) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.name) + i);
+        printf(&quot;value  %c &quot;, *((*(&amp;s.name)) + i));
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930193943.png" alt="image-20200930193943568" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>b.c</code></p>
+<pre><code class="language-c">typedef struct {
+    int num;
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    char name[20];
+} stu;
+
+char *cp;
+
+main() {
+    int i = 0;
+    stu s;
+    s.num = 9;
+    s.c = '1';
+    s.os = '2';
+    s.masm = '3';
+    s.name[0] = 'L';
+    s.name[1] = 'i';
+    s.name[2] = 'L';
+    s.name[3] = '\0';
+
+    printf(&quot;size: %d,address: %lx\n&quot;, sizeof(s), (long)&amp;s);
+    printf(&quot;num :    %d,address: %lx\n&quot;, s.num, (long)&amp;(s.num));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.num) + i);
+        cp = (char *)((int)&amp;(s.num) + i);
+        printf(&quot;value  %d &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;c   :    %c,address: %lx\n&quot;, s.c, (long)&amp;(s.c));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.c) + i);
+        cp = (char *)((int)&amp;(s.c) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;os  :    %c,address: %lx\n&quot;, s.os, (long)&amp;(s.os));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.os) + i);
+        cp = (char *)((int)&amp;(s.os) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;masm:    %c,address: %lx\n&quot;, s.masm, (long)&amp;(s.masm));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.masm) + i);
+        cp = (char *)((int)&amp;(s.masm) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;name:  %s,address: %lx\n&quot;, s.name, (long)&amp;(s.name));
+    /* printf(&quot;%d&quot;, sizeof(char *)); */
+    for (i = 0; i &lt; 20; i++) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.name) + i);
+        cp = (char *)((int)&amp;(s.name) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007095106.png" alt="image-20201007095106825" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3">3</h2>
+<blockquote>
+<p>（3）写一个程序，这个程序的运行结果反映如下主题参数的存储空间与局部变量的存储空间，在函数运行后收回。</p>
+</blockquote>
+<pre><code class="language-c">long *f(int a);
+long res[2];
+long p;
+long l;
+main() {
+    long *a = f(5);
+    p = a[0];
+    l = a[1];
+
+    printf(&quot;parm  %d ,address %lx\n&quot;, *(long *)a[0], p);
+    printf(&quot;local %d ,address %lx\n&quot;, *(long *)a[1], l);
+}
+
+long *f(int parm) {
+    int local = 1;
+    local += parm;
+    printf(&quot;parm  %d address %lx\n&quot;, parm, (long)&amp;parm);
+    printf(&quot;local %d address %lx\n&quot;, local, (long)&amp;local);
+
+    res[0] = (long)&amp;parm;
+    res[1] = (long)&amp;local;
+
+    /*     printf(&quot;parm %d ,address %lx\n&quot;, *(long *)res[0], res[0]);
+        printf(&quot;parm %d ,address %lx\n&quot;, *(long *)res[1], res[1]); */
+    return res;
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930213929.png" alt="image-20200930213929300" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>c.c</code></p>
+<pre><code class="language-c">long *f(int a);
+long res[2];
+
+main() {
+    f(5);
+    printf(&quot;============\n&quot;);
+    f(8);
+}
+
+long *f(int parm) {
+    int local = 1;
+    local += parm;
+
+    printf(&quot;parm  %d address %lx\n&quot;, parm, (long)&amp;parm);
+    printf(&quot;local %d address %lx\n&quot;, local, (long)&amp;local);
+
+    return res;
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007095242.png" alt="image-20201007095242216" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0929_综合研究5研究报告]]></title>
+        <id>https://bgst009.github.io/post/0929_-zong-he-yan-jiu-5-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/0929_-zong-he-yan-jiu-5-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-09-29T02:41:07.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>用<mark>debug</mark> 对一下程序进行分析，记录每一条c语句运行后，相关内存单元的值</p>
+</blockquote>
+<h2 id="ac">a.c</h2>
+<blockquote>
+<p>注意理解指针的机制，“**” 和 “&amp;” 运算的意义</p>
+</blockquote>
+<pre><code class="language-c">char ch;
+char *p;
+char **pa;
+char far *pf;
+int n;
+
+main() {
+    p = (unsigned char *)0x1000;
+    ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;
+
+    p = &amp;ch;
+
+    *p = *p + 1;
+
+    pa = &amp;p;
+    **pa = **pa + 1;
+
+    pf = (char far *)&amp;ch;
+    *pf = *pf + 1;
+
+    n = (int)&amp;ch;
+    *(char *)n = *(char *)n + 1;
+}
+</code></pre>
+<ul>
+<li>
+<p>第一句 <code>p = (unsigned char *)0x1000;</code>p在数据段中偏移地址为<mark>01af</mark>然后看内存中的值</p>
+<pre><code class="language-c">    /*mov	word ptr DGROUP:_p,4096*/
+    p = (unsigned char *)0x1000;
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114715.png" alt="image-20200929114715440" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114758.png" alt="image-20200929114758733" loading="lazy"></figure>
+</li>
+<li>
+<p>第二句 <code>ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;</code></p>
+<pre><code class="language-c">    /*
+        mov	al,byte ptr [4096]
+        mov	bx,word ptr DGROUP:_p
+        add	al,byte ptr [bx]
+        xor	bx,bx
+        mov	es,bx
+        mov	bx,512
+        add	al,byte ptr es:[bx]
+        mov	byte ptr DGROUP:_ch,al
+    */
+    ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114830.png" alt="image-20200929114830832" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114933.png" alt="image-20200929114933614" loading="lazy"></figure>
+</li>
+<li>
+<p>第三句 <code>p = &amp;ch;</code></p>
+<pre><code class="language-c">    /*                      [01af]            01a8*/
+    /*mov	word ptr DGROUP:_p,offset DGROUP:_ch*/
+    p = &amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115117.png" alt="image-20200929115116923" loading="lazy"></figure>
+</li>
+<li>
+<p>第四句 <code>*p = *p + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_p
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_p
+        mov	byte ptr [bx],al
+    */
+    *p = *p + 1;
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115201.png" alt="image-20200929115201697" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115239.png" alt="image-20200929115238797" loading="lazy"></figure>
+</li>
+<li>
+<p>第五句 <code>pa = &amp;p;</code></p>
+<pre><code class="language-c">    /*                ds:[01a6]         01af
+    mov	word ptr DGROUP:_pa,offset DGROUP:_p
+    */
+    pa = &amp;p;
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115547.png" alt="image-20200929115547139" loading="lazy"></figure>
+</li>
+<li>
+<p>第六句 <code>**pa = **pa + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_pa
+        mov	bx,word ptr [bx]
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_pa
+        mov	bx,word ptr [bx] bx=01a6
+        mov	byte ptr [bx],al
+    */
+    **pa = **pa + 1;
+</code></pre>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115644.png" alt="image-20200929115644803" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115712.png" alt="image-20200929115711875" loading="lazy"></figure>
+</li>
+<li>
+<p>第七句 <code>pf = (**char** far *)&amp;ch;</code></p>
+<pre><code class="language-c">    /*                  01ad
+        mov	word ptr DGROUP:_pf+2,ds
+                        [01a8]              01a8
+        mov	word ptr DGROUP:_pf,offset DGROUP:_ch
+    */
+    pf = (char far *)&amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115906.png" alt="image-20200929115906423" loading="lazy"></figure>
+<p>可以看到pf存在的是<mark>ch</mark>的地址</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120128.png" alt="image-20200929120128258" loading="lazy"></figure>
+</li>
+<li>
+<p>第八句 <code>*pf = *pf + 1;</code></p>
+<pre><code class="language-c">    /*
+        les	bx,dword ptr DGROUP:_pf
+        mov	al,byte ptr es:[bx]
+        inc	al
+        les	bx,dword ptr DGROUP:_pf
+        mov	byte ptr es:[bx],al
+    */
+    *pf = *pf + 1;
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120436.png" alt="image-20200929120436617" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="14"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120344.png" alt="image-20200929120344832" loading="lazy"></figure>
+</li>
+<li>
+<p>第九句 <code>n = (**int**)&amp;ch;</code></p>
+<pre><code class="language-c">    /*                      01a8
+        mov	ax,offset DGROUP:_ch
+                        01a9
+        mov	word ptr DGROUP:_n,ax
+    */
+    n = (int)&amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="15"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120603.png" alt="image-20200929120603717" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120647.png" alt="image-20200929120647507" loading="lazy"></figure>
+</li>
+<li>
+<p>第十句 <code>*(**char** *)n = *(**char** *)n + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_n
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_n
+        mov	byte ptr [bx],al
+    */
+    *(char *)n = *(char *)n + 1;
+</code></pre>
+<figure data-type="image" tabindex="17"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120716.png" alt="image-20200929120716356" loading="lazy"></figure>
+<figure data-type="image" tabindex="18"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120800.png" alt="image-20200929120800531" loading="lazy"></figure>
+</li>
+</ul>
+<p>综上可以看出<code>*p</code>的功能是取出以<code>p</code>中数据作为偏移地址的内存中的值，<code>&amp;p</code>的功能就是取出<code>p</code>的偏移地址</p>
+<h2 id="bc">b.c</h2>
+<blockquote>
+<p>注意理解 struct指针的用法，指针“＋”运算的意义。</p>
+</blockquote>
+<pre><code class="language-c">typedef struct {
+    int number;
+    char c;
+    char name[8];
+} stu;
+
+stu a;
+
+char *pchar;
+int *pint;
+stu *pstu;
+
+main() {
+    pstu = &amp;a;
+
+    pstu-&gt;number = 1;
+    (*pstu).c = 80;
+    pstu-&gt;name[0] = 'T';
+    pstu-&gt;name[1] = 'o';
+    (*pstu).name[2] = 'm';
+    (*pstu).name[3] = '0';
+
+    pchar = 0;
+    pint = 0;
+    pstu = 0;
+
+    pchar = pchar + 1;
+    pint = pint + 1;
+    pstu = pstu + 1;
+}
+</code></pre>
+<ul>
+<li>
+<p>通过汇编代码可以得出不论是指针的<code>-&gt;</code> 运算和<code>.</code> 运算最后翻译成的汇编都是把<code>stu</code> 的首地址传给<code>bx</code>然后通过<code>bx</code>加上偏移来访问结构体变量的真正内存地址</p>
+<figure data-type="image" tabindex="19"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929111437.png" alt="image-20200929111437771" loading="lazy"></figure>
+<figure data-type="image" tabindex="20"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929111851.png" alt="image-20200929111851178" loading="lazy"></figure>
+</li>
+<li>
+<p>字符型指针加一就把指针内存中的数据增加一，整形指针加一就把指针内存中的数据增加二，结构体指针加一就是把指针内存中的数据增加结构体中各个变量长度总和。</p>
+<figure data-type="image" tabindex="21"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929112528.png" alt="image-20200929112528048" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="cc">c.c</h2>
+<blockquote>
+<p>将字符串“hello world！”分别拷贝到从0:200、:210起始的内存中:将数组a分别拷贝到0:220、0:230起始的内存中。</p>
+<p>注意理解“［］”运算的意义及数组名与指针的关系。</p>
+<p>假设p是一个指针，p［n］的意义等同于＊（p＋n）</p>
+</blockquote>
+<pre><code class="language-c">char *p;
+char far *pf;
+char str[20] = &quot;hello world!&quot;;
+int a[8] = {11, 22, 33, 44, 55, 66, 77, 88};
+int n;
+
+main() {
+    pf = (char far *)0x200;
+    for (n = 0; str[n]; n++)
+        *(pf + n) = str[n];
+
+    p = str;
+    pf = (char far *)0x210;
+    for (n = 0; p[n]; n++)
+        pf[n] = *(str + n);
+
+    for (n = 0; n &lt; 8; n++)
+        ((int far *)0x220)[n] = *(a + n);
+    for (n = 0; n &lt; 8; n++)
+        *(int far *)(0x230 + n * 2) = *(&amp;a[0] + n);
+}
+</code></pre>
+<ul>
+<li>
+<p>1</p>
+<pre><code class="language-c">/*
+	mov	word ptr DGROUP:_pf+2,0
+	mov	word ptr DGROUP:_pf,512
+*/
+pf = (char far *)0x200;
+</code></pre>
+<figure data-type="image" tabindex="22"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929122947.png" alt="image-20200929122947409" loading="lazy"></figure>
+</li>
+<li>
+<p>2</p>
+<pre><code class="language-c">/*
+;	?debug	L 9		[01ca]
+	mov	word ptr DGROUP:_n,0
+	jmp	short @5
+@4:
+;	?debug	L 10
+	mov	bx,word ptr DGROUP:_n ;[01ca]
+	mov	al,byte ptr DGROUP:_str[bx] ;[bx+0194]
+	les	bx,dword ptr DGROUP:_pf
+	add	bx,word ptr DGROUP:_n
+	mov	byte ptr es:[bx],al
+@3:
+	inc	word ptr DGROUP:_n
+@5:					[01ca]
+	mov	bx,word ptr DGROUP:_n
+	cmp	byte ptr DGROUP:_str[bx],0
+	jne	@4
+*/
+for (n = 0; str[n]; n++)
+	*(pf + n) = str[n];
+</code></pre>
+<p>初始化后</p>
+<figure data-type="image" tabindex="23"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123634.png" alt="image-20200929123634814" loading="lazy"></figure>
+</li>
+<li>
+<p>3</p>
+<pre><code class="language-c">/*					01d0				0194
+	mov	word ptr DGROUP:_p,offset DGROUP:_str
+*/
+p = str;
+</code></pre>
+<figure data-type="image" tabindex="24"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123821.png" alt="image-20200929123821356" loading="lazy"></figure>
+<figure data-type="image" tabindex="25"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123859.png" alt="image-20200929123859645" loading="lazy"></figure>
+</li>
+<li>
+<p>4</p>
+<pre><code class="language-c">/*
+	mov	word ptr DGROUP:_pf+2,0
+	mov	word ptr DGROUP:_pf,528
+*/
+
+pf = (char far *)0x210;
+</code></pre>
+<figure data-type="image" tabindex="26"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123930.png" alt="image-20200929123929928" loading="lazy"></figure>
+<figure data-type="image" tabindex="27"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123957.png" alt="image-20200929123957303" loading="lazy"></figure>
+</li>
+<li>
+<p>5</p>
+<pre><code class="language-c">/*
+;	?debug	L 14
+	mov	word ptr DGROUP:_n,0
+	jmp	short @9
+@8:
+;	?debug	L 15
+	mov	bx,word ptr DGROUP:_n
+	mov	al,byte ptr DGROUP:_str[bx]
+	les	bx,dword ptr DGROUP:_pf
+	add	bx,word ptr DGROUP:_n
+	mov	byte ptr es:[bx],al
+@7:
+	inc	word ptr DGROUP:_n
+@9:
+	mov	bx,word ptr DGROUP:_p
+	add	bx,word ptr DGROUP:_n
+	cmp	byte ptr [bx],0
+	jne	@8
+*/
+for (n = 0; p[n]; n++)
+        pf[n] = *(str + n);
+</code></pre>
+<p>拷贝hello world从0:200 -&gt; 0:210</p>
+<figure data-type="image" tabindex="28"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124213.png" alt="image-20200929124213070" loading="lazy"></figure>
+</li>
+<li>
+<p>6</p>
+<pre><code class="language-c">/*
+@6:
+;	?debug	L 17
+	mov	word ptr DGROUP:_n,0
+	jmp	short @13
+@12:
+;	?debug	L 18
+	mov	bx,word ptr DGROUP:_n
+	shl	bx,1
+	mov	ax,word ptr DGROUP:_a[bx]
+	mov	dx,word ptr DGROUP:_n
+	shl	dx,1
+	xor	bx,bx
+	mov	es,bx
+	mov	bx,544
+	add	bx,dx
+	mov	word ptr es:[bx],ax
+@11:
+	inc	word ptr DGROUP:_n
+@13:
+	cmp	word ptr DGROUP:_n,8
+	jl	@12
+*/
+for (n = 0; n &lt; 8; n++)
+        ((int far *)0x220)[n] = *(a + n);
+</code></pre>
+<p>初始化</p>
+<figure data-type="image" tabindex="29"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124433.png" alt="image-20200929124433711" loading="lazy"></figure>
+</li>
+<li>
+<p>7</p>
+<pre><code class="language-c">/*
+@10:
+;	?debug	L 19
+	mov	word ptr DGROUP:_n,0
+	jmp	short @17
+@16:
+;	?debug	L 20
+	mov	bx,word ptr DGROUP:_n
+	shl	bx,1
+	mov	ax,word ptr DGROUP:_a[bx]
+	push	ax
+	mov	ax,word ptr DGROUP:_n
+	shl	ax,1
+	add	ax,560
+	cwd	
+	mov	bx,ax
+	mov	es,dx
+	pop	ax
+	mov	word ptr es:[bx],ax
+@15:
+	inc	word ptr DGROUP:_n
+@17:
+	cmp	word ptr DGROUP:_n,8
+	jl	@16
+*/
+for (n = 0; n &lt; 8; n++)
+        *(int far *)(0x230 + n * 2) = *(&amp;a[0] + n);
+</code></pre>
+<p>拷贝a从0:220-&gt;0:230</p>
+<figure data-type="image" tabindex="30"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124530.png" alt="image-20200929124530273" loading="lazy"></figure>
+<p>综上<code>p[n]</code>的意思是访问以<code>p</code>为基地址<code>n</code>为偏移地址中的数据，数组名<code>p</code>和指针<code>*p</code>存储的都是数据的起始地址</p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0928_综合研究1-3补充研究报告]]></title>
+        <id>https://bgst009.github.io/post/0928_-zong-he-yan-jiu-1-3-bu-chong-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/0928_-zong-he-yan-jiu-1-3-bu-chong-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-09-28T02:39:51.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="综合研究2">综合研究2</h2>
+<blockquote>
+<p>通过函数名直接打印出段地址和偏移地址（不使用_CS）</p>
+</blockquote>
+<p>通过查阅相关资料可以尝试把函数名前强制转换成长整型</p>
+<pre><code class="language-c">int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+void f3(void) { a = 3; }
+main() {
+    char *string = &quot;--------------------&quot;;
+    printf(&quot;\nCS: %x\n&quot;, _CS);
+    printf(&quot;%s&quot;, string);
+    printf(&quot;\nf1: %lx\n&quot;, (long)f1);
+    printf(&quot;\nf2: %lx\n&quot;, (long)f2);
+    printf(&quot;\nf3: %lx\n&quot;, (long)f3);
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928070215.png" alt="image-20200928070215176" loading="lazy"></figure>
+<p>通过<code>cs</code>输出的数字可以检验出 强制转换可以正确输出函数对应的段地址和偏移地址。</p>
+<h2 id="综合研究3">综合研究3</h2>
+<blockquote>
+<p>写程序验证全局变量存储空间是加载时分配，还是c0s分配。	@未解决</p>
+</blockquote>
+<ul>
+<li>
+<p>编写测试程序</p>
+<pre><code class="language-c">int b = 9;
+main() {
+    static int a = 8;
+    a++;
+    b++;
+}
+</code></pre>
+</li>
+<li>
+<p>编译链接生成可执行程序通过debug查看变量在数据段的偏移地址</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928071005.png" alt="image-20200928071005129" loading="lazy"></figure>
+</li>
+<li>
+<p>可以看见存储全局变量的段地址和偏移地址，然后在重新debug后直接跳转到相应的位置查看</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928071303.png" alt="image-20200928071303637" loading="lazy"></figure>
+</li>
+<li>
+<p>可以推断全局变量是在程序加载时给全局变量分配空间</p>
+</li>
+</ul>
+<blockquote>
+<p>程序5首先要找到每条C语句对应的汇编代码，然后单步跟踪，跟踪时要将栈中的情况都画出来（这部分自己纸上画就可以，不必体现在研究报告中，但是必须通过这个过程去完全理解程序）。跟踪一遍后，回答教材中的两个问题。	@未解决</p>
+</blockquote>
+<ul>
+<li>
+<p>LEA 取有效地址指令</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928074812.png" alt="image-20200928074812709" loading="lazy"></figure>
+</li>
+<li>
+<p>程序的汇编代码</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075257.png" alt="image-20200928075256961" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075321.png" alt="image-20200928075320888" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075558.png" alt="image-20200928075558794" loading="lazy"></figure>
+<ul>
+<li>
+<p>执行 <code>call 266</code>可以看到把结构体的数据的首地址偏移地址和要返回结果的段地址的偏移地址存储到栈中然后调用 <code>call 076a:13ea</code></p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928082337.png" alt="image-20200928082337791" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075810.png" alt="image-20200928075810572" loading="lazy"></figure>
+<ul>
+<li>
+<p><code>call 076a:13ea</code></p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928083602.png" alt="image-20200928083601974" loading="lazy"></figure>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928080105.png" alt="image-20200928080104918" loading="lazy"></figure>
+<ul>
+<li>
+<p>执行到<code>076a:13f0 c57606</code>可以看到传入栈中的结构体数据的源地址和要返回结果的目的地址</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928082824.png" alt="image-20200928082824733" loading="lazy"></figure>
+</li>
+<li>
+<p>执行到<code>adc cx,cx</code>前后查看目的地址中的数据可以发现数据已经由源地址传送到目的地址</p>
+<figure data-type="image" tabindex="13"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928083959.png" alt="image-20200928083959039" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>从函数返回的结构体数据类型存储在数据段中，在函数中先把返回结果的段地址和偏移地址压入栈中然后把结构体的段地址和偏移地址压入栈中，接着调用子程序（参数就是两个偏移地址）把栈中的数据移动到目标地址的内存中，子程序完成返回目标地址的偏移地址。</p>
+</li>
+<li>
+<p>执行到<code>call 076a:1406</code></p>
+<ul>
+<li>
+<p>可以看到<code>dx:ax</code>为 <code>076a:1406</code>的参数</p>
+<figure data-type="image" tabindex="14"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928090026.png" alt="image-20200928090026334" loading="lazy"></figure>
+</li>
+<li>
+<p>子程序 <code>076a:1460</code></p>
+<figure data-type="image" tabindex="15"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091101.png" alt="image-20200928091101628" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928090256.png" alt="image-20200928090256790" loading="lazy"></figure>
+<ul>
+<li>可以看到此程序的功能是把结构体数据复制到目的地址<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091139.png" alt="image-20200928091139256" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>执行 <code>call 0256</code></p>
+<figure data-type="image" tabindex="17"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091532.png" alt="image-20200928091531970" loading="lazy"></figure>
+<p>可以看到子程序通过栈来使用传过来的结构体数据</p>
+<figure data-type="image" tabindex="18"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928092331.png" alt="image-20200928092331592" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>向函数传递结构体数据</p>
+<ul>
+<li>通过调用子程序来把结构体数据复制到栈中</li>
+<li>然后函数在通过栈来使用结构体数据</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0926_综合研究4研究报告]]></title>
+        <id>https://bgst009.github.io/post/0926_-zong-he-yan-jiu-4-yan-jiu-bao-gao/</id>
+        <link href="https://bgst009.github.io/post/0926_-zong-he-yan-jiu-4-yan-jiu-bao-gao/">
+        </link>
+        <updated>2020-09-26T05:22:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="摘要">摘要</h2>
+<p>源程序文件（.c文件）需要进行编译、连接两步工作后生成<code>exe</code>文件在前面的内容中，<br>
+这两步工作是集成在一起完成的。</p>
+<p>多个<code>obj</code>文件中的代码可以存储在一个<code>lib</code>文件中，对于<code>tc2.0</code>开发环境，一个<code>exe</code>文件<br>
+中可能包含了来自多个<code>obj</code>文件和<code>lib</code>文件中的代码。</p>
+<p><code>cs.lib emu.lib maths.lib</code>等<code>lib</code>文件中存储着C语言库函数的代码，比如 <code>printf</code>、 <code>getch</code>等等C语言提供的库函数都在<code>cs.lib</code>中存储。<br>
+我们用形如<code>tcc a.c</code>的方法对程序进行编译连接，使用的是<code>tc2.0</code>设计的一套固定的<br>
+生成<code>exe</code>文件的方案。这套设计好的方案的具体步骤如下:<br>
+（1）<code>tcc</code>将源程序文件编译为<code>a.obj</code><br>
+（2）<code>tcc</code>调用 <code>tlink</code>将<code>c0s.obj、cs.lib、emu.lib maths.lib</code>中的<code>a.obj</code>中的程序要用到的代码<br>
+与<code>a.obj</code>的代码连接到一起生成<code>exe</code>文件。</p>
+<p>而来自<code>c0s.obj</code>中的代码被连接到其他代码的前面。<code>c0s.obj</code>中的代码所做的工作是:进<br>
+行相关的初始化工作、调用名称为“<code>main</code>”的函数、其他工作。</p>
+<p>因为<code>c0s.obj</code>的代码被连接到其他代码前面，则<code>exe</code>文件运行的时候首先运行来自 <code>c0s.obj</code><br>
+中的代码，进行相关的初始化工作，然后调用<code>main</code>函数，从此开始运行程序员写的程序。</p>
+<p>我们可以看出，这套工作方案落实了C语言的“用户程序必须从<code>main</code>函数开始”的规则。</p>
+<h2 id="问题研究">问题研究</h2>
+<ol>
+<li>
+<p>用<code>tcc</code>将下面的程序编译为<code>obj</code>文件。</p>
+<pre><code class="language-c">int f(void) { return 1; }
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926112859.png" alt="image-20200926112859041" loading="lazy"></figure>
+<p>通过查看<code>tcc</code>的使用方式可以看到 <code>-c</code>为生成<code>obj</code>文件的参数<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926113040.png" alt="image-20200926113040248" loading="lazy"></p>
+</li>
+<li>
+<p>用 <code>tcc</code>的方法编译连接下面的程序。注意显示出来的信息。这些信息说明了什么？</p>
+<pre><code class="language-c">main() { f(); }
+</code></pre>
+<p>通过编译链接，显示出来没有<code>f</code>的定义，说明<code>tlink</code>链接时仅仅链接 <code>c0s.obj、cs.lib、emu.lib maths.lib</code>其余的用户自定义的不会被自动链接。</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926113259.png" alt="image-20200926113259807" loading="lazy"></figure>
+</li>
+<li>
+<p><code>tc2.0</code>提供一个工具<code>tlib.exe</code>，可以用<code>tib.exe</code>将一个<code>obj</code>文件中的代码加到一个lib文<br>
+件中。</p>
+<blockquote>
+<p>找到tlib.exe，研究它的使用方法，将（1）中生成的<code>obj</code>文件加入到<code>csib</code>中<br>
+注意:我们要对一个对象（<code>cs.lib</code>）进行正确的改动，但是种正确的改动不一定一次成功<br>
+所以，在改动之前，我们可以将原来的对象保存一份，以便恢复。<br>
+上面的工作成功后，用<code>tcc a.c</code>的方法将程序c编译连接为<code>a.exe</code>文件用 <code>debug</code><br>
+加载<code>a.exe</code>文件，找到<code>main</code>函数和f函数的代码。</p>
+</blockquote>
+<p><strong>问题</strong>:<code>a.c</code>中并没有写函数<code>f</code>，<code>a exe</code>中的函数<code>f</code>的代码是在什么时候加入的？</p>
+<ul>
+<li>
+<p>通过观察<code>tlib.exe</code>的使用方式后把<code>f.obj</code>添加到<code>cs.lib</code>中（提前备份以防止失败）后编译链接<code>a.c</code>生成可执行文件</p>
+<p><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926114704.png" alt="" loading="lazy">可以看到链接过程没有报错。</p>
+</li>
+<li>
+<p>通过<code>debug</code>来观察<code>a.exe</code>可以看到程序开始后调用子程序然后我们开始转到子程序观察发现子程序为<code>f</code>。<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926115332.png" alt="image-20200926115332535" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926115407.png" alt="image-20200926115407734" loading="lazy"></p>
+</li>
+<li>
+<p>在问题2中在链接的时候报错而修改完<code>cs.lib</code>后在进行编译链接正常故<code>f</code>中的代码是在链接的时候加入到<code>a.exe</code>中的。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>程序b.c中并没有写f、f2和 printf函数，bexe中这些函数的代码是什么时候加</p>
+<blockquote>
+<p>将下面的程序编译为<code>f.obj</code>，将<code>f.obj</code>加入<code>cs.lib</code></p>
+</blockquote>
+<p><mark>程序<code>f.c</code></mark></p>
+<pre><code class="language-c">int f1(int a, int b) {
+    int c;
+    c = a + b;
+    return c;
+}
+int f2(int a, int b) {
+    int c;
+    c = a - b;
+    return c;
+}
+int f3(int a, int b) { return a + b + 1; }
+</code></pre>
+<ul>
+<li>
+<p>通过 <code>tcc.exe，tlib.exe</code>将生成后<code>obj</code>文件添加到<code>cs.lib</code>中</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926120657.png" alt="image-20200926120657685" loading="lazy"></figure>
+</li>
+</ul>
+<blockquote>
+<p>将下面的程序编译连接为<code>b.exe</code>用 <code>debug</code>加载<code>b.exe</code>，找到其中所有函数代码。</p>
+</blockquote>
+<p><mark>程序<code>b.c</code></mark></p>
+<pre><code class="language-c">int func(int, int);
+
+int a, b;
+
+main() {
+    a = f1(1, 2);
+    b = f2(20, 10);
+    a = func(a, b);
+    printf(&quot;%d\n&quot;, a);
+}
+
+int func(int a, int b) { return a * b; }
+</code></pre>
+<ul>
+<li>
+<p>通过<code>tcc</code>编译链接生成<code>b.exe</code>可以找到函数代码</p>
+<p><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926121609.png" alt="image-20200926121609202" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926121743.png" alt="image-20200926121743017" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122007.png" alt="" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122127.png" alt="image-20200926122126913" loading="lazy"></p>
+</li>
+</ul>
+<p><code>b.exe</code>中的函数代码是链接时加入的，并且其中包含<code>f3</code>的代码紧紧跟在<code>f2</code>的后面，猜测加入代码是通过<code>obj</code>为单位进行添加的<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122844.png" alt="image-20200926122844432" loading="lazy"></p>
+<p>现在尝试将<code>f.c</code>中的三个函数分成三份然后逐步添加到<code>cs.lib</code>中。<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926125312.png" alt="image-20200926125312063" loading="lazy"></p>
+<p>可以看到<code>f2</code>后面就没有<code>f3</code>的代码了</p>
+</li>
+<li>
+<p>用<code>tlib</code>将<code>cs.lib</code>中 <code>printf</code>函数的代码变为下面的程序的代码:</p>
+<pre><code class="language-c">printf() { puts(&quot;Do you want to use printf? No printf here.&quot;); }
+</code></pre>
+<p>使得调用 <code>printf</code>的用户程序，比如:</p>
+<pre><code class="language-c">main() {
+    int a, b;
+    a = 1;
+    b = 2;
+    printf(&quot;%d\n&quot;, a + b);
+}
+</code></pre>
+<p>在用<code>tcc</code>编译连接后，运行时打印出<code>Do you want to use printf No printf here</code></p>
+<ol>
+<li>将<code>printf</code>从<code>cs.lib</code>中移除<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926125903.png" alt="image-20200926125903019" loading="lazy"></li>
+<li>将<code>printf</code>生成新的<code>obj</code>文件后加入<code>cs.lib</code>中<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926130513.png" alt="image-20200926130513072" loading="lazy"></li>
+<li>编译链接运行<code>main.c</code>可以看到结果<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926130600.png" alt="image-20200926130600602" loading="lazy"></li>
+</ol>
+</li>
+</ol>
+]]></content>
+    </entry>
+</feed>

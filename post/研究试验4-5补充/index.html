@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究试验4-5补充 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="研究试验4-5补充 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="研究试验4-5
+
+连接。c0s中的什么操作使main函数不管放在程序哪里都可以调用？ 改写自己的c0s，实现main函数在文件中任意位置，也可以准确定位main函数。
+
+没有实现
+
+
+c0s还有什么其他功能？
+
+相关初始化
+申请资源
+设置D..." />
+    <meta name="keywords" content="ASM" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              研究试验4-5补充
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-14
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/z74Ni2u5JH/" class="post-tag">
+                  # ASM
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="研究试验4-5">研究试验4-5</h1>
+<ol>
+<li>连接。c0s中的什么操作使main函数不管放在程序哪里都可以调用？ 改写自己的c0s，实现main函数在文件中任意位置，也可以准确定位main函数。
+<ol>
+<li>没有实现</li>
+</ol>
+</li>
+<li>c0s还有什么其他功能？
+<ol>
+<li>相关初始化</li>
+<li>申请资源</li>
+<li>设置DS、SS等寄存器</li>
+<li>在MAIN函数结束后进行相关资源的释放、环境恢复等工作</li>
+<li>调用DOS的21H程序返回。</li>
+</ol>
+</li>
+<li>参数什么时候入栈，a.c中<code>[bp+2][bp+4][bp+6]</code>表示什么？
+<ol>
+<li><code>[bp+2]</code>  是  <code>call 子程序</code>的下一条指令的<code>ip</code>地址（在执行call 指令时把把当前的ip入栈，此时的<code>ip</code>为下一条指令的<code>ip</code>）。</li>
+<li><code>[bp+4]</code> 是 字母 <code>a</code> 对应的十六进制的 ASCII 码，在子程序执行开始时入栈。</li>
+<li><code>[bp+6]</code> 是 颜色对应的 十六进制，在子程序执行开始时入栈。
+<ol>
+<li><mark>不同</mark></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200621165803400.png" alt="image-20200621165803400" loading="lazy"></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>了解printf函数的实现机制，编写可接收任意参数的printf函数。
+<ol>
+<li><code>printf</code>可能是根据传入的<code>%</code>的个数来确定打印的字符数，读入一个<code>%</code>就会读取后面一个字符来确定打印的方式，当读出一个<code>0</code>时打印结束</li>
+</ol>
+</li>
+<li>Printf和malloc函数在哪个库中存储（注意可表示int的范围-32768到32767）？
+<ol>
+<li>c0s.obj 用上自己修改的 c0s.obj 后printf无效果。</li>
+<li><mark>cs.lib(小模式中的库函数)</mark></li>
+</ol>
+</li>
+<li>#define Buffer((char <em>)</em>(int far *)).....里面的char 后面加far后，能正确编译连接吗？如果不能，修改一步使其成功编译
+<ol>
+<li>不能。（Lvalue Required in Function Main）</li>
+<li><mark>把 int( 16位) 改为 long（32位）</mark></li>
+</ol>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%A0%94%E7%A9%B6%E8%AF%95%E9%AA%8C4-5">研究试验4-5</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/研究试验5/">
+              <h3 class="post-title">
+                研究试验5
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

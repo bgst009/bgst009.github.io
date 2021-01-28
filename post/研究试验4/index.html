@@ -1,0 +1,409 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究试验4 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="研究试验4 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="研究试验4
+
+不使用 main 函数
+
+编写程序 f.c
+f()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000..." />
+    <meta name="keywords" content="ASM" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              研究试验4
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-08
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/z74Ni2u5JH/" class="post-tag">
+                  # ASM
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="研究试验4">研究试验4</h1>
+<blockquote>
+<p>不使用 main 函数</p>
+</blockquote>
+<h2 id="编写程序-fc">编写程序 <code>f.c</code></h2>
+<pre><code class="language-c">f()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40 + 1) = 2;
+}
+</code></pre>
+<h2 id="1-将程序保存在-minc-目录下-编译链接">1. 将程序保存在 <code>minc</code> 目录下 编译链接</h2>
+<ol>
+<li>在连接过程中会出现问题
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608170212786.png" alt="image-20200608170212786" loading="lazy"></li>
+</ul>
+</li>
+<li>提示出的缺少 <code>_main</code></li>
+<li>可能与 <code>C0S</code> 有关</li>
+</ol>
+<h2 id="2-用学习汇编是的-linkexe-对-tcexe-生成的-fobj-进行连接-生成-fexe">2. 用学习汇编是的 <code>link.exe</code> 对 <code>tc.exe</code> 生成的 <code>f.obj</code> 进行连接 生成 <code>f.exe</code></h2>
+<ol>
+<li>由图中可见总共由 <strong>303</strong> 个字节
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608170929124.png" alt="image-20200608170929124" loading="lazy"></li>
+</ul>
+</li>
+<li>函数 <code>f</code> 实现了其功能 在屏幕中打印出 <strong>a</strong>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608171139742.png" alt="image-20200608171139742" loading="lazy"></li>
+<li>但是函数不能正常结束 Dosbox 会卡死后然后退出
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608171415211.png" alt="image-20200608171415211" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>debug 后可见 <code>f</code>函数的偏移地址为0
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608171625247.png" alt="image-20200608171625247" loading="lazy"></li>
+</ul>
+</li>
+</ol>
+<h2 id="3-写一个-mc-在-编译-连接">3. 写一个 <code>m.c</code> 在 编译 连接</h2>
+<pre><code class="language-c">main()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40 + 1) = 2;
+}
+</code></pre>
+<ol>
+<li>由图可见代码总长为 <strong>4280</strong> 个字节
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608172758289.png" alt="image-20200608172758289" loading="lazy"></li>
+</ul>
+</li>
+<li>由图可见  <code>m.exe</code> 可以正常返回 因为在执行玩 <code>m.exe</code> 后还可以在命令行输入新的命令
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608173027098.png" alt="image-20200608173027098" loading="lazy"></li>
+</ul>
+</li>
+<li><code>m.exe</code> 的汇编代码中<strong>main</strong> 的偏移地址为 <strong>01fa</strong> 而 <code>f.exe</code> 中 <strong>f</strong> 的偏移地址为 <strong>0000</strong>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608173341369.png" alt="main" loading="lazy"></li>
+<li><img src="H:/Books/%25E7%25BB%25BC%25E5%2590%2588%25E7%25A0%2594%25E7%25A9%25B6/0608-%25E7%25A0%2594%25E7%25A9%25B6%25E8%25AF%2595%25E9%25AA%258C4-%25E5%25AE%25A3%25E8%25AE%25B2%25E4%25BC%259A%25E7%25A0%2594%25E7%25A9%25B6%25E6%258A%25A5%25E5%2591%258A-%25E5%25B0%25B9%25E5%25BF%25A0%25E6%2581%25A9.assets/image-20200608171625247.png" alt="f" loading="lazy"></li>
+</ul>
+</li>
+</ol>
+<h2 id="4-debug-对-mexe-进行跟踪">4. debug 对 m.exe 进行跟踪</h2>
+<ol>
+<li>跳转到main函数开始地址
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608173857741.png" alt="image-20200608173857741" loading="lazy"></li>
+</ul>
+</li>
+<li>执行到 ret 后 跳转到 了 <code>076a：011d</code>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608174106973.png" alt="image-20200608174106973" loading="lazy"></li>
+<li>由图可以看到 在 <code>07fa:011a</code> 中调用 <code>main</code>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608174432350.png" alt="image-20200608174432350" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在执行完<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608175623677.png" alt="image-20200608175623677" loading="lazy">划红线的ret 然后一直按<strong>p</strong> 会找到程序的返回指令为 <code>int 21</code>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608174723076.png" alt="image-20200608174723076" loading="lazy"></li>
+</ul>
+</li>
+</ol>
+<h2 id="5-思考问题">5. 思考问题</h2>
+<ol>
+<li>main函数的调用指令和程序返回指令应该是c0s中对应的代码中调用的</li>
+<li>没有main 函数，提示错误信息中由 “c0s” 的相关信息，因该是 tc.exe 把 在搭建环境时所需要的 文件  和 用户的 <code>obj</code> 生成 <code>.exe</code> 而不单单是 一个 <code>c0s.obj</code></li>
+<li>调用 main 函数的指令 因该来自于 <code>c0s.obj</code></li>
+<li>用 <code>link.exe</code> 连接 <code>c0s.obj</code></li>
+<li>debug 后的 <code>c0s.exe</code>
+<ol>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608182441695.png" alt="image-20200608182441695" loading="lazy"></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608182616287.png" alt="image-20200608182616287" loading="lazy"></li>
+<li>可以看见基本结构和由用户生成的包含main 函数的基本结构相似</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-用linkexe对-c0sobj-连接生成-c0sexe">6. 用<code>link.exe</code>对 <code>c0s.obj</code> 连接生成 <code>c0s.exe</code></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">c0s.exe</th>
+<th style="text-align:center">m.exe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608183128613.png" alt="image-20200608183128613" loading="lazy"></td>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608184824390.png" alt="image-20200608184824390" loading="lazy"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608183211934.png" alt="image-20200608183211934" loading="lazy"></td>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608184840521.png" alt="image-20200608184840521" loading="lazy"></td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608183244482.png" alt="image-20200608183244482" loading="lazy"></td>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608184854759.png" alt="image-20200608184854759" loading="lazy"></td>
+</tr>
+</tbody>
+</table>
+<p>由上图可知代码开头部分两者的开始部分都相同</p>
+<h2 id="7-对比-mexe-和-c0sexe-中调用main函数的call指令的偏移地址的后10条指令">7. 对比 <code>m.exe</code> 和 <code>c0s.exe</code> 中调用main函数的call指令的偏移地址的后10条指令</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">c0s.exe</th>
+<th style="text-align:center">m.exe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608190030232.png" alt="image-20200608190030232" loading="lazy"></td>
+<td style="text-align:center"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608185534954.png" alt="image-20200608185534954" loading="lazy"></td>
+</tr>
+</tbody>
+</table>
+<p>由上图可知前10行有3行调用的不同 第一个为调用main函数然后返回到 <code>c0s.obj</code> 中的 <strong>076a:011d</strong>，其余的call应该也是完成相关任务后返回 <code>c0s.oj</code></p>
+<h2 id="8-改写-c0sobj">8. 改写 <code>c0s.obj</code></h2>
+<ol>
+<li>
+<p>编写c0s.obj</p>
+<pre><code class="language-assembly">assume cs:code
+data segment
+
+DB 128 dup(0)
+
+data ends
+
+code segment
+start:
+    mov ax,data
+    mov ds,ax
+    mov ss,ax
+    mov sp,128
+
+    call s
+
+    mov ax,4c00h
+    int 21h
+
+    s:
+code ends
+end start
+</code></pre>
+</li>
+<li>
+<p>用 <code>masm</code> 生成 <code>c0s.obj</code></p>
+</li>
+<li>
+<p>在 <code>tc</code>  中 打开 <code>f.c</code> 编译 连接 后可以正常生成 <code>f.exe</code></p>
+<figure data-type="image" tabindex="16"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608192023362.png" alt="image-20200608192023362" loading="lazy"></figure>
+</li>
+</ol>
+<h2 id="9-debug-fexe">9 debug f.exe</h2>
+<figure data-type="image" tabindex="17"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608192142927.png" alt="image-20200608192142927" loading="lazy"></figure>
+<figure data-type="image" tabindex="18"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608192223397.png" alt="image-20200608192223397" loading="lazy"></figure>
+<p>可以看到程序正确的调用了 <code>f()</code></p>
+<h3 id="疑问">疑问：</h3>
+<p>为什么汇编代码中仅仅调用了 <strong>s</strong> 然后 <strong>s</strong> 什么都没用，连接完后就把<strong>f</strong>函数自动填充过去到 s 处</p>
+<h2 id="10-编写新的fc">10 编写新的<code>f.c</code></h2>
+<pre><code class="language-c">#define Buffer ((char *)*(int far *)0x02000000)
+f()
+{
+    Buffer = 0;
+    Buffer[10] = 0;
+    while (Buffer[10] != 8)
+    {
+        Buffer[Buffer[10]] = 'a' + Buffer[10];
+        Buffer[10]++;
+    }
+}
+</code></pre>
+<p><strong>debug 后的 f.exe</strong></p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608210836686.png" alt="image-20200608210836686" loading="lazy"></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608210902645.png" alt="image-20200608210902645" loading="lazy"></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608210921844.png" alt="image-20200608210921844" loading="lazy"></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200608211211498.png" alt="image-20200608211211498" loading="lazy"></li>
+</ul>
+<p>可以看到编译连结完debug后的代码逻辑和汇编代码逻辑基本一致</p>
+<h2 id="感悟">感悟</h2>
+<p>C0S.OBJ的功能就是进行相关初始化，申请资源、设置DS、SS等寄存器，并且在MAIN函数结束后进行相关资源的释放、环境恢复等工作，随后调用DOS的21H程序返回。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%A0%94%E7%A9%B6%E8%AF%95%E9%AA%8C4">研究试验4</a>
+<ul>
+<li><a href="#%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F-fc">编写程序 <code>f.c</code></a></li>
+<li><a href="#1-%E5%B0%86%E7%A8%8B%E5%BA%8F%E4%BF%9D%E5%AD%98%E5%9C%A8-minc-%E7%9B%AE%E5%BD%95%E4%B8%8B-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5">1. 将程序保存在 <code>minc</code> 目录下 编译链接</a></li>
+<li><a href="#2-%E7%94%A8%E5%AD%A6%E4%B9%A0%E6%B1%87%E7%BC%96%E6%98%AF%E7%9A%84-linkexe-%E5%AF%B9-tcexe-%E7%94%9F%E6%88%90%E7%9A%84-fobj-%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5-%E7%94%9F%E6%88%90-fexe">2. 用学习汇编是的 <code>link.exe</code> 对 <code>tc.exe</code> 生成的 <code>f.obj</code> 进行连接 生成 <code>f.exe</code></a></li>
+<li><a href="#3-%E5%86%99%E4%B8%80%E4%B8%AA-mc-%E5%9C%A8-%E7%BC%96%E8%AF%91-%E8%BF%9E%E6%8E%A5">3. 写一个 <code>m.c</code> 在 编译 连接</a></li>
+<li><a href="#4-debug-%E5%AF%B9-mexe-%E8%BF%9B%E8%A1%8C%E8%B7%9F%E8%B8%AA">4. debug 对 m.exe 进行跟踪</a></li>
+<li><a href="#5-%E6%80%9D%E8%80%83%E9%97%AE%E9%A2%98">5. 思考问题</a></li>
+<li><a href="#6-%E7%94%A8linkexe%E5%AF%B9-c0sobj-%E8%BF%9E%E6%8E%A5%E7%94%9F%E6%88%90-c0sexe">6. 用<code>link.exe</code>对 <code>c0s.obj</code> 连接生成 <code>c0s.exe</code></a></li>
+<li><a href="#7-%E5%AF%B9%E6%AF%94-mexe-%E5%92%8C-c0sexe-%E4%B8%AD%E8%B0%83%E7%94%A8main%E5%87%BD%E6%95%B0%E7%9A%84call%E6%8C%87%E4%BB%A4%E7%9A%84%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80%E7%9A%84%E5%90%8E10%E6%9D%A1%E6%8C%87%E4%BB%A4">7. 对比 <code>m.exe</code> 和 <code>c0s.exe</code> 中调用main函数的call指令的偏移地址的后10条指令</a></li>
+<li><a href="#8-%E6%94%B9%E5%86%99-c0sobj">8. 改写 <code>c0s.obj</code></a></li>
+<li><a href="#9-debug-fexe">9 debug f.exe</a>
+<ul>
+<li><a href="#%E7%96%91%E9%97%AE">疑问：</a></li>
+</ul>
+</li>
+<li><a href="#10-%E7%BC%96%E5%86%99%E6%96%B0%E7%9A%84fc">10 编写新的<code>f.c</code></a></li>
+<li><a href="#%E6%84%9F%E6%82%9F">感悟</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/研究试验3/">
+              <h3 class="post-title">
+                研究试验3
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

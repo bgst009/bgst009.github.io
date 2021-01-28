@@ -1,0 +1,475 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-ret和call | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-ret和call | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="ret 和 call
+
+
+指令执行过程
+
+{% asset_img 20190928095954.png %}
+
+
+
+通过栈中的数据来修改 cs  和 ip 同时还会 修改栈顶标志
+ret（用栈中的数据）
+
+
+弹栈
+
+
+近转移 ret 修改..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-ret和call
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="ret-和-call">ret 和 call</h1>
+<hr>
+<ul>
+<li>指令执行过程
+<ul>
+<li>{% asset_img 20190928095954.png %}</li>
+</ul>
+</li>
+</ul>
+<p><strong>通过栈中的数据来修改 cs  和 ip 同时还会 修改栈顶标志</strong></p>
+<h2 id="ret用栈中的数据">ret（用栈中的数据）</h2>
+<hr>
+<ul>
+<li><strong>弹栈</strong></li>
+</ul>
+<ol>
+<li>近转移 ret 修改 IP <em><strong>pop ip</strong></em>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mi>p</mi><mo>)</mo><mo>=</mo><mo>(</mo><mo>(</mo><mi>s</mi><mi>s</mi><mo>)</mo><mo>∗</mo><mn>16</mn><mo>+</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(ip)=((ss)*16+(sp))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(sp)=(sp)+2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></li>
+</ol>
+</li>
+<li>远转移 retf 修改 cs:ip <em><strong>pop ip,pop cs</strong></em>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mi>p</mi><mo>)</mo><mo>=</mo><mo>(</mo><mo>(</mo><mi>s</mi><mi>s</mi><mo>)</mo><mo>∗</mo><mn>16</mn><mo>+</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(ip)=((ss)*16+(sp))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(sp)=(sp)+2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>c</mi><mi>s</mi><mo>)</mo><mo>=</mo><mo>(</mo><mo>(</mo><mi>s</mi><mi>s</mi><mo>)</mo><mo>∗</mo><mn>16</mn><mo>+</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(cs)=((ss)*16+(sp))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>s</mi><mi>p</mi><mo>)</mo><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(sp)=(sp)+2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></li>
+</ol>
+</li>
+</ol>
+<h2 id="call不能实现短转移">call(不能实现短转移)</h2>
+<hr>
+<ul>
+<li>类似<strong>jmp</strong></li>
+<li>call程序处理的数据一般要进行压栈</li>
+</ul>
+<h3 id="1根据位移进行转移">1.根据位移进行转移</h3>
+<hr>
+<pre><code class="language-assembly">push ip
+jmp near ptr 标号
+</code></pre>
+<ul>
+<li>执行过程 原理
+<ul>
+<li>call下一条指令的IP压栈后，转到标号处</li>
+</ul>
+</li>
+</ul>
+<h3 id="2转移目的地址在指令中">2.转移目的地址在指令中</h3>
+<hr>
+<pre><code class="language-assembly">call far ptr
+</code></pre>
+<ul>
+<li>执行过程 原理
+<ul>
+<li>call下一条指令的CS:IP压栈后，转到标号处</li>
+</ul>
+</li>
+</ul>
+<h3 id="3转移地址在寄存器中">3.转移地址在寄存器中</h3>
+<hr>
+<pre><code class="language-assembly">call 16 位 reg
+</code></pre>
+<ul>
+<li>执行过程 原理
+<ul>
+<li>call下一条指令的IP压栈后，转到<mark>reg</mark> 处</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-转移地址在内存中">4. 转移地址在内存中</h3>
+<hr>
+<h4 id="1">1</h4>
+<hr>
+<pre><code class="language-assembly">call word ptr 内存单元地址
+</code></pre>
+<ul>
+<li>执行过程 原理
+<ul>
+<li>call下一条指令的IP压栈后，转到<mark>内存单元地址</mark></li>
+</ul>
+</li>
+</ul>
+<h4 id="2">2</h4>
+<hr>
+<pre><code class="language-assembly">call dword ptr 内存单元地址
+</code></pre>
+<ul>
+<li>执行过程 原理
+<ul>
+<li>call下一条指令的CS:IP压栈后，转到标号处</li>
+</ul>
+</li>
+</ul>
+<h2 id="call-和-ret-共同应用">call 和 ret 共同应用</h2>
+<hr>
+<ul>
+<li>就像函数调用</li>
+</ul>
+<h3 id="批量数据处理">批量数据处理</h3>
+<hr>
+<pre><code class="language-assembly">assume cs:code,ds:data,ss:stack
+
+data segment
+	db 'conversation'
+data ends
+
+stack segment
+	db 16 dup(0)
+stack ends
+
+code segment
+
+
+	start:  mov ax,data
+			mov ds,ax
+			mov si,0
+			mov cx,12
+			call capital
+			mov ax,4c00h
+			int 21h
+
+	capital: and byte ptr ds:[si],11011111b
+			 inc si;
+			 loop capital
+			 ret
+
+
+code ends
+
+
+
+end start
+</code></pre>
+<h3 id="寄存器冲突问题">寄存器冲突问题</h3>
+<hr>
+<ul>
+<li>在子程序执行开头，把所需要用到的寄存器压栈</li>
+<li>在子程序完成后，从栈中弹出各个寄存其的值</li>
+</ul>
+<pre><code class="language-assembly">assume cs:code,ds:data,ss:stack
+
+data segment
+	db 'word',0
+	db 'unix',0
+	db 'wind',0
+	db 'good',0
+data ends
+
+stack segment
+	db 128 dup(0)
+stack ends
+
+code segment
+
+
+	start:  mov ax,data
+			mov ds,ax
+
+			mov cx,4
+			mov bx,0
+
+	s:      mov di,bx
+			call capital
+			add bx,5
+			loop s
+
+			mov ax,4c00h
+			int 21h
+
+	capital: push cx;执行子程序前压栈
+			 push si
+
+	change:	 mov cl,ds:[si]
+			 mov ch,0
+			 jcxz ok
+			 and byte ptr ds:[si],11011111b
+			 inc si
+			 jmp change
+
+		ok:	 pop si;执行完后弹栈
+			 pop cx
+			 ret
+
+
+code ends
+
+
+
+end start
+</code></pre>
+<h2 id="mul">mul</h2>
+<hr>
+<h3 id="1-8位">1. 8位</h3>
+<hr>
+<blockquote>
+<p>一个默认放在<mark>AL</mark>，另一个放在<mark>内存字节单元</mark>或者<mark>8位reg</mark>。</p>
+<p>结果 默认 <mark>AX</mark>。</p>
+</blockquote>
+<h3 id="2-16位">2. 16位</h3>
+<blockquote>
+<p>一个默认放在<mark>AX</mark>，另一个放在<mark>内存字单元</mark>或者<mark>16位reg</mark>。</p>
+<p>结果 默认 高位在<mark>DX</mark> ，低位在<mark>AX</mark>。</p>
+</blockquote>
+<h2 id="模块化程序设计">模块化程序设计</h2>
+<hr>
+<ul>
+<li>通过<mark>ret</mark>,<mark>call</mark>.</li>
+</ul>
+<h3 id="参数和结果的传递">参数和结果的传递</h3>
+<pre><code class="language-assembly">assume cs:code,ds:data,ss:stack
+
+data segment
+	dw 1,2,3,4,5,6,7,8
+	dd 0,0,0,0,0,0,0,0
+	db 'word',0
+	db 'unix',0
+	db 'wind',0
+	db 'good',0
+data ends
+
+stack segment
+	db 128 dup(0)
+stack ends
+
+code segment
+
+
+	start:  mov ax,data
+			mov ds,ax
+			mov si,0
+			mov bp,0
+			call r_start
+
+
+			mov ax,4c00h
+			int 21h
+
+
+	r_start:	mov bx,ds:[si]
+				call cube
+				mov ds:[16+bp],ax
+				add si,2
+				add bp,4
+				loop r_start
+				ret
+
+		cube:	mov ax,bx
+				mul bx
+				mul bx
+				ret
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#ret-%E5%92%8C-call">ret 和 call</a>
+<ul>
+<li><a href="#ret%E7%94%A8%E6%A0%88%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE">ret（用栈中的数据）</a></li>
+<li><a href="#call%E4%B8%8D%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9F%AD%E8%BD%AC%E7%A7%BB">call(不能实现短转移)</a>
+<ul>
+<li><a href="#1%E6%A0%B9%E6%8D%AE%E4%BD%8D%E7%A7%BB%E8%BF%9B%E8%A1%8C%E8%BD%AC%E7%A7%BB">1.根据位移进行转移</a></li>
+<li><a href="#2%E8%BD%AC%E7%A7%BB%E7%9B%AE%E7%9A%84%E5%9C%B0%E5%9D%80%E5%9C%A8%E6%8C%87%E4%BB%A4%E4%B8%AD">2.转移目的地址在指令中</a></li>
+<li><a href="#3%E8%BD%AC%E7%A7%BB%E5%9C%B0%E5%9D%80%E5%9C%A8%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD">3.转移地址在寄存器中</a></li>
+<li><a href="#4-%E8%BD%AC%E7%A7%BB%E5%9C%B0%E5%9D%80%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD">4. 转移地址在内存中</a>
+<ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#call-%E5%92%8C-ret-%E5%85%B1%E5%90%8C%E5%BA%94%E7%94%A8">call 和 ret 共同应用</a>
+<ul>
+<li><a href="#%E6%89%B9%E9%87%8F%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">批量数据处理</a></li>
+<li><a href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98">寄存器冲突问题</a></li>
+</ul>
+</li>
+<li><a href="#mul">mul</a>
+<ul>
+<li><a href="#1-8%E4%BD%8D">1. 8位</a></li>
+<li><a href="#2-16%E4%BD%8D">2. 16位</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">模块化程序设计</a>
+<ul>
+<li><a href="#%E5%8F%82%E6%95%B0%E5%92%8C%E7%BB%93%E6%9E%9C%E7%9A%84%E4%BC%A0%E9%80%92">参数和结果的传递</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-转移指令/">
+              <h3 class="post-title">
+                汇编语言-转移指令
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

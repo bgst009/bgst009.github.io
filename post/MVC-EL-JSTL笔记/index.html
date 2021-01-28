@@ -1,0 +1,388 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MVC&amp;EL&amp;JSTL笔记 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="MVC&amp;EL&amp;JSTL笔记 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="MVC:开发模式
+1. jsp演变历史
+
+早期只有servlet，只能使用response输出标签数据，非常麻烦
+后来又jsp，简化了Servlet的开发，如果过度使用jsp，在jsp中即写大量的java代码，有写html表，造成难于维护，..." />
+    <meta name="keywords" content="MVC,EL,JSTL" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MVC&amp;EL&amp;JSTL笔记
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-10
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/DZ-4Jb1Opr/" class="post-tag">
+                  # MVC
+                </a>
+              
+                <a href="https://bgst009.github.io/tag/mRNZGGGLW0/" class="post-tag">
+                  # EL
+                </a>
+              
+                <a href="https://bgst009.github.io/tag/excCMVgd72/" class="post-tag">
+                  # JSTL
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="mvc开发模式">MVC:开发模式</h1>
+<h2 id="1-jsp演变历史">1. jsp演变历史</h2>
+<ol>
+<li>早期只有servlet，只能使用response输出标签数据，非常麻烦</li>
+<li>后来又jsp，简化了Servlet的开发，如果过度使用jsp，在jsp中即写大量的java代码，有写html表，造成难于维护，难于分工协作</li>
+<li>再后来，java的web开发，借鉴mvc开发模式，使得程序的设计更加合理性</li>
+</ol>
+<h2 id="2mvc">2.MVC：</h2>
+<ul>
+<li>
+<p>M：Model，模型。JavaBean</p>
+<ul>
+<li>完成具体的业务操作，如：查询数据库，封装对象</li>
+</ul>
+</li>
+<li>
+<p>V：View，视图。JSP</p>
+<ul>
+<li>展示数据</li>
+</ul>
+</li>
+<li>
+<p>C：Controller，控制器。Servlet</p>
+<ul>
+<li>
+<p>获取用户的输入</p>
+</li>
+<li>
+<p>调用模型</p>
+</li>
+<li>
+<p>将数据交给视图进行展示</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="优缺点">优缺点：</h3>
+<ul>
+<li>优点：
+<ul>
+<li>耦合性低，方便维护，可以利于分工协作</li>
+<li>重用性高</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>使得项目架构变得复杂，对开发人员要求高</li>
+</ul>
+</li>
+</ul>
+<h1 id="el表达式">EL表达式</h1>
+<h2 id="概念">概念：</h2>
+<p>Expression Language 表达式语言</p>
+<h2 id="作用">作用：</h2>
+<p>替换和简化jsp页面中java代码的编写</p>
+<h2 id="语法">语法：</h2>
+<p>${表达式}</p>
+<h2 id="注意">注意：</h2>
+<ul>
+<li>jsp默认支持el表达式的。如果要忽略el表达式
+<ul>
+<li>设置jsp中page指令中：isELIgnored=&quot;true&quot; 忽略当前jsp页面中所有的el表达式</li>
+<li><strong>\${表达式}</strong> ：忽略当前这个el表达式</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用">使用：</h2>
+<h3 id="1-运算">1. 运算：</h3>
+<ol>
+<li>运算符：
+<ol>
+<li>算数运算符： + - * /(div) %(mod)算数运算符： + - * /(div) %(mod)算数运算符： + - * /(div) %(mod)</li>
+<li>比较运算符： &gt; &lt; &gt;= &lt;= == !=</li>
+<li>逻辑运算符： &amp;&amp;(and) ||(or) !(not)</li>
+<li>空运算符： empty
+<ul>
+<li>功能：用于判断字符串、集合、数组对象是否为null或者长度是否为0</li>
+<li>${empty list}:判断字符串、集合、数组对象是否为null或者长度为0</li>
+<li>${not empty str}:表示判断字符串、集合、数组对象是否不为null 并且 长度&gt;0</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-获取值">2. 获取值</h3>
+<ol>
+<li>el表达式只能从域对象中获取值</li>
+<li>语法：
+<ol>
+<li>${域名称.键名}：从指定域中获取指定键的值</li>
+<li>域名称：
+<ol>
+<li><strong>pageScope      --&gt; pageContext</strong></li>
+<li><strong>requestScope   --&gt; request</strong></li>
+<li><strong>sessionScope   --&gt; session</strong></li>
+<li><strong>applicationScope --&gt; application（ServletContext）</strong></li>
+</ol>
+</li>
+<li>举例：在request域中存储了name=张三</li>
+<li>获取：${requestScope.name}</li>
+<li>${键名}：表示依次从最小的域中查找是否有该键对应的值，直到找到为止。</li>
+<li>获取对象、List集合、Map集合的值</li>
+<li>对象：${域名称.键名.属性名}</li>
+<li>质上会去调用对象的getter方法</li>
+<li>List集合：${域名称.键名[索引]}</li>
+<li>Map集合：
+<ol>
+<li>${域名称.键名.key名称}</li>
+<li>${域名称.键名[&quot;key名称&quot;]}</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-隐式对象">3. 隐式对象：</h3>
+<ol>
+<li>el表达式中有11个隐式对象</li>
+<li>pageContext：</li>
+<li>获取jsp其他八个内置对象
+<ol>
+<li>${pageContext.request.contextPath}：动态获取虚拟目录</li>
+</ol>
+</li>
+</ol>
+<h1 id="jstl">JSTL</h1>
+<h2 id="1-概念">1. 概念：</h2>
+<p><strong>JavaServer Pages Tag Library  JSP标准标签库</strong></p>
+<p><strong>是由Apache组织提供的开源的免费的jsp标签        &lt;标签&gt;</strong></p>
+<h2 id="2-作用">2.  作用：</h2>
+<p>**用于简化和替换jsp页面上的java代码     **</p>
+<h2 id="3-使用步骤">3. 使用步骤：</h2>
+<ol>
+<li>导入jstl相关jar包</li>
+<li>引入标签库：taglib指令：  &lt;%@ taglib %&gt;</li>
+<li>使用标签</li>
+</ol>
+<h2 id="4-常用的jstl标签">4 常用的JSTL标签</h2>
+<ol>
+<li>if:相当于java代码的if语句
+<ol>
+<li>属性：
+<ol>
+<li>test 必须属性，接受boolean表达式
+<ol>
+<li>如果表达式为true，则显示if标签体内容，如果为false，则不显示标签体内容</li>
+<li>一般情况下，test属性值会结合el表达式一起使用</li>
+</ol>
+</li>
+<li>注意：
+<ol>
+<li>c:if标签没有else情况，想要else情况，则可以在定义一个c:if标签</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>choose:相当于java代码的switch语句
+<ol>
+<li>使用choose标签声明                  相当于switch声明</li>
+<li>使用when标签做判断                  相当于case</li>
+<li>使用otherwise标签做其他情况的声明        相当于default</li>
+</ol>
+</li>
+<li>foreach:相当于java代码的for语句</li>
+</ol>
+<h1 id="三层架构软件设计架构">三层架构：软件设计架构</h1>
+<p><strong>界面层(表示层)：用户看的得界面。用户可以通过界面上的组件和服务器进行交互</strong></p>
+<p><strong>业务逻辑层：处理业务逻辑的。</strong></p>
+<p><strong>数据访问层：操作数据存储文件。</strong></p>
+<h1 id="案例用户信息列表展示">案例：用户信息列表展示</h1>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#mvc%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F">MVC:开发模式</a>
+<ul>
+<li><a href="#1-jsp%E6%BC%94%E5%8F%98%E5%8E%86%E5%8F%B2">1. jsp演变历史</a></li>
+<li><a href="#2mvc">2.MVC：</a>
+<ul>
+<li><a href="#%E4%BC%98%E7%BC%BA%E7%82%B9">优缺点：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#el%E8%A1%A8%E8%BE%BE%E5%BC%8F">EL表达式</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念：</a></li>
+<li><a href="#%E4%BD%9C%E7%94%A8">作用：</a></li>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法：</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F">注意：</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用：</a>
+<ul>
+<li><a href="#1-%E8%BF%90%E7%AE%97">1. 运算：</a></li>
+<li><a href="#2-%E8%8E%B7%E5%8F%96%E5%80%BC">2. 获取值</a></li>
+<li><a href="#3-%E9%9A%90%E5%BC%8F%E5%AF%B9%E8%B1%A1">3. 隐式对象：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jstl">JSTL</a>
+<ul>
+<li><a href="#1-%E6%A6%82%E5%BF%B5">1. 概念：</a></li>
+<li><a href="#2-%E4%BD%9C%E7%94%A8">2.  作用：</a></li>
+<li><a href="#3-%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4">3. 使用步骤：</a></li>
+<li><a href="#4-%E5%B8%B8%E7%94%A8%E7%9A%84jstl%E6%A0%87%E7%AD%BE">4 常用的JSTL标签</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%9E%B6%E6%9E%84">三层架构：软件设计架构</a></li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%88%97%E8%A1%A8%E5%B1%95%E7%A4%BA">案例：用户信息列表展示</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/Cookie-Session/">
+              <h3 class="post-title">
+                Cookie&amp;&amp;Session
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

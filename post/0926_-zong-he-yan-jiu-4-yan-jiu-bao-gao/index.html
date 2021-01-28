@@ -1,0 +1,307 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>0926_综合研究4研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="0926_综合研究4研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="摘要
+源程序文件（.c文件）需要进行编译、连接两步工作后生成exe文件在前面的内容中，
+这两步工作是集成在一起完成的。
+多个obj文件中的代码可以存储在一个lib文件中，对于tc2.0开发环境，一个exe文件
+中可能包含了来自多个obj文件..." />
+    <meta name="keywords" content="C" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              0926_综合研究4研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-26
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/f9uwaThCs/" class="post-tag">
+                  # C
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="摘要">摘要</h2>
+<p>源程序文件（.c文件）需要进行编译、连接两步工作后生成<code>exe</code>文件在前面的内容中，<br>
+这两步工作是集成在一起完成的。</p>
+<p>多个<code>obj</code>文件中的代码可以存储在一个<code>lib</code>文件中，对于<code>tc2.0</code>开发环境，一个<code>exe</code>文件<br>
+中可能包含了来自多个<code>obj</code>文件和<code>lib</code>文件中的代码。</p>
+<p><code>cs.lib emu.lib maths.lib</code>等<code>lib</code>文件中存储着C语言库函数的代码，比如 <code>printf</code>、 <code>getch</code>等等C语言提供的库函数都在<code>cs.lib</code>中存储。<br>
+我们用形如<code>tcc a.c</code>的方法对程序进行编译连接，使用的是<code>tc2.0</code>设计的一套固定的<br>
+生成<code>exe</code>文件的方案。这套设计好的方案的具体步骤如下:<br>
+（1）<code>tcc</code>将源程序文件编译为<code>a.obj</code><br>
+（2）<code>tcc</code>调用 <code>tlink</code>将<code>c0s.obj、cs.lib、emu.lib maths.lib</code>中的<code>a.obj</code>中的程序要用到的代码<br>
+与<code>a.obj</code>的代码连接到一起生成<code>exe</code>文件。</p>
+<p>而来自<code>c0s.obj</code>中的代码被连接到其他代码的前面。<code>c0s.obj</code>中的代码所做的工作是:进<br>
+行相关的初始化工作、调用名称为“<code>main</code>”的函数、其他工作。</p>
+<p>因为<code>c0s.obj</code>的代码被连接到其他代码前面，则<code>exe</code>文件运行的时候首先运行来自 <code>c0s.obj</code><br>
+中的代码，进行相关的初始化工作，然后调用<code>main</code>函数，从此开始运行程序员写的程序。</p>
+<p>我们可以看出，这套工作方案落实了C语言的“用户程序必须从<code>main</code>函数开始”的规则。</p>
+<h2 id="问题研究">问题研究</h2>
+<ol>
+<li>
+<p>用<code>tcc</code>将下面的程序编译为<code>obj</code>文件。</p>
+<pre><code class="language-c">int f(void) { return 1; }
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926112859.png" alt="image-20200926112859041" loading="lazy"></figure>
+<p>通过查看<code>tcc</code>的使用方式可以看到 <code>-c</code>为生成<code>obj</code>文件的参数<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926113040.png" alt="image-20200926113040248" loading="lazy"></p>
+</li>
+<li>
+<p>用 <code>tcc</code>的方法编译连接下面的程序。注意显示出来的信息。这些信息说明了什么？</p>
+<pre><code class="language-c">main() { f(); }
+</code></pre>
+<p>通过编译链接，显示出来没有<code>f</code>的定义，说明<code>tlink</code>链接时仅仅链接 <code>c0s.obj、cs.lib、emu.lib maths.lib</code>其余的用户自定义的不会被自动链接。</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926113259.png" alt="image-20200926113259807" loading="lazy"></figure>
+</li>
+<li>
+<p><code>tc2.0</code>提供一个工具<code>tlib.exe</code>，可以用<code>tib.exe</code>将一个<code>obj</code>文件中的代码加到一个lib文<br>
+件中。</p>
+<blockquote>
+<p>找到tlib.exe，研究它的使用方法，将（1）中生成的<code>obj</code>文件加入到<code>csib</code>中<br>
+注意:我们要对一个对象（<code>cs.lib</code>）进行正确的改动，但是种正确的改动不一定一次成功<br>
+所以，在改动之前，我们可以将原来的对象保存一份，以便恢复。<br>
+上面的工作成功后，用<code>tcc a.c</code>的方法将程序c编译连接为<code>a.exe</code>文件用 <code>debug</code><br>
+加载<code>a.exe</code>文件，找到<code>main</code>函数和f函数的代码。</p>
+</blockquote>
+<p><strong>问题</strong>:<code>a.c</code>中并没有写函数<code>f</code>，<code>a exe</code>中的函数<code>f</code>的代码是在什么时候加入的？</p>
+<ul>
+<li>
+<p>通过观察<code>tlib.exe</code>的使用方式后把<code>f.obj</code>添加到<code>cs.lib</code>中（提前备份以防止失败）后编译链接<code>a.c</code>生成可执行文件</p>
+<p><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926114704.png" alt="" loading="lazy">可以看到链接过程没有报错。</p>
+</li>
+<li>
+<p>通过<code>debug</code>来观察<code>a.exe</code>可以看到程序开始后调用子程序然后我们开始转到子程序观察发现子程序为<code>f</code>。<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926115332.png" alt="image-20200926115332535" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926115407.png" alt="image-20200926115407734" loading="lazy"></p>
+</li>
+<li>
+<p>在问题2中在链接的时候报错而修改完<code>cs.lib</code>后在进行编译链接正常故<code>f</code>中的代码是在链接的时候加入到<code>a.exe</code>中的。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>程序b.c中并没有写f、f2和 printf函数，bexe中这些函数的代码是什么时候加</p>
+<blockquote>
+<p>将下面的程序编译为<code>f.obj</code>，将<code>f.obj</code>加入<code>cs.lib</code></p>
+</blockquote>
+<p><mark>程序<code>f.c</code></mark></p>
+<pre><code class="language-c">int f1(int a, int b) {
+    int c;
+    c = a + b;
+    return c;
+}
+int f2(int a, int b) {
+    int c;
+    c = a - b;
+    return c;
+}
+int f3(int a, int b) { return a + b + 1; }
+</code></pre>
+<ul>
+<li>
+<p>通过 <code>tcc.exe，tlib.exe</code>将生成后<code>obj</code>文件添加到<code>cs.lib</code>中</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926120657.png" alt="image-20200926120657685" loading="lazy"></figure>
+</li>
+</ul>
+<blockquote>
+<p>将下面的程序编译连接为<code>b.exe</code>用 <code>debug</code>加载<code>b.exe</code>，找到其中所有函数代码。</p>
+</blockquote>
+<p><mark>程序<code>b.c</code></mark></p>
+<pre><code class="language-c">int func(int, int);
+
+int a, b;
+
+main() {
+    a = f1(1, 2);
+    b = f2(20, 10);
+    a = func(a, b);
+    printf(&quot;%d\n&quot;, a);
+}
+
+int func(int a, int b) { return a * b; }
+</code></pre>
+<ul>
+<li>
+<p>通过<code>tcc</code>编译链接生成<code>b.exe</code>可以找到函数代码</p>
+<p><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926121609.png" alt="image-20200926121609202" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926121743.png" alt="image-20200926121743017" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122007.png" alt="" loading="lazy"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122127.png" alt="image-20200926122126913" loading="lazy"></p>
+</li>
+</ul>
+<p><code>b.exe</code>中的函数代码是链接时加入的，并且其中包含<code>f3</code>的代码紧紧跟在<code>f2</code>的后面，猜测加入代码是通过<code>obj</code>为单位进行添加的<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926122844.png" alt="image-20200926122844432" loading="lazy"></p>
+<p>现在尝试将<code>f.c</code>中的三个函数分成三份然后逐步添加到<code>cs.lib</code>中。<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926125312.png" alt="image-20200926125312063" loading="lazy"></p>
+<p>可以看到<code>f2</code>后面就没有<code>f3</code>的代码了</p>
+</li>
+<li>
+<p>用<code>tlib</code>将<code>cs.lib</code>中 <code>printf</code>函数的代码变为下面的程序的代码:</p>
+<pre><code class="language-c">printf() { puts(&quot;Do you want to use printf? No printf here.&quot;); }
+</code></pre>
+<p>使得调用 <code>printf</code>的用户程序，比如:</p>
+<pre><code class="language-c">main() {
+    int a, b;
+    a = 1;
+    b = 2;
+    printf(&quot;%d\n&quot;, a + b);
+}
+</code></pre>
+<p>在用<code>tcc</code>编译连接后，运行时打印出<code>Do you want to use printf No printf here</code></p>
+<ol>
+<li>将<code>printf</code>从<code>cs.lib</code>中移除<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926125903.png" alt="image-20200926125903019" loading="lazy"></li>
+<li>将<code>printf</code>生成新的<code>obj</code>文件后加入<code>cs.lib</code>中<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926130513.png" alt="image-20200926130513072" loading="lazy"></li>
+<li>编译链接运行<code>main.c</code>可以看到结果<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200926130600.png" alt="image-20200926130600602" loading="lazy"></li>
+</ol>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%91%98%E8%A6%81">摘要</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6">问题研究</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/0925_-zong-he-yan-jiu-3-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                 0925_综合研究3研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

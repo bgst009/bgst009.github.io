@@ -1,0 +1,391 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-标志寄存器 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-标志寄存器 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="标志寄存器
+
+
+
+
+
+CF标志位Carry Flag
+
+
+进位（最高位进位）add
+和运算相关的指令会影响标志位 like add , sub
+把操作数当作无符号数字
+
+ZF标志位Zero Flag
+
+
+
+
+
+判断相等
+
+
+最后结果是否为零..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-标志寄存器
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="标志寄存器">标志寄存器</h1>
+<hr>
+<blockquote>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023411.png" alt="" loading="lazy"></figure>
+</blockquote>
+<hr>
+<h2 id="cf标志位carry-flag">CF标志位<strong>Carry Flag</strong></h2>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023554.png" alt="" loading="lazy"></li>
+<li>进位（最高位进位）add</li>
+<li>和运算相关的指令会影响标志位 like <mark>add , sub</mark></li>
+<li>把操作数当作无符号数字</li>
+</ul>
+<h2 id="zf标志位zero-flag">ZF标志位<strong>Zero Flag</strong></h2>
+<ul>
+<li>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023620.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>判断相等</p>
+</li>
+<li>
+<p>最后结果是否为零</p>
+</li>
+</ul>
+<h2 id="pf标志位pairty-flag">PF标志位<strong>pairty Flag</strong></h2>
+<ul>
+<li>一的个数是否位偶数0 or 奇数1</li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023658.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="sf标志位sign-flag">SF标志位<strong>Sign Flag</strong></h2>
+<ul>
+<li>正0负1</li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023719.png" alt="" loading="lazy"></li>
+<li>计算的结果看陈整数和负数</li>
+<li>add sub 影响sf</li>
+<li>mul 不影响sf</li>
+</ul>
+<h2 id="of标志位overflow">OF标志位<strong>Overflow</strong></h2>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023748.png" alt="" loading="lazy"></li>
+<li>运算过程中看是否溢出</li>
+<li>两个操作数都当做有符号 运算过程中决定是否溢出</li>
+</ul>
+<h2 id="adc-带进位的加法寄存器">adc 带进位的加法寄存器</h2>
+<ul>
+<li>可以对更大的数字进行加法运算</li>
+</ul>
+<h2 id="sbb-带借位减法">sbb 带借位减法</h2>
+<ul>
+<li>实现对更大数的减法</li>
+</ul>
+<h2 id="cmp-比较指令">cmp 比较指令</h2>
+<ul>
+<li>
+<p>类似于减法指令 只是不保存结果，只是影响相关的标志位寄存器</p>
+</li>
+<li>
+<p>可以判断两个操作数的大小 通过 sf of 标志位</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">sf</th>
+<th style="text-align:center">of</th>
+<th style="text-align:center">大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1&lt;2</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1&lt;2</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1&gt;2</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1&gt;2</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+<li>
+<p>检测比较结果的转移指令</p>
+<ul>
+<li>和 cmp指令配合使用
+<ul>
+<li>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">检测相关的标志位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">je</td>
+<td style="text-align:center">equal</td>
+<td style="text-align:center">zf=1</td>
+</tr>
+<tr>
+<td style="text-align:center">jne</td>
+<td style="text-align:center">not equal</td>
+<td style="text-align:center">zf=0</td>
+</tr>
+<tr>
+<td style="text-align:center">jb</td>
+<td style="text-align:center">below</td>
+<td style="text-align:center">cf=0</td>
+</tr>
+<tr>
+<td style="text-align:center">jnb</td>
+<td style="text-align:center">not below</td>
+<td style="text-align:center">cf=1</td>
+</tr>
+<tr>
+<td style="text-align:center">ja</td>
+<td style="text-align:center">above</td>
+<td style="text-align:center">cf=0 &amp;&amp; zf=1</td>
+</tr>
+<tr>
+<td style="text-align:center">jna</td>
+<td style="text-align:center">not above</td>
+<td style="text-align:center">cf=1 || zf=1</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="df-标志和串传送指令">DF 标志和串传送指令</h2>
+<ul>
+<li>
+<p>movsb</p>
+</li>
+<li>
+<p>movsw</p>
+</li>
+<li>
+<p>配合rep 使用 rep like loop 由cx 的大小决定 执行 上述 两条指令的 次数</p>
+<ul>
+<li>
+<p>exp</p>
+<pre><code class="language-assembly">;-========movsb=====
+mov cx,16
+rep movsb
+;循环16次 每次执行完后 si di ++
+</code></pre>
+<pre><code class="language-assembly">;========movsw
+mov cx,16
+rep movsw
+;循环16次每次 执行完 si,di --
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>cld -&gt; df==0**++**</p>
+</li>
+<li>
+<p>std -&gt; df==1**--**</p>
+</li>
+</ul>
+<h2 id="pushf-popf">pushf &amp;&amp; popf</h2>
+<ul>
+<li>使 标志位寄存器 压栈和出栈</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8">标志寄存器</a>
+<ul>
+<li><a href="#cf%E6%A0%87%E5%BF%97%E4%BD%8Dcarry-flag">CF标志位<strong>Carry Flag</strong></a></li>
+<li><a href="#zf%E6%A0%87%E5%BF%97%E4%BD%8Dzero-flag">ZF标志位<strong>Zero Flag</strong></a></li>
+<li><a href="#pf%E6%A0%87%E5%BF%97%E4%BD%8Dpairty-flag">PF标志位<strong>pairty Flag</strong></a></li>
+<li><a href="#sf%E6%A0%87%E5%BF%97%E4%BD%8Dsign-flag">SF标志位<strong>Sign Flag</strong></a></li>
+<li><a href="#of%E6%A0%87%E5%BF%97%E4%BD%8Doverflow">OF标志位<strong>Overflow</strong></a></li>
+<li><a href="#adc-%E5%B8%A6%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%8A%A0%E6%B3%95%E5%AF%84%E5%AD%98%E5%99%A8">adc 带进位的加法寄存器</a></li>
+<li><a href="#sbb-%E5%B8%A6%E5%80%9F%E4%BD%8D%E5%87%8F%E6%B3%95">sbb 带借位减法</a></li>
+<li><a href="#cmp-%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4">cmp 比较指令</a></li>
+<li><a href="#df-%E6%A0%87%E5%BF%97%E5%92%8C%E4%B8%B2%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4">DF 标志和串传送指令</a></li>
+<li><a href="#pushf-popf">pushf &amp;&amp; popf</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-ret和call/">
+              <h3 class="post-title">
+                汇编语言-ret和call
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

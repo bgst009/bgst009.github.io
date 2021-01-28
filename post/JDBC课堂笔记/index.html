@@ -1,0 +1,719 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JDBC课堂笔记 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="JDBC课堂笔记 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="JDBC：
+1. 概念：
+Java DataBase Connectivity  Java 数据库连接， Java语言操作数据库
+
+JDBC本质：其实是官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套..." />
+    <meta name="keywords" content="JDBC,Java_basic" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              JDBC课堂笔记
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/2sJ-pShYyD/" class="post-tag">
+                  # JDBC
+                </a>
+              
+                <a href="https://bgst009.github.io/tag/oenOsAIQjU/" class="post-tag">
+                  # Java_basic
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="jdbc">JDBC：</h1>
+<h2 id="1-概念">1. 概念：</h2>
+<p><strong>Java DataBase Connectivity  Java 数据库连接， Java语言操作数据库</strong></p>
+<blockquote>
+<p>JDBC本质：其实是官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
+</blockquote>
+<h2 id="2代码实现">2.代码实现：</h2>
+<pre><code class="language-java">		  	//1. 导入驱动jar包
+	        //2.注册驱动
+	        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+	        //3.获取数据库连接对象
+	        Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/db3&quot;, &quot;root&quot;, &quot;root&quot;);
+	        //4.定义sql语句
+	        String sql = &quot;update account set balance = 500 where id = 1&quot;;
+	        //5.获取执行sql的对象 Statement
+	        Statement stmt = conn.createStatement();
+	        //6.执行sql
+	        int count = stmt.executeUpdate(sql);
+	        //7.处理结果
+	        System.out.println(count);
+	        //8.释放资源
+	        stmt.close();
+	        conn.close();
+</code></pre>
+<h2 id="3-详解各个对象">3. 详解各个对象：</h2>
+<h3 id="drivermanager驱动管理对象">DriverManager：驱动管理对象</h3>
+<h4 id="功能">功能：</h4>
+<ol>
+<li>注册驱动：告诉程序该使用哪一个数据库驱动jar</li>
+<li>获取数据库连接：</li>
+</ol>
+<h3 id="connection数据库连接对象">Connection：数据库连接对象</h3>
+<h4 id="功能-2">功能：</h4>
+<ol>
+<li>获取执行sql 的对象(<strong>Statement</strong>)</li>
+<li>管理事务：</li>
+</ol>
+<h3 id="statement执行sql的对象">Statement：执行sql的对象</h3>
+<h4 id="功能-3">功能：</h4>
+<ol>
+<li>
+<p>执行sql</p>
+<ol>
+<li>boolean execute(String sql) ：可以执行任意的sql 了解</li>
+<li>int executeUpdate(String sql) ：执行DML（insert、update、delete）语句、DDL(create，alter、drop)语句
+<ol>
+<li>返回值：影响的行数，可以通过这个影响的行数判断DML语句是否执行成功 <strong>返回值&gt;0</strong>的则执行<strong>成功</strong>，反之，则失败。</li>
+</ol>
+</li>
+<li>ResultSet executeQuery(String sql)  ：执行DQL（select)语句</li>
+</ol>
+</li>
+<li>
+<p>练习：</p>
+<pre><code class="language-JAVA">/*
+1. account表 添加一条记录
+2. account表 修改记录	
+3. account表 删除一条记录
+*/
+
+	    Statement stmt = null;
+	    Connection conn = null;
+	    try {
+	        //1. 注册驱动
+	        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+	        //2. 定义sql
+	        String sql = &quot;insert into account values(null,'王五',3000)&quot;;
+	        //3.获取Connection对象
+	conn = DriverManager.getConnection(&quot;jdbc:mysql:///db3&quot;,&quot;root&quot;, &quot;root&quot;);
+	        //4.获取执行sql的对象 Statement
+	        stmt = conn.createStatement();
+	        //5.执行sql
+	        int count = stmt.executeUpdate(sql);//影响的行数
+	        //6.处理结果
+	        System.out.println(count);
+	        if(count &gt; 0){
+	            System.out.println(&quot;添加成功！&quot;);
+	        }else{
+	            System.out.println(&quot;添加失败！&quot;);
+	        }
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }finally {
+	        //stmt.close();
+	        //7. 释放资源
+	        //避免空指针异常
+	        if(stmt != null){
+	            try {
+	                stmt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if(conn != null){
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+</code></pre>
+</li>
+</ol>
+<h3 id="resultset结果集对象封装查询结果">ResultSet：结果集对象,封装查询结果</h3>
+<h4 id="方法">方法</h4>
+<ol>
+<li>boolean next(): 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回false，如果不是则返回true</li>
+<li>getXxx(参数):获取数据
+<ol>
+<li>Xxx：代表数据类型   如： int getInt() ,    String getString()</li>
+<li>参数：
+<ol>
+<li>int：代表列的编号,从1开始   如： getString(1)</li>
+<li>String：代表列名称。 如： getDouble(&quot;balance&quot;)</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>注意：
+<ol>
+<li>使用步骤：
+<ol>
+<li>游标向下移动一行</li>
+<li>判断是否有数据</li>
+<li>获取数据</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="练习">练习</h4>
+<pre><code class="language-java">/* 定义一个方法，查询emp表的数据将其封装为对象，然后装载集合，返回。
+	1. 定义Emp类
+	2. 定义方法 public List&lt;Emp&gt; findAll(){}
+	3. 实现方法 select * from emp;
+*/
+package cn.itcast.jdbc;
+
+import cn.itcast.domain.Emp;
+import cn.itcast.util.JDBCUtils;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * * 定义一个方法，查询emp表的数据将其封装为对象，然后装载集合，返回。
+ */
+public class JDBCDemo8 {
+
+    public static void main(String[] args) {
+        List&lt;Emp&gt; list = new JDBCDemo8().findAll2();
+        System.out.println(list);
+        System.out.println(list.size());
+    }
+    /**
+     * 查询所有emp对象
+     * @return
+     */
+    public List&lt;Emp&gt; findAll(){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        List&lt;Emp&gt; list = null;
+        try {
+            //1.注册驱动
+            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+            //2.获取连接
+            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db3&quot;, &quot;root&quot;, &quot;root&quot;);
+            //3.定义sql
+            String sql = &quot;select * from emp&quot;;
+            //4.获取执行sql的对象
+            stmt = conn.createStatement();
+            //5.执行sql
+            rs = stmt.executeQuery(sql);
+            //6.遍历结果集，封装对象，装载集合
+
+            Emp emp = null;
+            list = new ArrayList&lt;Emp&gt;();
+            while(rs.next()){
+                //获取数据
+                int id = rs.getInt(&quot;id&quot;);
+                String ename = rs.getString(&quot;ename&quot;);
+                int job_id = rs.getInt(&quot;job_id&quot;);
+                int mgr = rs.getInt(&quot;mgr&quot;);
+                Date joindate = rs.getDate(&quot;joindate&quot;);
+                double salary = rs.getDouble(&quot;salary&quot;);
+                double bonus = rs.getDouble(&quot;bonus&quot;);
+                int dept_id = rs.getInt(&quot;dept_id&quot;);
+                // 创建emp对象,并赋值
+                emp = new Emp();
+                emp.setId(id);
+                emp.setEname(ename);
+                emp.setJob_id(job_id);
+                emp.setMgr(mgr);
+                emp.setJoindate(joindate);
+                emp.setSalary(salary);
+                emp.setBonus(bonus);
+                emp.setDept_id(dept_id);
+
+                //装载集合
+                list.add(emp);
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
+
+    /**
+     * 演示JDBC工具类
+     * @return
+     */
+    public List&lt;Emp&gt; findAll2(){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        List&lt;Emp&gt; list = null;
+        try {
+           /* //1.注册驱动
+            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+            //2.获取连接
+            conn = DriverManager.getConnection(&quot;jdbc:mysql:///db3&quot;, &quot;root&quot;, &quot;root&quot;);*/
+            conn = JDBCUtils.getConnection();
+            //3.定义sql
+            String sql = &quot;select * from emp&quot;;
+            //4.获取执行sql的对象
+            stmt = conn.createStatement();
+            //5.执行sql
+            rs = stmt.executeQuery(sql);
+            //6.遍历结果集，封装对象，装载集合
+            Emp emp = null;
+            list = new ArrayList&lt;Emp&gt;();
+            while(rs.next()){
+                //获取数据
+                int id = rs.getInt(&quot;id&quot;);
+                String ename = rs.getString(&quot;ename&quot;);
+                int job_id = rs.getInt(&quot;job_id&quot;);
+                int mgr = rs.getInt(&quot;mgr&quot;);
+                Date joindate = rs.getDate(&quot;joindate&quot;);
+                double salary = rs.getDouble(&quot;salary&quot;);
+                double bonus = rs.getDouble(&quot;bonus&quot;);
+                int dept_id = rs.getInt(&quot;dept_id&quot;);
+                // 创建emp对象,并赋值
+                emp = new Emp();
+                emp.setId(id);
+                emp.setEname(ename);
+                emp.setJob_id(job_id);
+                emp.setMgr(mgr);
+                emp.setJoindate(joindate);
+                emp.setSalary(salary);
+                emp.setBonus(bonus);
+                emp.setDept_id(dept_id);
+
+                //装载集合
+                list.add(emp);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            /*if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }*/
+
+            JDBCUtils.close(rs,stmt,conn);
+        }
+        return list;
+    }
+
+}
+
+</code></pre>
+<h3 id="preparedstatement执行sql的对象">PreparedStatement：执行sql的对象</h3>
+<ol>
+<li>SQL注入问题：在拼接sql时，有一些sql的特殊关键字参与字符串的拼接。会造成安全性问题
+<ol>
+<li>输入用户随便，输入密码：a' or 'a' = 'a</li>
+<li>sql：select * from user where username = 'fhdsjkf' and password = 'a' or 'a' = 'a'</li>
+</ol>
+</li>
+<li>解决sql注入问题：使用PreparedStatement对象来解决</li>
+<li>预编译的SQL：参数使用?作为占位符</li>
+<li>步骤：</li>
+<li>导入驱动jar包 mysql-connector-java-5.1.37-bin.jar</li>
+<li>注册驱动</li>
+<li>获取数据库连接对象 Connection</li>
+<li>定义sql
+<ol>
+<li>注意：sql的参数使用？作为占位符。 如：select * from user where username = ? and password = ?;</li>
+</ol>
+</li>
+<li>获取执行sql语句的对象 PreparedStatement  Connection.prepareStatement(String sql)</li>
+<li>给？赋值：
+<ol>
+<li>方法： setXxx(参数1,参数2)
+<ol>
+<li>参数1：？的位置编号 从1 开始</li>
+<li>参数2：？的值</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>执行sql，接受返回结果，不需要传递sql语句</li>
+<li>处理结果</li>
+<li>释放资源</li>
+<li>注意：后期都会使用PreparedStatement来完成增删改查的所有操作
+<ol>
+<li>可以防止SQL注入</li>
+<li>效率更高</li>
+</ol>
+</li>
+</ol>
+<h1 id="抽取jdbc工具类-jdbcutils">抽取JDBC工具类 ： JDBCUtils</h1>
+<h3 id="目的简化书写">目的：简化书写</h3>
+<h3 id="分析">分析：</h3>
+<ol>
+<li>
+<p>注册驱动也抽取</p>
+</li>
+<li>
+<p>抽取一个方法获取连接对象</p>
+<ol>
+<li>
+<p>需求：不想传递参数（麻烦），还得保证工具类的通用性。</p>
+</li>
+<li>
+<p>解决：配置文件</p>
+<ol>
+<li>
+<blockquote>
+<p>jdbc.properties</p>
+<p>​                    url=</p>
+<p>​                    user=</p>
+<p>​                    password=</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>抽取一个方法释放资源</p>
+</li>
+</ol>
+<h3 id="代码实现">代码实现：</h3>
+<pre><code class="language-java">public class JDBCUtils {
+	    private static String url;
+	    private static String user;
+	    private static String password;
+	    private static String driver;
+	    /**
+	     * 文件的读取，只需要读取一次即可拿到这些值。使用静态代码块
+	     */
+	    static{
+	        //读取资源文件，获取值。
+	
+	        try {
+	            //1. 创建Properties集合类。
+	            Properties pro = new Properties();
+	
+	            //获取src路径下的文件的方式---&gt;ClassLoader 类加载器
+	            ClassLoader classLoader = JDBCUtils.class.getClassLoader();
+	            URL res  = classLoader.getResource(&quot;jdbc.properties&quot;);
+	            String path = res.getPath();
+	            System.out.println(path);
+	            //2. 加载文件
+	            pro.load(new FileReader(path));
+	
+	            //3. 获取数据，赋值
+	            url = pro.getProperty(&quot;url&quot;);
+	            user = pro.getProperty(&quot;user&quot;);
+	            password = pro.getProperty(&quot;password&quot;);
+	            driver = pro.getProperty(&quot;driver&quot;);
+	            //4. 注册驱动
+	            Class.forName(driver);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	
+	
+	    /**
+	     * 获取连接
+	     * @return 连接对象
+	     */
+	    public static Connection getConnection() throws SQLException {
+	
+	        return DriverManager.getConnection(url, user, password);
+	    }
+	
+	    /**
+	     * 释放资源
+	     * @param stmt
+	     * @param conn
+	     */
+	    public static void close(Statement stmt,Connection conn){
+	        if( stmt != null){
+	            try {
+	                stmt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	
+	        if( conn != null){
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	
+	
+	    /**
+	     * 释放资源
+	     * @param stmt
+	     * @param conn
+	     */
+	    public static void close(ResultSet rs,Statement stmt, Connection conn){
+	        if( rs != null){
+	            try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	
+	        if( stmt != null){
+	            try {
+	                stmt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	
+	        if( conn != null){
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	
+	}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#jdbc">JDBC：</a>
+<ul>
+<li><a href="#1-%E6%A6%82%E5%BF%B5">1. 概念：</a></li>
+<li><a href="#2%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">2.代码实现：</a></li>
+<li><a href="#3-%E8%AF%A6%E8%A7%A3%E5%90%84%E4%B8%AA%E5%AF%B9%E8%B1%A1">3. 详解各个对象：</a>
+<ul>
+<li><a href="#drivermanager%E9%A9%B1%E5%8A%A8%E7%AE%A1%E7%90%86%E5%AF%B9%E8%B1%A1">DriverManager：驱动管理对象</a>
+<ul>
+<li><a href="#%E5%8A%9F%E8%83%BD">功能：</a></li>
+</ul>
+</li>
+<li><a href="#connection%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%AF%B9%E8%B1%A1">Connection：数据库连接对象</a>
+<ul>
+<li><a href="#%E5%8A%9F%E8%83%BD-2">功能：</a></li>
+</ul>
+</li>
+<li><a href="#statement%E6%89%A7%E8%A1%8Csql%E7%9A%84%E5%AF%B9%E8%B1%A1">Statement：执行sql的对象</a>
+<ul>
+<li><a href="#%E5%8A%9F%E8%83%BD-3">功能：</a></li>
+</ul>
+</li>
+<li><a href="#resultset%E7%BB%93%E6%9E%9C%E9%9B%86%E5%AF%B9%E8%B1%A1%E5%B0%81%E8%A3%85%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C">ResultSet：结果集对象,封装查询结果</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95">方法</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+</ul>
+</li>
+<li><a href="#preparedstatement%E6%89%A7%E8%A1%8Csql%E7%9A%84%E5%AF%B9%E8%B1%A1">PreparedStatement：执行sql的对象</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%8A%BD%E5%8F%96jdbc%E5%B7%A5%E5%85%B7%E7%B1%BB-jdbcutils">抽取JDBC工具类 ： JDBCUtils</a><br>
+*
+<ul>
+<li><a href="#%E7%9B%AE%E7%9A%84%E7%AE%80%E5%8C%96%E4%B9%A6%E5%86%99">目的：简化书写</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析：</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">代码实现：</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/常用API/">
+              <h3 class="post-title">
+                常用API
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

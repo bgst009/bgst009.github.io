@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>0928_综合研究1-3补充研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="0928_综合研究1-3补充研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="综合研究2
+
+通过函数名直接打印出段地址和偏移地址（不使用_CS）
+
+通过查阅相关资料可以尝试把函数名前强制转换成长整型
+int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+vo..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              0928_综合研究1-3补充研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-28
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="综合研究2">综合研究2</h2>
+<blockquote>
+<p>通过函数名直接打印出段地址和偏移地址（不使用_CS）</p>
+</blockquote>
+<p>通过查阅相关资料可以尝试把函数名前强制转换成长整型</p>
+<pre><code class="language-c">int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+void f3(void) { a = 3; }
+main() {
+    char *string = &quot;--------------------&quot;;
+    printf(&quot;\nCS: %x\n&quot;, _CS);
+    printf(&quot;%s&quot;, string);
+    printf(&quot;\nf1: %lx\n&quot;, (long)f1);
+    printf(&quot;\nf2: %lx\n&quot;, (long)f2);
+    printf(&quot;\nf3: %lx\n&quot;, (long)f3);
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928070215.png" alt="image-20200928070215176" loading="lazy"></figure>
+<p>通过<code>cs</code>输出的数字可以检验出 强制转换可以正确输出函数对应的段地址和偏移地址。</p>
+<h2 id="综合研究3">综合研究3</h2>
+<blockquote>
+<p>写程序验证全局变量存储空间是加载时分配，还是c0s分配。	@未解决</p>
+</blockquote>
+<ul>
+<li>
+<p>编写测试程序</p>
+<pre><code class="language-c">int b = 9;
+main() {
+    static int a = 8;
+    a++;
+    b++;
+}
+</code></pre>
+</li>
+<li>
+<p>编译链接生成可执行程序通过debug查看变量在数据段的偏移地址</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928071005.png" alt="image-20200928071005129" loading="lazy"></figure>
+</li>
+<li>
+<p>可以看见存储全局变量的段地址和偏移地址，然后在重新debug后直接跳转到相应的位置查看</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928071303.png" alt="image-20200928071303637" loading="lazy"></figure>
+</li>
+<li>
+<p>可以推断全局变量是在程序加载时给全局变量分配空间</p>
+</li>
+</ul>
+<blockquote>
+<p>程序5首先要找到每条C语句对应的汇编代码，然后单步跟踪，跟踪时要将栈中的情况都画出来（这部分自己纸上画就可以，不必体现在研究报告中，但是必须通过这个过程去完全理解程序）。跟踪一遍后，回答教材中的两个问题。	@未解决</p>
+</blockquote>
+<ul>
+<li>
+<p>LEA 取有效地址指令</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928074812.png" alt="image-20200928074812709" loading="lazy"></figure>
+</li>
+<li>
+<p>程序的汇编代码</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075257.png" alt="image-20200928075256961" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075321.png" alt="image-20200928075320888" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075558.png" alt="image-20200928075558794" loading="lazy"></figure>
+<ul>
+<li>
+<p>执行 <code>call 266</code>可以看到把结构体的数据的首地址偏移地址和要返回结果的段地址的偏移地址存储到栈中然后调用 <code>call 076a:13ea</code></p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928082337.png" alt="image-20200928082337791" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928075810.png" alt="image-20200928075810572" loading="lazy"></figure>
+<ul>
+<li>
+<p><code>call 076a:13ea</code></p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928083602.png" alt="image-20200928083601974" loading="lazy"></figure>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928080105.png" alt="image-20200928080104918" loading="lazy"></figure>
+<ul>
+<li>
+<p>执行到<code>076a:13f0 c57606</code>可以看到传入栈中的结构体数据的源地址和要返回结果的目的地址</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928082824.png" alt="image-20200928082824733" loading="lazy"></figure>
+</li>
+<li>
+<p>执行到<code>adc cx,cx</code>前后查看目的地址中的数据可以发现数据已经由源地址传送到目的地址</p>
+<figure data-type="image" tabindex="13"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928083959.png" alt="image-20200928083959039" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>从函数返回的结构体数据类型存储在数据段中，在函数中先把返回结果的段地址和偏移地址压入栈中然后把结构体的段地址和偏移地址压入栈中，接着调用子程序（参数就是两个偏移地址）把栈中的数据移动到目标地址的内存中，子程序完成返回目标地址的偏移地址。</p>
+</li>
+<li>
+<p>执行到<code>call 076a:1406</code></p>
+<ul>
+<li>
+<p>可以看到<code>dx:ax</code>为 <code>076a:1406</code>的参数</p>
+<figure data-type="image" tabindex="14"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928090026.png" alt="image-20200928090026334" loading="lazy"></figure>
+</li>
+<li>
+<p>子程序 <code>076a:1460</code></p>
+<figure data-type="image" tabindex="15"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091101.png" alt="image-20200928091101628" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928090256.png" alt="image-20200928090256790" loading="lazy"></figure>
+<ul>
+<li>可以看到此程序的功能是把结构体数据复制到目的地址<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091139.png" alt="image-20200928091139256" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>执行 <code>call 0256</code></p>
+<figure data-type="image" tabindex="17"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928091532.png" alt="image-20200928091531970" loading="lazy"></figure>
+<p>可以看到子程序通过栈来使用传过来的结构体数据</p>
+<figure data-type="image" tabindex="18"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200928092331.png" alt="image-20200928092331592" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>向函数传递结构体数据</p>
+<ul>
+<li>通过调用子程序来把结构体数据复制到栈中</li>
+<li>然后函数在通过栈来使用结构体数据</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%BB%BC%E5%90%88%E7%A0%94%E7%A9%B62">综合研究2</a></li>
+<li><a href="#%E7%BB%BC%E5%90%88%E7%A0%94%E7%A9%B63">综合研究3</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/0926_-zong-he-yan-jiu-4-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                0926_综合研究4研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

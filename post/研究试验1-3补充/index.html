@@ -1,0 +1,322 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究试验1-3补充 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="研究试验1-3补充 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+
+什么时候用小模式，中模式，大模式
+
+
+
+
+
+
+小程序
+大程序
+
+
+
+
+小数据
+微，小
+中
+
+
+大数据
+紧凑
+大，巨
+
+
+
+
+
+小程序就是指程序只有一个程序段，大小不超过64KB，缺省的码（函数）指针是near（近程指针）
+
+
+大程序就是..." />
+    <meta name="keywords" content="ASM" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              研究试验1-3补充
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-08
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/z74Ni2u5JH/" class="post-tag">
+                  # ASM
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <ol>
+<li>
+<p>什么时候用小模式，中模式，大模式</p>
+<ol>
+<li>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>小程序</th>
+<th>大程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小数据</td>
+<td>微，小</td>
+<td>中</td>
+</tr>
+<tr>
+<td>大数据</td>
+<td>紧凑</td>
+<td>大，巨</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>小程序</strong>就是指程序只有一个程序段，大小不超过64KB，缺省的码（函数）指针是near（近程指针）</p>
+</li>
+<li>
+<p><strong>大程序</strong>就是指程序只有多个程序段，每个程序段不超过64KB，但总程序量可超过64KB，缺省的码指针是far（远程指针）</p>
+</li>
+<li>
+<p><strong>小数据</strong>就是指数据只有一个数据段，缺省的数据指针是near。<strong>大数据</strong>就是指数据有多个数据段，缺省的数据指针是far。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>TC跟TCC有什么区别？用TCC单步编译连接生成的文件和直接生成的可执行文件有什么区别？</p>
+<ol>
+<li>从功能上来看，tcc.exe只能编译当前目录下已存在的文件，而TC2.0则支持文件的创建、修改、保存、编译、连接，是集成了tcc.exe和tlink.exe的一个c语言小型开发平台。</li>
+</ol>
+</li>
+<li>
+<p>tc所需5个文件的作用</p>
+<ol>
+<li>C0S.OBJ 小模式启动代码</li>
+<li>EMU.LIB 8087仿真库</li>
+<li>MATHS.LIB 是运算相关的库</li>
+<li>GRAPHICS.LIB 图形库</li>
+<li>CS.LIB 小模式运行库</li>
+</ol>
+</li>
+<li>
+<p>graphics.lib在tc编译链接（提示：在菜单中有相应的设置选项）和tcc分步编译链接时是不是必须的？</p>
+<ol>
+<li>不是必须的
+<ol>
+<li><mark>把 graphics.lib 删除后在通过 TCC.EXE 编译链接程序后可以正常生成 可执行文件</mark></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>编译和连接有什么作用？</p>
+<ol>
+<li><strong>编译</strong>，就是Compile，由C编译程序对你写的代码进行词法和句法分析，发现并报告错误，有错时编译不能通过。如若无错，则生成中间代码，<strong>扩展名为obj</strong>，此时它便是二进制的了</li>
+<li><strong>连接</strong>，在汇编里称Link，在C里叫生成，即Build，它的作用是<strong>生成可执行的exe文件</strong>。由于一个程序的源码可由多个文件组成。这些文件在第二步 中分别编译，生成各自的目标文件，这一步的作用便是将这些obj文件，以及程序中需要的其它库文件(dll除外），统一到一个文件中来，形成单个的exe 文件。此exe文件便可以在操作系统下直接运行了。</li>
+</ol>
+</li>
+<li>
+<p>全局变量在什么时候就被分配内存 ？ 函数执行之前，还是函数执行之后？是预处理的时候分配的吗？</p>
+<ol>
+<li>初始化的全局变量，在程序加载的时候，会从程序文件中，映射到内存的数据段。</li>
+</ol>
+</li>
+<li>
+<p>预处理的作用是什么？</p>
+<ol>
+<li>C语言预处理程序的作用是根据源代码中的预处理指令修改你的源代码。预处理指令是一种命令语句(如#define)，它指示预处理程序如何修改源代码。在对程序进行通常的编译处理之前，编译程序会自动运行预处理程序，对程序进行编译预处理。</li>
+</ol>
+</li>
+<li>
+<p>预处理在什么时候被执行的？是在程序编译前还是可执行文件执行前</p>
+<ol>
+<li>程序编译前</li>
+</ol>
+</li>
+<li>
+<p>malloc函数是怎么开辟内存空间的，怎么返回的?它的实现原理是什么？</p>
+<ol>
+<li>malloc函数其实就是在内存中找一片指定大小的空间，然后将这个空间的首地址给一个指针变量并且返回</li>
+</ol>
+</li>
+<li>
+<p>浮点型数据和结构体作为返回值是存放在哪里返回的?</p>
+<ol>
+<li>float dx+ax</li>
+<li>结构体 暂未解决</li>
+</ol>
+</li>
+<li>
+<p>尝试使用tcc -S 命令或其他方式在C0S.OBJ文件中找到main函数的标号。</p>
+<ol>
+<li></li>
+</ol>
+</li>
+<li>
+<p>两个连续的ret指令，第二个ret指令也会被执行到，那么第二个ret指令的作用是什么？</p>
+<ol>
+<li>程序返回</li>
+</ol>
+</li>
+<li>
+<p>宏定义<code>#define Buffer (char *)*(int far*)0x200</code> 的理解</p>
+<ol>
+<li><code>(int far*)0x200</code>表示为地址 <code>0200：0000</code></li>
+<li><code>*(int far*)0x200</code> 表示为地址所对应的内存里的值（s）</li>
+<li><code>(char *)*(int far*)0x200</code> 地址（s）对应的内存存储的char型数据大小为1个字节</li>
+</ol>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/研究试验4/">
+              <h3 class="post-title">
+                研究试验4
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

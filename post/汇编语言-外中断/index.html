@@ -1,0 +1,260 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-外中断 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-外中断 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="接口芯片和端口
+
+
+端口的读写只有in,out , 一个读一个写（CPU的视角来看）
+访问端口
+CPU 通过地址线 将 60h的信息发出
+通过控制线发出读命令
+端口所在的芯片将60h端口的数据通过数据总线将数据送入CPU
+
+外中断
+
+1. ..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-外中断
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-23
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="接口芯片和端口">接口芯片和端口</h1>
+<hr>
+<ol>
+<li>端口的读写只有<strong>in</strong>,<strong>out</strong> , 一个读一个写（CPU的视角来看）</li>
+<li>访问端口<br>
+CPU 通过地址线 将 <strong>60h</strong>的信息发出<br>
+通过控制线发出读命令<br>
+端口所在的芯片将<strong>60h</strong>端口的数据通过数据总线将数据送入CPU</li>
+</ol>
+<h1 id="外中断">外中断</h1>
+<hr>
+<h2 id="1-可屏蔽中断">1. 可屏蔽中断</h2>
+<ol>
+<li>IF=0 CPU 可以不响应可屏蔽中断</li>
+<li>IF=1 执行完当前指令后执行中断</li>
+</ol>
+<h2 id="2-不可屏蔽终端">2. 不可屏蔽终端</h2>
+<ol>
+<li>不可屏蔽中断的中断类型码固定为<strong>2</strong></li>
+</ol>
+<h1 id="pc机键盘的处理过程">PC机键盘的处理过程</h1>
+<hr>
+<h2 id="1-键盘输入">1. 键盘输入</h2>
+<ul>
+<li>扫描码（通码）送入 <strong>60h</strong></li>
+<li>断码 = 通码 + 80h</li>
+</ul>
+<h2 id="2-引发9号中断">2. 引发9号中断</h2>
+<ul>
+<li>有数据送入 <strong>60h</strong></li>
+<li>芯片向 <strong>CPU</strong> 发出 中断类型码为 <strong>9</strong>的可屏蔽中断</li>
+<li>如果 <strong>IF=1</strong> CPU 执行中断例程</li>
+</ul>
+<h2 id="3-执行9号中断例程">3. 执行9号中断例程</h2>
+<h3 id="int9-的基本键盘处理流程">int9 的基本键盘处理流程</h3>
+<ul>
+<li>读出 <strong>60h</strong> 的扫描码
+<ul>
+<li>如果是扫描码 将扫描码和字符码送入内存中的键盘缓冲区</li>
+<li>如果是控制键的扫描码则将其转变为状态字节存入内存中的状态字节的单元</li>
+</ul>
+</li>
+<li>对键盘系统进行相关控制</li>
+</ul>
+<h1 id="编写中断例程">编写中断例程</h1>
+<p>新的中断例程大概为</p>
+<ol>
+<li>从60h端口读出键盘的输入
+<ol>
+<li><code>in al 60h</code></li>
+</ol>
+</li>
+<li>调用BIOS 的int9 的中断例程
+<ol>
+<li><code>pushf</code></li>
+<li><code>call dword ptr cs:[200h] ;cs==0</code></li>
+</ol>
+</li>
+<li>功能的实现</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%8E%A5%E5%8F%A3%E8%8A%AF%E7%89%87%E5%92%8C%E7%AB%AF%E5%8F%A3">接口芯片和端口</a></li>
+<li><a href="#%E5%A4%96%E4%B8%AD%E6%96%AD">外中断</a>
+<ul>
+<li><a href="#1-%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%AD">1. 可屏蔽中断</a></li>
+<li><a href="#2-%E4%B8%8D%E5%8F%AF%E5%B1%8F%E8%94%BD%E7%BB%88%E7%AB%AF">2. 不可屏蔽终端</a></li>
+</ul>
+</li>
+<li><a href="#pc%E6%9C%BA%E9%94%AE%E7%9B%98%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B">PC机键盘的处理过程</a>
+<ul>
+<li><a href="#1-%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5">1. 键盘输入</a></li>
+<li><a href="#2-%E5%BC%95%E5%8F%919%E5%8F%B7%E4%B8%AD%E6%96%AD">2. 引发9号中断</a></li>
+<li><a href="#3-%E6%89%A7%E8%A1%8C9%E5%8F%B7%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B">3. 执行9号中断例程</a>
+<ul>
+<li><a href="#int9-%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%94%AE%E7%9B%98%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">int9 的基本键盘处理流程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B">编写中断例程</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/13-int指令/">
+              <h3 class="post-title">
+                13-int指令
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,494 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究试验1-5补充 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="研究试验1-5补充 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="0622-研究试验
+修改c0s.obj
+按书上的汇编代码编译完生成的c0s.obj
+
+测试函数(1)
+
+f()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *..." />
+    <meta name="keywords" content="ASM" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              研究试验1-5补充
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-22
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/z74Ni2u5JH/" class="post-tag">
+                  # ASM
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="0622-研究试验">0622-研究试验</h1>
+<h2 id="修改c0sobj">修改c0s.obj</h2>
+<p>按书上的汇编代码编译完生成的c0s.obj</p>
+<ul>
+<li>测试函数(1)</li>
+</ul>
+<pre><code class="language-c">f()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40 + 1) = 2;
+}
+
+main(){
+    int a=0;
+    int b=0;
+    f();
+}
+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622162009509.png" alt="image-20200622162009509" loading="lazy"></figure>
+<ul>
+<li>测试函数(2)</li>
+</ul>
+<pre><code class="language-c">f();
+
+main(){
+    int a=0;
+    int b=0;
+    f();
+}
+
+f()
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40 + 1) = 2;
+}
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622161853903.png" alt="image-20200622161853903" loading="lazy"></figure>
+<p>可以看到测试函数1是先调用 <code>f()</code> 而 测试函数2 先调用 <code>main()</code>还是没思路</p>
+<h2 id="自己编写的printf">自己编写的printf</h2>
+<ul>
+<li>
+<pre><code class="language-c">void myPrintf(char *, ...);
+
+main()
+{
+    myPrintf(&quot; char: %c%n int: %d&quot;, 'x', 5);
+}
+
+void myPrintf(char *str, ...)
+{
+    int stackIndex = 0;
+    int stringIndex = 0;
+    int screenIndex = 0;
+    int screenBenchmark = 160 * 10;
+
+    while (str[stringIndex] != 0)
+    {
+        if (str[stringIndex] == '%')
+        {
+            if (str[stringIndex + 1] == 'c')
+            {
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = *(char *)(_BP + 6 + stackIndex);
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+                screenIndex += 2;
+                stringIndex += 2;
+                stackIndex += 2;
+            }
+            else if (str[stringIndex + 1] == 'd')
+            {
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = *(char *)(_BP + 6 + stackIndex) + 0x30;
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+
+                stackIndex += 2;
+                screenIndex += 2;
+                stringIndex += 2;
+            }
+            else if (str[stringIndex + 1] == 'n')
+            {
+                screenBenchmark += 160;
+                screenIndex = 0;
+                stringIndex += 2;
+            }
+        }
+        else
+        {
+            *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = str[stringIndex];
+            *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+
+            screenIndex += 2;
+            stringIndex += 1;
+        }
+    }
+}
+</code></pre>
+</li>
+<li>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622115336023.png" alt="image-20200622115336023" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="各种数据类型是通过什么返回的">各种数据类型是通过什么返回的</h2>
+<h3 id="float-注释中为对应的汇编代码">float( 注释中为对应的汇编代码 )</h3>
+<pre><code class="language-c">float f(float, float);
+
+/*
+_main	proc	near
+	push	bp
+	mov	bp,sp
+	sub	sp,12
+*/
+main()
+{
+        // ax=cccd dx= 400c    
+    float c = 2.2, a = 1.1, b = 1.1; /*
+                                        mov	dx,16396
+                                        mov	ax,-13107
+                                        mov	word ptr [bp-10],dx
+                                        mov	word ptr [bp-12],ax
+</code></pre>
+<p>下图为2.2对应的十六进制</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622152326481.png" alt="image-20200622152326481" loading="lazy"></figure>
+<pre><code class="language-c">                                   /* ;	?debug	L 11
+                                        mov	dx,16268
+                                        mov	ax,-13107
+                                        mov	word ptr [bp-6],dx
+                                        mov	word ptr [bp-8],ax
+                                    ;	?debug	L 11
+                                        mov	dx,16268
+                                        mov	ax,-13107
+                                        mov	word ptr [bp-2],dx
+                                        mov	word ptr [bp-4],ax
+                                    */
+
+    c = f(a, b); /*
+                                    	mov	dx,word ptr [bp-2]
+                                        mov	ax,word ptr [bp-4]
+                                        push	dx
+                                        push	ax
+                                        mov	dx,word ptr [bp-6]
+                                        mov	ax,word ptr [bp-8]
+                                        push	dx
+                                        push	ax
+                                        call	near ptr _f
+</code></pre>
+<p>跳转到 _f 函数（在下一段）执行，然后返回到此处在执行</p>
+<p><a href="#f">点击跳转</a></p>
+<p><a name="ret"></a></p>
+<pre><code class="language-c">                                     /*   add	sp,8
+                                        FSTP	dword ptr [bp-12]
+                                        FWAIT
+                                    */
+}
+</code></pre>
+<p>最终结果在栈中</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622154424383.png" alt="image-20200622154424383" loading="lazy"></figure>
+<p><a name="f"></a></p>
+<pre><code class="language-c">/*
+_f	proc	near
+	push	bp
+	mov	bp,sp
+	sub	sp,4
+*/
+float f(float a, float b)
+{
+    float ab = a + b;   /*
+                            FLD	dword ptr [bp+4]
+                            FLD	dword ptr [bp+8]
+                            FADD	
+                            FSTP	dword ptr [bp-4]
+                            FWAIT
+                        */
+    
+    return ab;          /*
+                        	FLD	dword ptr [bp-4]
+                            jmp	short @2
+                        @2: */
+</code></pre>
+<p>返回前的各个寄存器的值</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622151535488.png" alt="image-20200622151535488" loading="lazy"></figure>
+<p>对应汇编代码中的 <code>[bp-4]</code> 查看 <code>ss:ffc4</code> 中的值</p>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622151831557.png" alt="image-20200622151831557" loading="lazy"></figure>
+<pre><code class="language-c">                        /*
+						;	?debug	L 50
+                            mov	sp,bp
+                            pop	bp
+                            ret	
+                        */
+}
+</code></pre>
+<p><a href="#ret">返回</a></p>
+<h3 id="结构体注释中为对应的汇编代码">结构体（注释中为对应的汇编代码）</h3>
+<pre><code class="language-c">struct returnStruct
+{
+    int i_num;
+    float f_num;
+    double d_num;
+};
+
+struct returnStruct f(struct returnStruct);
+
+
+/*
+	proc	near
+	push	bp
+	mov	bp,sp
+	sub	sp,28
+*/
+
+main()
+
+</code></pre>
+<p>此时各个寄存器的值</p>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622134618756.png" alt="image-20200622134618756" loading="lazy"></figure>
+<pre><code class="language-c">{
+    struct returnStruct s;
+    struct returnStruct r;
+
+    s.i_num = 1;		//	mov	word ptr [bp-28],1
+    s.f_num = 1.1;		/*
+    						mov	dx,16268
+    						mov	ax,-13107
+							mov	word ptr [bp-24],dx
+							mov	word ptr [bp-26],ax
+    					*/
+    s.d_num = 1.11;		/*
+    						mov	word ptr [bp-16],16369
+							mov	word ptr [bp-18],-15729
+							mov	word ptr [bp-20],23592
+							mov	word ptr [bp-22],-2621
+    					*/
+
+</code></pre>
+<p>数据入栈后</p>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622135318316.png" alt="image-20200622135318316" loading="lazy"></figure>
+<pre><code class="language-c">    r=f(s);  	/*
+	    			lea	bx,word ptr [bp-14]
+					push	ss
+					push	bx
+					lea	bx,word ptr [bp-28]
+					mov	dx,ss
+					mov	ax,bx
+					mov	cx,14
+					call	far ptr SPUSH@
+</code></pre>
+<p>SPUSH@执行前后对应寄存器的变化</p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622135746933.png" alt="image-20200622135746933" loading="lazy"></figure>
+<p>可以看到栈顶指针变了然后看对应的栈空间</p>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622140029293.png" alt="image-20200622140029293" loading="lazy"></figure>
+<p>可以看到 SPUSH@ 的功能是 把 保存的数据再在栈空间中复制一份</p>
+<pre><code class="language-c">				//	call	near ptr _f
+</code></pre>
+<p>_f 执行前后对应寄存器的变化</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622140528110.png" alt="image-20200622140528110" loading="lazy"></figure>
+<p>可以看到<code>ax</code> 值改变，然后查看对应内存空间的值</p>
+<figure data-type="image" tabindex="13"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622141532472.png" alt="image-20200622141532472" loading="lazy"></figure>
+<p>可以发现和在call near ptr _f 中最后 <code>lea	bx,word ptr [bp+4]</code> 执行完后的栈空间的数据一样</p>
+<figure data-type="image" tabindex="14"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/image-20200622142146357.png" alt="image-20200622142146357" loading="lazy"></figure>
+<pre><code class="language-c">				//	add	sp,14
+				*/
+}
+
+/*
+	proc	near
+	push	bp
+	mov	bp,sp
+*/
+struct returnStruct f(struct returnStruct r){
+    r.i_num++;		/*
+    					inc	word ptr [bp+4]
+    				*/
+    r.f_num++;		/*
+    					FLD	dword ptr [bp+6]  			FLD类似于   PUSH指令
+    					FADD	qword ptr DGROUP:s@+9	FADD类似于  ADD指令
+    					FSTP	dword ptr [bp+6]		FSTP类似于  POP指令
+    					FWAIT
+				    */
+    r.d_num++;		/*
+    					FLD	qword ptr [bp+10]
+						FADD	qword ptr DGROUP:s@+9
+						FSTP	qword ptr [bp+10]
+						FWAIT	
+    				*/
+
+    return r;		/*
+    					mov	bx,offset DGROUP:b@
+						push	ds
+						push	bx
+						lea	bx,word ptr [bp+4]
+						push	ss
+						push	bx
+						mov	cx,14
+						call	far ptr SCOPY@
+						;	?debug	L 29
+						mov	ax,offset DGROUP:b@
+						jmp	short @2
+						@2:
+						;	?debug	L 30
+						pop	bp
+						ret	
+    				*/
+}
+</code></pre>
+<p>可以发现，结构体返回是把结果复制到内存空间中然后返回该内存空间的首地址。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#0622-%E7%A0%94%E7%A9%B6%E8%AF%95%E9%AA%8C">0622-研究试验</a>
+<ul>
+<li><a href="#%E4%BF%AE%E6%94%B9c0sobj">修改c0s.obj</a></li>
+<li><a href="#%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84printf">自己编写的printf</a></li>
+<li><a href="#%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%98%AF%E9%80%9A%E8%BF%87%E4%BB%80%E4%B9%88%E8%BF%94%E5%9B%9E%E7%9A%84">各种数据类型是通过什么返回的</a>
+<ul>
+<li><a href="#float-%E6%B3%A8%E9%87%8A%E4%B8%AD%E4%B8%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81">float( 注释中为对应的汇编代码 )</a></li>
+<li><a href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%B3%A8%E9%87%8A%E4%B8%AD%E4%B8%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81">结构体（注释中为对应的汇编代码）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/研究试验4-5补充/">
+              <h3 class="post-title">
+                研究试验4-5补充
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

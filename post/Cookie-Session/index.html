@@ -1,0 +1,1060 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cookie&amp;&amp;Session | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Cookie&amp;&amp;Session | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="会话技术
+
+会话：一次会话中包含多次请求和响应。
+
+一次会话：浏览器第一次给服务器资源发送请求，会话建立，直到有一方断开为止
+
+
+功能：在一次会话的范围内的多次请求间，共享数据
+方式：
+
+客户端会话技术：Cookie
+服务器端会话技术：Se..." />
+    <meta name="keywords" content="Java_Web,Cookie&&Session,JSP" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Cookie&amp;&amp;Session
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-08
+              </span>
+              <span>
+                19 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/AQ8apQMsNK/" class="post-tag">
+                  # Java_Web
+                </a>
+              
+                <a href="https://bgst009.github.io/tag/T0JYCSGJDl/" class="post-tag">
+                  # Cookie&amp;&amp;Session
+                </a>
+              
+                <a href="https://bgst009.github.io/tag/JTsrT2riJY/" class="post-tag">
+                  # JSP
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="会话技术">会话技术</h1>
+<ol>
+<li><strong>会话</strong>：一次会话中包含多次请求和响应。
+<ul>
+<li>一次会话：浏览器第一次给服务器资源发送请求，会话建立，直到有一方断开为止</li>
+</ul>
+</li>
+<li><strong>功能</strong>：在一次会话的范围内的多次请求间，共享数据</li>
+<li><strong>方式</strong>：
+<ol>
+<li>客户端会话技术：<strong>Cookie</strong></li>
+<li>服务器端会话技术：<strong>Session</strong></li>
+</ol>
+</li>
+</ol>
+<h2 id="cookie">Cookie：</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p><strong>客户端会话技术，将数据保存到客户端</strong></p>
+<h3 id="2-快速入门">2. 快速入门：</h3>
+<ol>
+<li>
+<p>创建Cookie对象，绑定数据</p>
+<pre><code class="language-java">new Cookie(String name, String value) 
+</code></pre>
+</li>
+<li>
+<p>发送Cookie对象</p>
+<pre><code class="language-java">response.addCookie(Cookie cookie) 
+</code></pre>
+</li>
+<li>
+<p>获取Cookie，拿到数据</p>
+</li>
+</ol>
+<pre><code class="language-java">Cookie[]  request.getCookies()
+</code></pre>
+<h3 id="3-实现原理">3.  实现原理</h3>
+<p><strong>基于响应头set-cookie和请求头cookie实现</strong></p>
+<h3 id="4-cookie的细节">4. cookie的细节</h3>
+<ol>
+<li>
+<p>一次可不可以发送多个cookie?</p>
+<blockquote>
+<p>可以</p>
+<p>可以创建多个Cookie对象，使用response调用多次addCookie方法发送cookie即可。</p>
+</blockquote>
+</li>
+<li>
+<p>cookie在浏览器中保存多长时间？</p>
+<ul>
+<li>默认情况下，当浏览器关闭后，Cookie数据被销毁</li>
+<li>持久化存储：<strong>setMaxAge(int seconds)</strong>
+<ul>
+<li>正数: 将Cookie数据写到硬盘的文件中。持久化存储。并指定cookie存活时间，时间到后，cookie文件自动失效</li>
+<li>负数：默认值</li>
+<li>零：删除cookie信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>cookie能不能存中文？</p>
+<blockquote>
+<ul>
+<li>在tomcat 8 之前 cookie中不能直接存储中文数据。
+<ul>
+<li>需要将中文数据转码---一般采用URL编码(%E3)</li>
+</ul>
+</li>
+<li>在tomcat 8 之后，cookie支持中文数据。特殊字符还是不支持，建议使用URL编码存储，URL解码解析</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>cookie共享问题？</p>
+<blockquote>
+<ol>
+<li>假设在一个tomcat服务器中，部署了多个web项目，那么在这些web项目中cookie能不能共享？
+<ul>
+<li>默认情况下cookie不能共享</li>
+<li>setPath(String path):设置cookie的获取范围。默认情况下，设置当前的虚拟目录
+<ul>
+<li>如果要共享，则可以将path设置为&quot;/&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不同的tomcat服务器间cookie共享问题？
+<ul>
+<li>setDomain(String path):如果设置一级域名相同，那么多个服务器之间cookie可以共享
+<ul>
+<li>setDomain(&quot;.baidu.com&quot;),那么tieba.baidu.com和news.baidu.com中cookie可以共享</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h3 id="5-cookie的特点和作用">5. Cookie的特点和作用</h3>
+<ol>
+<li>cookie存储数据在客户端浏览器</li>
+<li>浏览器对于单个cookie 的大小有限制(4kb) 以及 对同一个域名下的总cookie数量也有限制(20个)</li>
+</ol>
+<ul>
+<li>作用：
+<ul>
+<li>cookie一般用于存出少量的不太敏感的数据</li>
+<li>在不登录的情况下，完成服务器对客户端的身份识别</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-案例记住上一次访问时间">6. 案例：记住上一次访问时间</h3>
+<ol>
+<li>
+<p>需求：</p>
+</li>
+<li>
+<p>访问一个Servlet，如果是第一次访问，则提示：您好，欢迎您首次访问。</p>
+</li>
+<li>
+<p>如果不是第一次访问，则提示：欢迎回来，您上次访问时间为:显示时间字符串</p>
+</li>
+<li>
+<p>分析：</p>
+<ol>
+<li>可以采用Cookie来完成</li>
+<li>在服务器中的Servlet判断是否有一个名为lastTime的cookie
+<ol>
+<li>有：不是第一次访问
+<ol>
+<li>响应数据：欢迎回来，您上次访问时间为:2018年6月10日11:50:20</li>
+<li>写回Cookie：lastTime=2018年6月10日11:50:01</li>
+</ol>
+</li>
+<li>没有：是第一次访问
+<ol>
+<li>响应数据：您好，欢迎您首次访问</li>
+<li>写回Cookie：lastTime=2018年6月10日11:50:01</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>代码实现：</p>
+<pre><code class="language-java">package cn.itcast.cookie;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@WebServlet(&quot;/CookieTest&quot;)
+public class CookieTest extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //设置响应的消息体的数据格式以及编码
+        response.setContentType(&quot;text/html;charset=utf-8&quot;);
+        //1.获取所有Cookie
+        Cookie[] cookies = request.getCookies();
+        boolean flag = false;//没有cookie为lastTime
+        //2.遍历cookie数组
+        if(cookies != null &amp;&amp; cookies.length &gt; 0){
+            for (Cookie cookie : cookies) {
+                //3.获取cookie的名称
+                String name = cookie.getName();
+                //4.判断名称是否是：lastTime
+                if(&quot;lastTime&quot;.equals(name)){
+                    //有该Cookie，不是第一次访问
+
+                    flag = true;//有lastTime的cookie
+
+                    //设置Cookie的value
+                    //获取当前时间的字符串，重新设置Cookie的值，重新发送cookie
+                    Date date  = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
+                    String str_date = sdf.format(date);
+                    System.out.println(&quot;编码前：&quot;+str_date);
+                    //URL编码
+                    str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
+                    System.out.println(&quot;编码后：&quot;+str_date);
+                    cookie.setValue(str_date);
+                    //设置cookie的存活时间
+                    cookie.setMaxAge(60 * 60 * 24 * 30);//一个月
+                    response.addCookie(cookie);
+
+
+                    //响应数据
+                    //获取Cookie的value，时间
+                    String value = cookie.getValue();
+                    System.out.println(&quot;解码前：&quot;+value);
+                    //URL解码：
+                    value = URLDecoder.decode(value,&quot;utf-8&quot;);
+                    System.out.println(&quot;解码后：&quot;+value);
+                    response.getWriter().write(&quot;&lt;h1&gt;欢迎回来，您上次访问时间为:&quot;+value+&quot;&lt;/h1&gt;&quot;);
+
+
+                    break;
+
+                }
+            }
+        }
+        if(cookies == null || cookies.length == 0 || flag == false){
+            //没有，第一次访问
+
+            //设置Cookie的value
+            //获取当前时间的字符串，重新设置Cookie的值，重新发送cookie
+            Date date  = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
+            String str_date = sdf.format(date);
+            System.out.println(&quot;编码前：&quot;+str_date);
+            //URL编码
+            str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
+            System.out.println(&quot;编码后：&quot;+str_date);
+
+            Cookie cookie = new Cookie(&quot;lastTime&quot;,str_date);
+            //设置cookie的存活时间
+            cookie.setMaxAge(60 * 60 * 24 * 30);//一个月
+            response.addCookie(cookie);
+
+            response.getWriter().write(&quot;&lt;h1&gt;您好，欢迎您首次访问&lt;/h1&gt;&quot;);
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doPost(request, response);
+    }
+}
+
+</code></pre>
+</li>
+</ol>
+<h2 id="session主菜">Session：主菜</h2>
+<h3 id="概念">概念</h3>
+<p><strong>服务器端会话技术，在一次会话的多次请求间共享数据，将数据保存在服务器端的对象中。HttpSession</strong></p>
+<h3 id="快速入门">快速入门：</h3>
+<ol>
+<li>
+<p>获取HttpSession对象：</p>
+<pre><code class="language-java">HttpSession session = request.getSession();
+</code></pre>
+</li>
+<li>
+<p>使用HttpSession对象：</p>
+<pre><code class="language-java">   Object getAttribute(String name)  
+    void setAttribute(String name, Object value)
+    void removeAttribute(String name)  
+</code></pre>
+</li>
+<li>
+<p>原理</p>
+</li>
+</ol>
+<ul>
+<li>Session的实现是依赖于Cookie的。</li>
+</ul>
+<ol start="4">
+<li>
+<p>细节：</p>
+<ol>
+<li>
+<p>当客户端关闭后，服务器不关闭，两次获取session是否为同一个？</p>
+<ol>
+<li>
+<p>默认情况下。不是。</p>
+</li>
+<li>
+<p>如果需要相同，则可以创建Cookie,键为JSESSIONID，设置最大存活时间，让cookie持久化保存。</p>
+<pre><code class="language-java">Cookie c = new Cookie(&quot;JSESSIONID&quot;,session.getId());
+c.setMaxAge(60*60);
+response.addCookie(c);
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>客户端不关闭，服务器关闭后，两次获取的session是同一个吗？</p>
+<blockquote>
+<ul>
+<li>不是同一个，但是要确保数据不丢失。tomcat自动完成以下工作
+<ul>
+<li>session的钝化：
+<ul>
+<li>在服务器正常关闭之前，将session对象系列化到硬盘上</li>
+</ul>
+</li>
+<li>session的活化：
+<ul>
+<li>在服务器启动后，将session文件转化为内存中的session对象即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>session什么时候被销毁？</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>服务器关闭</p>
+</li>
+<li>
+<p>session对象调用invalidate() 。</p>
+</li>
+<li>
+<p>session默认失效时间 30分钟</p>
+<pre><code class="language-xml">&lt;session-config&gt;
+        &lt;session-timeout&gt;30&lt;/session-timeout&gt;
+    &lt;/session-config&gt;
+</code></pre>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>session的特点</p>
+<ol>
+<li>session用于存储一次会话的多次请求的数据，存在服务器端</li>
+<li>session可以存储任意类型，任意大小的数据(<strong>类比Cookie</strong>)</li>
+</ol>
+<ul>
+<li>session与Cookie的区别：
+<ol>
+<li>session存储数据在服务器端，Cookie在客户端</li>
+<li>session没有数据大小限制，Cookie有</li>
+<li>session数据安全，Cookie相对于不安全</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="案例验证码">案例：验证码</h3>
+<ol>
+<li>
+<p>案例需求：</p>
+<ol>
+<li>访问带有验证码的登录页面login.jsp</li>
+<li>用户输入用户名，密码以及验证码。用户输入用户名，密码以及验证码。
+<ul>
+<li>如果用户名和密码输入有误，跳转登录页面，提示:用户名或密码错误</li>
+<li>如果验证码输入有误，跳转登录页面，提示：验证码错误</li>
+<li>如果全部输入正确，则跳转到主页success.jsp，显示：用户名,欢迎您</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>代码实现：</p>
+<p><strong>login</strong></p>
+<pre><code class="language-jsp">
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;login&lt;/title&gt;
+
+    &lt;script&gt;
+        window.onload = function(){
+            document.getElementById(&quot;img&quot;).onclick = function(){
+                this.src=&quot;/day16_cookie_war_exploded/CheckCodeServlet&quot;+new Date().getTime();
+            }
+        }
+
+
+    &lt;/script&gt;
+
+    &lt;style&gt;
+        div{
+            color: red;
+        }
+
+    &lt;/style&gt;
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;form action=&quot;/day16_cookie_war_exploded/LoginServlet&quot; method=&quot;post&quot;&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;用户名&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;密码&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;验证码&lt;/td&gt;
+            &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;checkCode&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan=&quot;2&quot;&gt;&lt;img id=&quot;img&quot; src=&quot;/day16_cookie_war_exploded/CheckCodeServlet&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan=&quot;2&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+
+
+&lt;/form&gt;
+
+
+&lt;div&gt;&lt;%=request.getAttribute(&quot;cc_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;cc_error&quot;)%&gt;&lt;/div&gt;
+&lt;div&gt;&lt;%=request.getAttribute(&quot;login_error&quot;) == null ? &quot;&quot; : request.getAttribute(&quot;login_error&quot;) %&gt;&lt;/div&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p><strong>success</strong></p>
+<pre><code class="language-jsp">
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;success&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;%=request.getSession().getAttribute(&quot;user&quot;)%&gt;,欢迎您&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p><strong>CheckCodeServlet</strong></p>
+<pre><code class="language-java">package cn.itcast.servlet;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Random;
+
+@WebServlet(&quot;/CheckCodeServlet&quot;)
+public class CheckCodeServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int width = 100;
+        int height = 50;
+
+        //1.创建一对象，在内存中图片(验证码图片对象)
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+
+
+        //2.美化图片
+        //2.1 填充背景色
+        Graphics g = image.getGraphics();//画笔对象
+        g.setColor(Color.PINK);//设置画笔颜色
+        g.fillRect(0,0,width,height);
+
+        //2.2画边框
+        g.setColor(Color.BLUE);
+        g.drawRect(0,0,width - 1,height - 1);
+
+        String str = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz0123456789&quot;;
+        //生成随机角标
+        Random ran = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i &lt;= 4; i++) {
+            int index = ran.nextInt(str.length());
+            //获取字符
+            char ch = str.charAt(index);//随机字符
+            sb.append(ch);
+
+            //2.3写验证码
+            g.drawString(ch+&quot;&quot;,width/5*i,height/2);
+        }
+        String checkCode_session = sb.toString();
+        //将验证码存入session
+        request.getSession().setAttribute(&quot;checkCode_session&quot;,checkCode_session);
+
+        //2.4画干扰线
+        g.setColor(Color.GREEN);
+
+        //随机生成坐标点
+
+        for (int i = 0; i &lt; 10; i++) {
+            int x1 = ran.nextInt(width);
+            int x2 = ran.nextInt(width);
+
+            int y1 = ran.nextInt(height);
+            int y2 = ran.nextInt(height);
+            g.drawLine(x1,y1,x2,y2);
+        }
+
+
+        //3.将图片输出到页面展示
+        ImageIO.write(image,&quot;jpg&quot;,response.getOutputStream());
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doPost(request, response);
+    }
+}
+
+</code></pre>
+<p><strong>LoginServlet</strong></p>
+<pre><code class="language-java">package cn.itcast.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+@WebServlet(&quot;/LoginServlet&quot;)
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.设置request编码
+        request.setCharacterEncoding(&quot;utf-8&quot;);
+        //2.获取参数
+        String username = request.getParameter(&quot;username&quot;);
+        String password = request.getParameter(&quot;password&quot;);
+        String checkCode = request.getParameter(&quot;checkCode&quot;);
+        //3.先获取生成的验证码
+        HttpSession session = request.getSession();
+        String checkCode_session = (String) session.getAttribute(&quot;checkCode_session&quot;);
+        //删除session中存储的验证码
+        session.removeAttribute(&quot;checkCode_session&quot;);
+        //3.先判断验证码是否正确
+        if(checkCode_session!= null &amp;&amp; checkCode_session.equalsIgnoreCase(checkCode)){
+            //忽略大小写比较
+            //验证码正确
+            //判断用户名和密码是否一致
+            if(&quot;zhangsan&quot;.equals(username) &amp;&amp; &quot;123&quot;.equals(password)){//需要调用UserDao查询数据库
+                //登录成功
+                //存储信息，用户信息
+                session.setAttribute(&quot;user&quot;,username);
+                //重定向到success.jsp
+                response.sendRedirect(request.getContextPath()+&quot;/success.jsp&quot;);
+            }else{
+                //登录失败
+                //存储提示信息到request
+                request.setAttribute(&quot;login_error&quot;,&quot;用户名或密码错误&quot;);
+                //转发到登录页面
+                request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);
+            }
+
+
+        }else{
+            //验证码不一致
+            //存储提示信息到request
+            request.setAttribute(&quot;cc_error&quot;,&quot;验证码错误&quot;);
+            //转发到登录页面
+            request.getRequestDispatcher(&quot;/login.jsp&quot;).forward(request,response);
+
+        }
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doPost(request, response);
+    }
+}
+
+</code></pre>
+</li>
+</ol>
+<h1 id="jsp入门学习">JSP：入门学习</h1>
+<h2 id="概念-2">概念：</h2>
+<p><strong>Java Server Pages： java服务器端页面</strong></p>
+<ul>
+<li>
+<p>可以理解为：一个特殊的页面，其中既可以指定定义html标签，又可以定义java代码</p>
+</li>
+<li>
+<p>用于简化书写！！！</p>
+</li>
+</ul>
+<h2 id="原理">原理</h2>
+<ul>
+<li>JSP本质上就是一个Servlet</li>
+</ul>
+<h3 id="jsp的脚本jsp定义java代码的方式">JSP的脚本：JSP定义Java代码的方式</h3>
+<ol>
+<li>&lt;<strong>%</strong>  代码 %&gt;：定义的java代码，在service方法中。service方法中可以定义什么，该脚本中就可以定义什么。</li>
+<li>&lt;<strong>%!</strong> 代码 %&gt;：定义的java代码，在jsp转换后的java类的成员位置。</li>
+<li>&lt;%= 代码 %&gt;：定义的java代码，会输出到页面上。输出语句中可以定义什么，该脚本中就可以定义什么。</li>
+</ol>
+<h3 id="jsp的内置对象">JSP的内置对象：</h3>
+<ul>
+<li><strong>在jsp页面中不需要获取和创建，可以直接使用的对象</strong></li>
+<li><strong>jsp一共有9个内置对象。</strong></li>
+<li><strong>今天学习3个：</strong>
+<ul>
+<li>request</li>
+<li>response</li>
+<li>out：字符输出流对象。可以将数据输出到页面上。和response.getWriter()类似
+<ul>
+<li>response.getWriter()和out.write()的区别：
+<ul>
+<li>在tomcat服务器真正给客户端做出响应之前，会先找response缓冲区数据，再找out缓冲区数据。</li>
+<li>response.getWriter()数据输出永远在out.write()之前</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="案例改造cookie案例">案例:改造Cookie案例</h2>
+<pre><code class="language-java">&lt;%@ page import=&quot;java.util.Date&quot; %&gt;
+&lt;%@ page import=&quot;java.text.SimpleDateFormat&quot; %&gt;
+&lt;%@ page import=&quot;java.net.URLEncoder&quot; %&gt;
+&lt;%@ page import=&quot;java.net.URLDecoder&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;home&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+
+&lt;%
+
+    //1.获取所有Cookie
+    Cookie[] cookies = request.getCookies();
+    boolean flag = false;//没有cookie为lastTime
+    //2.遍历cookie数组
+    if(cookies != null &amp;&amp; cookies.length &gt; 0){
+        for (Cookie cookie : cookies) {
+            //3.获取cookie的名称
+            String name = cookie.getName();
+            //4.判断名称是否是：lastTime
+            if(&quot;lastTime&quot;.equals(name)){
+                //有该Cookie，不是第一次访问
+
+                flag = true;//有lastTime的cookie
+
+                //设置Cookie的value
+                //获取当前时间的字符串，重新设置Cookie的值，重新发送cookie
+                Date date  = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
+                String str_date = sdf.format(date);
+                System.out.println(&quot;编码前：&quot;+str_date);
+                //URL编码
+                str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
+                System.out.println(&quot;编码后：&quot;+str_date);
+                cookie.setValue(str_date);
+                //设置cookie的存活时间
+                cookie.setMaxAge(60 * 60 * 24 * 30);//一个月
+                response.addCookie(cookie);
+
+
+                //响应数据
+                //获取Cookie的value，时间
+                String value = cookie.getValue();
+                System.out.println(&quot;解码前：&quot;+value);
+                //URL解码：
+                value = URLDecoder.decode(value,&quot;utf-8&quot;);
+                System.out.println(&quot;解码后：&quot;+value);
+%&gt;
+&lt;h1&gt;欢迎回来，您上次访问时间为:&lt;%=value%&gt;&lt;/h1&gt;
+&lt;input&gt;
+
+&lt;%
+
+
+
+                break;
+
+            }
+        }
+    }
+
+
+    if(cookies == null || cookies.length == 0 || flag == false){
+        //没有，第一次访问
+
+        //设置Cookie的value
+        //获取当前时间的字符串，重新设置Cookie的值，重新发送cookie
+        Date date  = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
+        String str_date = sdf.format(date);
+        System.out.println(&quot;编码前：&quot;+str_date);
+        //URL编码
+        str_date = URLEncoder.encode(str_date,&quot;utf-8&quot;);
+        System.out.println(&quot;编码后：&quot;+str_date);
+
+        Cookie cookie = new Cookie(&quot;lastTime&quot;,str_date);
+        //设置cookie的存活时间
+        cookie.setMaxAge(60 * 60 * 24 * 30);//一个月
+        response.addCookie(cookie);
+
+%&gt;
+
+&lt;h1&gt;您好，欢迎您首次访问&lt;/h1&gt;
+&lt;span&gt;&lt;/span&gt;
+
+&lt;%
+    }
+
+%&gt;
+
+&lt;input&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<h2 id="指令">指令</h2>
+<h3 id="作用">作用</h3>
+<p><strong>作用：用于配置JSP页面，导入资源文件</strong></p>
+<h3 id="格式">格式</h3>
+<p><strong>&lt;%@ 指令名称 属性名1=属性值1 属性名2=属性值2 ... %&gt;</strong></p>
+<h3 id="分类">分类</h3>
+<ol>
+<li>page      ： 配置JSP页面的</li>
+</ol>
+<ul>
+<li>contentType：等同于response.setContentType()
+<ol>
+<li>设置响应体的mime类型以及字符集</li>
+<li>设置当前jsp页面的编码（只能是高级的IDE才能生效，如果使用低级工具，则需要设置pageEncoding属性设置当前页面的字符集）</li>
+</ol>
+</li>
+<li>import：导包</li>
+<li>errorPage：当前页面发生异常后，会自动跳转到指定的错误页面</li>
+<li>isErrorPage：标识当前也是是否是错误页面。
+<ul>
+<li>true：是，可以使用内置对象exception</li>
+<li>false：否。默认值。不可以使用内置对象exception</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>include   ： 页面包含的。导入页面的资源文件</p>
+<pre><code class="language-jsp">&lt;%@include file=&quot;top.jsp&quot;%&gt;
+</code></pre>
+</li>
+<li>
+<p>taglib    ： 导入资源</p>
+<pre><code class="language-jsp">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+</code></pre>
+</li>
+</ol>
+<h2 id="注释">注释</h2>
+<ol>
+<li>html注释：</li>
+<li><strong><!-- -->:只能注释html代码片段</strong></li>
+<li>在网页源码中</li>
+<li>jsp注释：推荐使用
+<ol>
+<li>&lt;%-- --%&gt;：可以注释所有</li>
+<li>不会在网页源码中</li>
+</ol>
+</li>
+</ol>
+<h2 id="内置对象">内置对象</h2>
+<ul>
+<li>
+<p><strong>在jsp页面中不需要创建，直接使用的对象</strong></p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>真实类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageContext</td>
+<td>PageContext</td>
+<td>当前页面共享数据，还可以获取其他八个内置对象</td>
+</tr>
+<tr>
+<td>request</td>
+<td>HttpServletRequest</td>
+<td>一次请求访问的多个资源(转发)</td>
+</tr>
+<tr>
+<td>session</td>
+<td>HttpSession</td>
+<td>一次会话的多个请求间</td>
+</tr>
+<tr>
+<td>application</td>
+<td>ServletContext</td>
+<td>所有用户间共享数据</td>
+</tr>
+<tr>
+<td>response</td>
+<td>HttpServletResponse</td>
+<td>响应对象</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Object</td>
+<td>当前页面(Servlet)的对象  this</td>
+</tr>
+<tr>
+<td>out</td>
+<td>JspWriter</td>
+<td>输出对象，数据输出到页面上</td>
+</tr>
+<tr>
+<td>config</td>
+<td>ServletConfig</td>
+<td>Servlet的配置对象</td>
+</tr>
+<tr>
+<td>exception</td>
+<td>Throwable</td>
+<td>异常对象</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF">会话技术</a>
+<ul>
+<li><a href="#cookie">Cookie：</a>
+<ul>
+<li><a href="#1-%E6%A6%82%E5%BF%B5">1. 概念</a></li>
+<li><a href="#2-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">2. 快速入门：</a></li>
+<li><a href="#3-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">3.  实现原理</a></li>
+<li><a href="#4-cookie%E7%9A%84%E7%BB%86%E8%8A%82">4. cookie的细节</a></li>
+<li><a href="#5-cookie%E7%9A%84%E7%89%B9%E7%82%B9%E5%92%8C%E4%BD%9C%E7%94%A8">5. Cookie的特点和作用</a></li>
+<li><a href="#6-%E6%A1%88%E4%BE%8B%E8%AE%B0%E4%BD%8F%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">6. 案例：记住上一次访问时间</a></li>
+</ul>
+</li>
+<li><a href="#session%E4%B8%BB%E8%8F%9C">Session：主菜</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">快速入门：</a></li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E9%AA%8C%E8%AF%81%E7%A0%81">案例：验证码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jsp%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0">JSP：入门学习</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5-2">概念：</a></li>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a>
+<ul>
+<li><a href="#jsp%E7%9A%84%E8%84%9A%E6%9C%ACjsp%E5%AE%9A%E4%B9%89java%E4%BB%A3%E7%A0%81%E7%9A%84%E6%96%B9%E5%BC%8F">JSP的脚本：JSP定义Java代码的方式</a></li>
+<li><a href="#jsp%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1">JSP的内置对象：</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E6%94%B9%E9%80%A0cookie%E6%A1%88%E4%BE%8B">案例:改造Cookie案例</a></li>
+<li><a href="#%E6%8C%87%E4%BB%A4">指令</a>
+<ul>
+<li><a href="#%E4%BD%9C%E7%94%A8">作用</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F">格式</a></li>
+<li><a href="#%E5%88%86%E7%B1%BB">分类</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E9%87%8A">注释</a></li>
+<li><a href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1">内置对象</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/Python入门/">
+              <h3 class="post-title">
+                Python入门
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

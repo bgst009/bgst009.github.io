@@ -1,0 +1,303 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-寄存器（内存访问） | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-寄存器（内存访问） | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="寄存器（内存访问）
+
+3个段
+
+数据段
+1. 字的存储
+
+一次存放两个字节
+
+2.
+
+内存地址由 段地址 和 偏移地址 构成
+其中段地址默认保存在DS寄存器当中
+偏移地址由 [address] 保存告知
+
+3. mov，add，sub 指令..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-寄存器（内存访问）
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="寄存器内存访问">寄存器（内存访问）</h1>
+<hr>
+<h4 id="3个段">3个段</h4>
+<hr>
+<h2 id="数据段">数据段</h2>
+<h3 id="1-字的存储">1. 字的存储</h3>
+<blockquote>
+<p>一次存放两个字节</p>
+</blockquote>
+<h3 id="2">2.</h3>
+<blockquote>
+<p>内存地址由 <strong>段地址</strong> 和 <strong>偏移地址</strong> 构成<br>
+其中段地址默认保存在DS寄存器当中<br>
+偏移地址由 <strong>[address]</strong> 保存告知</p>
+</blockquote>
+<h3 id="3-movaddsub-指令">3. mov，add，sub 指令</h3>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923023855.png" alt="" loading="lazy"></figure>
+<h3 id="4-d-段地址偏移地址">4. -d 段地址：偏移地址</h3>
+<h3 id="5-在内存中存放自己定义的数据通过-ds和-来-让cpu访问数据">5. 在内存中存放自己定义的数据，通过 <em><strong>ds和[]</strong></em> 来 让CPU访问数据</h3>
+<h2 id="代码段">代码段</h2>
+<h3 id="1-段地址存放在cs寄存器中">1. 段地址存放在cs寄存器中</h3>
+<h3 id="2-偏移地址存放在ip寄存器当中">2. 偏移地址存放在ip寄存器当中</h3>
+<h3 id="3-内存中存放代码">3. 内存中存放代码</h3>
+<h3 id="4-修改csip中的值就可使cpu执行代码">4. 修改cs:ip中的值就可使CPU执行代码</h3>
+<h2 id="栈段">栈段</h2>
+<h3 id="1-栈的作用">1. 栈的作用</h3>
+<ol>
+<li>临时性保存数据</li>
+<li>进行数据交换</li>
+</ol>
+<pre><code class="language-assembly">-a
+mov ax,1000
+mov bx,2000
+push ax
+push bx
+pop ax
+pop bx
+</code></pre>
+<h3 id="2-栈的寄存器sssp">2. 栈的寄存器ss:sp</h3>
+<h3 id="3-操作指令puship">3. 操作指令push&amp;ip</h3>
+<blockquote>
+<p>push 执行过程</p>
+<blockquote>
+<p>1.sp=sp-2（栈顶标记）<br>
+2.传入字型数据</p>
+</blockquote>
+<p>pop 执行过程</p>
+<blockquote>
+<p>1.传出字或字节<br>
+2.sp=sp+2(栈顶标记）</p>
+</blockquote>
+<p>栈顶标记 在 数据（内存地址）的上面 的 内存地址<br>
+sp 偏移地址寄存器 ss 段地址寄存器</p>
+</blockquote>
+<h3 id="4-处理数据时要-临时存放数据">4. 处理数据时要 ，临时存放数据</h3>
+<h3 id="5-修改sssp中的值决定栈顶位置cpu在执行的过程中把我们定义的栈段当作栈使用">5. 修改ss:sp中的值，决定栈顶位置，CPU在执行的过程中把我们定义的栈段当作栈使用</h3>
+<h3 id="6-一段连续的内存地址">6. 一段连续的内存地址</h3>
+<h3 id="7-栈的容量的最大极限">7. 栈的容量的最大极限</h3>
+<blockquote>
+<p>sp 的变化范围 0~ffffH 32768 个字型数据<br>
+call 将指令IP 保存到内存的哪里？  ret 可以拿回</p>
+<blockquote>
+<p>保存到栈中 为了让 ret 从栈中取回</p>
+</blockquote>
+</blockquote>
+<h3 id="8每执行-一条-t-指令-就会将寄存器的值保存到-栈中">8.每执行 一条 -t 指令 就会将寄存器的值保存到 栈中</h3>
+<h2 id="内存的安全访问">内存的安全访问</h2>
+<ol>
+<li>安全空间 0：200~0: 2ffH</li>
+<li>内存分配的时间 1. 系统加载程序的时候 为程序分配的内存。2. 程序执行过程中，向系统再去要内存空间</li>
+</ol>
+<h1 id="承上启下">承上启下</h1>
+<hr>
+<ul>
+<li>我们可以把内存任意的划分为 栈，数据，指令 ，他们可以是同一块内存，亦可以是不同的内存</li>
+<li>cpu 通过 ss:sp 所指向的 内存作为 栈</li>
+<li>ds:[] 所指向的 内存 作为数据</li>
+<li>cs:ip 所指向的 内存 作为指令</li>
+</ul>
+<p><strong>指令从哪里？数据从哪来？临时性的数据存放到哪里？</strong></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE">寄存器（内存访问）</a><br>
+*<br>
+*<br>
+* <a href="#3%E4%B8%AA%E6%AE%B5">3个段</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%AE%B5">数据段</a>
+<ul>
+<li><a href="#1-%E5%AD%97%E7%9A%84%E5%AD%98%E5%82%A8">1. 字的存储</a></li>
+<li><a href="#2">2.</a></li>
+<li><a href="#3-movaddsub-%E6%8C%87%E4%BB%A4">3. mov，add，sub 指令</a></li>
+<li><a href="#4-d-%E6%AE%B5%E5%9C%B0%E5%9D%80%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80">4. -d 段地址：偏移地址</a></li>
+<li><a href="#5-%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E5%AD%98%E6%94%BE%E8%87%AA%E5%B7%B1%E5%AE%9A%E4%B9%89%E7%9A%84%E6%95%B0%E6%8D%AE%E9%80%9A%E8%BF%87-ds%E5%92%8C-%E6%9D%A5-%E8%AE%A9cpu%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE">5. 在内存中存放自己定义的数据，通过 <em><strong>ds和[]</strong></em> 来 让CPU访问数据</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E6%AE%B5">代码段</a>
+<ul>
+<li><a href="#1-%E6%AE%B5%E5%9C%B0%E5%9D%80%E5%AD%98%E6%94%BE%E5%9C%A8cs%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD">1. 段地址存放在cs寄存器中</a></li>
+<li><a href="#2-%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80%E5%AD%98%E6%94%BE%E5%9C%A8ip%E5%AF%84%E5%AD%98%E5%99%A8%E5%BD%93%E4%B8%AD">2. 偏移地址存放在ip寄存器当中</a></li>
+<li><a href="#3-%E5%86%85%E5%AD%98%E4%B8%AD%E5%AD%98%E6%94%BE%E4%BB%A3%E7%A0%81">3. 内存中存放代码</a></li>
+<li><a href="#4-%E4%BF%AE%E6%94%B9csip%E4%B8%AD%E7%9A%84%E5%80%BC%E5%B0%B1%E5%8F%AF%E4%BD%BFcpu%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81">4. 修改cs:ip中的值就可使CPU执行代码</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%88%E6%AE%B5">栈段</a>
+<ul>
+<li><a href="#1-%E6%A0%88%E7%9A%84%E4%BD%9C%E7%94%A8">1. 栈的作用</a></li>
+<li><a href="#2-%E6%A0%88%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8sssp">2. 栈的寄存器ss:sp</a></li>
+<li><a href="#3-%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4puship">3. 操作指令push&amp;ip</a></li>
+<li><a href="#4-%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E6%97%B6%E8%A6%81-%E4%B8%B4%E6%97%B6%E5%AD%98%E6%94%BE%E6%95%B0%E6%8D%AE">4. 处理数据时要 ，临时存放数据</a></li>
+<li><a href="#5-%E4%BF%AE%E6%94%B9sssp%E4%B8%AD%E7%9A%84%E5%80%BC%E5%86%B3%E5%AE%9A%E6%A0%88%E9%A1%B6%E4%BD%8D%E7%BD%AEcpu%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8A%8A%E6%88%91%E4%BB%AC%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A0%88%E6%AE%B5%E5%BD%93%E4%BD%9C%E6%A0%88%E4%BD%BF%E7%94%A8">5. 修改ss:sp中的值，决定栈顶位置，CPU在执行的过程中把我们定义的栈段当作栈使用</a></li>
+<li><a href="#6-%E4%B8%80%E6%AE%B5%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80">6. 一段连续的内存地址</a></li>
+<li><a href="#7-%E6%A0%88%E7%9A%84%E5%AE%B9%E9%87%8F%E7%9A%84%E6%9C%80%E5%A4%A7%E6%9E%81%E9%99%90">7. 栈的容量的最大极限</a></li>
+<li><a href="#8%E6%AF%8F%E6%89%A7%E8%A1%8C-%E4%B8%80%E6%9D%A1-t-%E6%8C%87%E4%BB%A4-%E5%B0%B1%E4%BC%9A%E5%B0%86%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%80%BC%E4%BF%9D%E5%AD%98%E5%88%B0-%E6%A0%88%E4%B8%AD">8.每执行 一条 -t 指令 就会将寄存器的值保存到 栈中</a></li>
+</ul>
+</li>
+<li><a href="#%E5%86%85%E5%AD%98%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE">内存的安全访问</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%BF%E4%B8%8A%E5%90%AF%E4%B8%8B">承上启下</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-寄存器/">
+              <h3 class="post-title">
+                汇编语言-寄存器
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

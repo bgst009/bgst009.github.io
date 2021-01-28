@@ -1,0 +1,513 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>面向对象和封装 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="面向对象和封装 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="[TOC]
+面向对象
+
+1.概念
+当实现一个功能的时候，不考虑具体的每一步该怎么做，而是让一个有该功能的人来做
+区别 面向过程--每一步都亲历亲为
+
+代码用例
+      //面向过程
+      System.out.print(&quo..." />
+    <meta name="keywords" content="Java_basic" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              面向对象和封装
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-14
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/oenOsAIQjU/" class="post-tag">
+                  # Java_basic
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>[TOC]</p>
+<h1 id="面向对象">面向对象</h1>
+<hr>
+<h2 id="1概念">1.概念</h2>
+<p>当实现一个功能的时候，不考虑具体的每一步该怎么做，而是让一个有该功能的人来做<br>
+区别 <strong>面向过程</strong>--每一步都亲历亲为</p>
+<blockquote>
+<p>代码用例</p>
+<pre><code class="language-java">      //面向过程
+      System.out.print(&quot;[&quot;);
+      for (int i = 0; i &lt; arr.length; i++) {
+          if (i == arr.length - 1) {
+              System.out.println(arr[i] + &quot;]&quot;);
+          } else
+              System.out.print(arr[i] + &quot;, &quot;);
+      }
+      System.out.println(&quot;*********************&quot;);
+      //面向对象
+      System.out.println(Arrays.toString(arr));
+</code></pre>
+</blockquote>
+<h2 id="2基本特征">2.基本特征</h2>
+<h3 id="1封装">1.<strong>封装</strong></h3>
+<hr>
+<blockquote>
+<p>方法就是封装</p>
+<p>private关键字也是一种分封装，修饰成员变量</p>
+<blockquote>
+<p>间接访问成员变量，就必须定义一对方法  getter\setter</p>
+<p>封装就是隐藏细节信息，对外界不可见</p>
+</blockquote>
+</blockquote>
+<h3 id="2继承">2.<strong>继承</strong></h3>
+<hr>
+<blockquote>
+<p>*继承是多态的前提<br>
+*没有继承就没有多态<br>
+*共性抽取</p>
+<table>
+<thead>
+<tr>
+<th>父类</th>
+<th>子类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基类，超类</td>
+<td>派生类</td>
+</tr>
+</tbody>
+</table>
+<p>如果子类与父类成员变量重名，则会有两种访问成员变量的方法</p>
+<table>
+<thead>
+<tr>
+<th>1.间接</th>
+<th>2. 直接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方法属于谁，优先用，若无则向上找</td>
+<td>等号左边优先使用，属于本类若无则向上找</td>
+</tr>
+<tr>
+<td>如果子类，父类和局部成员变量重名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>局部变量</th>
+<th>直接写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本类的成员变量</td>
+<td>this.成员变量</td>
+</tr>
+<tr>
+<td>父类的成员变量</td>
+<td>super.成员变量</td>
+</tr>
+</tbody>
+</table>
+<p>子类方法的返回值必须 &lt;= 父类的返回值<br>
+子类方法的权限必须 &gt;= 父类的权限</p>
+<blockquote>
+<p>public &gt; protected &gt; (default) &gt; private</p>
+<p>子类的构造方法中默认调用父类的构造方法super（）；</p>
+</blockquote>
+</blockquote>
+<h3 id="3多态">3.<strong>多态</strong></h3>
+<hr>
+<blockquote>
+<p>多种形态  秀明为学生又是人，既有学生形态，又有人类形态</p>
+</blockquote>
+<blockquote>
+<p>格式polymorphic <strong>左父右子  $$fatherclassName- obj = new- childclassName()$$</strong></p>
+</blockquote>
+<h2 id="3类和对象">3.类和对象</h2>
+<hr>
+<blockquote>
+<p>类 是抽象的（设计图纸）<br>
+对象 是具体的（手里的产品）<br>
+类是对象的模板，对象是类的实体</p>
+</blockquote>
+<h3 id="1类的定义">1.类的定义</h3>
+<hr>
+<p><strong>类和事务的对比</strong></p>
+<table>
+<thead>
+<tr>
+<th>世界</th>
+<th>属性</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>现实</td>
+<td>事务的状态信息</td>
+<td>事务可以干什么</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>成员变量</td>
+<td>成员方法</td>
+</tr>
+</tbody>
+</table>
+<p><strong>类的定义实例</strong></p>
+<pre><code class="language-java"> public class student {
+     //成员变量
+     String name;
+     int age;
+     //成员方法
+     public void eat(){
+         System.out.println(&quot;eaaaaaaaaaaaaaaat&quot;);
+     }
+     public  void  sleep(){
+         System.out.println(&quot;sleeeeeeeeeeeeeeep&quot;);
+     }
+     public void study(){
+         System.out.println(&quot;stuuuuuuuuuuuuuuuudy&quot;);
+     }
+ }
+</code></pre>
+<h3 id="2类的使用">2.类的使用</h3>
+<pre><code class="language-java">     //1.导包
+     //2.创建
+     student mike = new student();
+
+     String name=&quot;root&quot;;
+     mike.name=name;
+     mike.age=18;
+
+     System.out.println(mike.name);
+     System.out.println(mike.age);
+
+     mike.eat();
+     mike.sleep();
+     mike.study();
+ }
+</code></pre>
+<ul>
+<li>当一个对象作为参数，传递到方法中，实际上是传递的对象的地址值</li>
+<li>
+<pre><code>        返回值，其实就是返回对象的地址值
+</code></pre>
+</li>
+</ul>
+<h3 id="4成员变量与局部变量">4.成员变量与局部变量</h3>
+<ul>
+<li>成员变量相当于c里的全局变量</li>
+<li>生存期不同</li>
+<li>所处的内存区不同</li>
+</ul>
+<h3 id="5this-类似于c的this指针">5.this 类似于c++的this指针</h3>
+<ul>
+<li>参数的名字和成员变量的名字相同的时候用</li>
+</ul>
+<h3 id="6-标准的类组成java-bean">6. 标准的类组成（Java bean）</h3>
+<ul>
+<li>all 成员变量都有private关键字</li>
+<li>为每一个成员变量编写 (getter和setter)</li>
+<li>编写一个无参构造函数和一个有参构造函数</li>
+</ul>
+<h3 id="7-快速生成代码">7. 快速生成代码</h3>
+<ul>
+<li>code -&gt; generate -&gt; getter &amp; setter</li>
+<li>or constructor</li>
+</ul>
+<h3 id="8-继承代码规范">8. 继承代码规范</h3>
+<ul>
+<li>父类就是普通的类</li>
+<li>子类格式为</li>
+</ul>
+<blockquote>
+<p>public class 子类名 <mark>extends</mark> 父类名</p>
+</blockquote>
+<h3 id="9-匿名对象">9. 匿名对象</h3>
+<blockquote>
+<p>new 类名（）；</p>
+</blockquote>
+<h3 id="10-final关键字最终的不可变的">10. final关键字，最终的不可变的</h3>
+<ul>
+<li>可以修饰一个类</li>
+</ul>
+<pre><code class="language-java">    public final class name(){
+    ....
+    }
+    翻译不能有任何子类（太监类）
+</code></pre>
+<ul>
+<li>可以修饰一个方法,则该方法不可被子类覆盖重写（override）不可和abstract关键字同时使用</li>
+<li>可以修饰局部变量，一次赋值，终身不变，只能赋值一次</li>
+<li>可以修饰成员变量，此变量不可变，必须手动直接赋值或者通过构造赋值</li>
+</ul>
+<h2 id="4-內部类">4. 內部类</h2>
+<blockquote>
+<p>一个事务内包含另一个事务，一个类中包含另一个类</p>
+<blockquote>
+<p>身体和心脏</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>类中套类，类随便用外，但是外用内需要局部类对象</p>
+</blockquote>
+<h3 id="分类">分类</h3>
+<blockquote>
+<p>1.成员内部类<br>
+2.局部內部类（匿名内部类）</p>
+</blockquote>
+<h3 id="格式">格式</h3>
+<pre><code class="language-java">//1.成员内部类
+修饰符 class 外部类名称{
+  ·······
+  修饰符 class 內部类名称{
+  ·····
+  }
+}
+</code></pre>
+<h3 id="内部类访问">内部类访问</h3>
+<p>1.直接访问</p>
+<pre><code class="language-java">//间接访问内部类
+        body body = new body(&quot;Jim&quot;);
+        body.methonBody();//外部类对象
+</code></pre>
+<p>2.间接访问</p>
+<pre><code class="language-java">//直接访问
+        body.heart heart= new body(&quot;Tom&quot;).new heart();
+        heart.methonHeart();
+</code></pre>
+<blockquote>
+<p>重名变量访问<mark>outer</mark><br>
+<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024039.png" alt="" loading="lazy"><br>
+局部内部类（方法里面的类）<br>
+<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024053.png" alt="" loading="lazy"></p>
+</blockquote>
+<h3 id="类定义的权限修饰符规则">类定义的权限修饰符规则</h3>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>外部类</th>
+<th>成员內部类</th>
+<th>局部内部类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public（/default）</td>
+<td>全部都可</td>
+<td>什么都不写</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<blockquote>
+<p><strong>匿名内部类（重点）</strong></p>
+<ul>
+<li>格式</li>
+</ul>
+<blockquote>
+<p>接口名 对象名 = new 接口名（）{<br>
+@override<br>
+方法实现<br>
+}<br>
+<img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024114.png" alt="" loading="lazy"></p>
+</blockquote>
+<ul>
+<li>注意事项</li>
+</ul>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">面向对象</a>
+<ul>
+<li><a href="#1%E6%A6%82%E5%BF%B5">1.概念</a></li>
+<li><a href="#2%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81">2.基本特征</a>
+<ul>
+<li><a href="#1%E5%B0%81%E8%A3%85">1.<strong>封装</strong></a></li>
+<li><a href="#2%E7%BB%A7%E6%89%BF">2.<strong>继承</strong></a></li>
+<li><a href="#3%E5%A4%9A%E6%80%81">3.<strong>多态</strong></a></li>
+</ul>
+</li>
+<li><a href="#3%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1">3.类和对象</a>
+<ul>
+<li><a href="#1%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89">1.类的定义</a></li>
+<li><a href="#2%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8">2.类的使用</a></li>
+<li><a href="#4%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">4.成员变量与局部变量</a></li>
+<li><a href="#5this-%E7%B1%BB%E4%BC%BC%E4%BA%8Ec%E7%9A%84this%E6%8C%87%E9%92%88">5.this 类似于c++的this指针</a></li>
+<li><a href="#6-%E6%A0%87%E5%87%86%E7%9A%84%E7%B1%BB%E7%BB%84%E6%88%90java-bean">6. 标准的类组成（Java bean）</a></li>
+<li><a href="#7-%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81">7. 快速生成代码</a></li>
+<li><a href="#8-%E7%BB%A7%E6%89%BF%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83">8. 继承代码规范</a></li>
+<li><a href="#9-%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1">9. 匿名对象</a></li>
+<li><a href="#10-final%E5%85%B3%E9%94%AE%E5%AD%97%E6%9C%80%E7%BB%88%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84">10. final关键字，最终的不可变的</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%85%A7%E9%83%A8%E7%B1%BB">4. 內部类</a>
+<ul>
+<li><a href="#%E5%88%86%E7%B1%BB">分类</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F">格式</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB%E8%AE%BF%E9%97%AE">内部类访问</a></li>
+<li><a href="#%E7%B1%BB%E5%AE%9A%E4%B9%89%E7%9A%84%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E8%A7%84%E5%88%99">类定义的权限修饰符规则</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/shell编程/">
+              <h3 class="post-title">
+                shell编程
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

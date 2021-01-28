@@ -1,0 +1,315 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C语言综合研究与高强度程序设计训练10 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="C语言综合研究与高强度程序设计训练10 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+阅读下面的内容，理解每一个细节，然后构选程序来描述函数指针数组的用法和向函数传函数指针的方法
+关于函数指针
+指针的值是地址，函数指针的值是函数的入口地址
+下面与int·型变量对比，说明函数指针变量的定义方法
+int a;整型变量a
+int..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              C语言综合研究与高强度程序设计训练10
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-09
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>阅读下面的内容，理解每一个细节，然后构选程序来描述函数指针数组的用法和向函数传函数指针的方法</p>
+<p>关于函数指针</p>
+<p>指针的值是地址，函数指针的值是函数的入口地址</p>
+<p>下面与<code>int</code>·型变量对比，说明函数指针变量的定义方法</p>
+<p><code>int a;</code>整型变量a</p>
+<p><code>int*a;</code>整型指针变量a</p>
+<p><code>int a(char,char)</code>;函数<code>a</code>，函数类型为:返回值为<code>int</code>，参数为<code>char</code>、<code>char</code></p>
+<p><code>int (*a)(char,char);</code>返回值为<code>int</code>，参数为 <code>charchar</code>的函数的函数指针变量a</p>
+<p>可见类型加 <code>*</code> 则表示指向某种类型的指针。</p>
+<p>为什么<code>int*a</code>直接加<code>＊</code>，而<code>int（*a）（char，char）</code>要用括号？</p>
+<p>如果不加括号<code>:int＊a（char，char）</code>是返回<code>int＊</code>的函数。为了不和函数<code>int*a（ char char）</code>混淆加上括号，<code>int（*a）（char，char</code>）表示一个指向函数的指针。</p>
+<p>下面与<code>int</code>型对比，说明函数指针类型的描述方法:</p>
+<p><code>int a;</code>整型变量a</p>
+<p><code>int</code>整型</p>
+<p><code>int (*a)(char,char);</code>函数指针a</p>
+<p><code>int (*)(char,char);</code>函数指针<code>a</code>返回值为<code>int</code>型，参数为<code>char</code>、<code>char</code>的函数的函数指针</p>
+</blockquote>
+<blockquote>
+<p>函数指针使用举例:</p>
+</blockquote>
+<ul>
+<li>
+<p>程序1</p>
+<pre><code class="language-c">int f(char, char);
+main() {
+    int a;
+    int b;
+    long c;
+    int (*p)(char, char);
+
+    p = f;
+    b = (int)f;
+    c = (long)f;
+
+    printf(&quot;main=%x f=%x\n&quot;, main, f);
+    printf(&quot;p=%x    b=%x c=%lx\n&quot;, p, b, c);
+
+    a = p(1, 2);
+    printf(&quot;%d\n&quot;, a);
+
+    a = ((int (*)(char, char))b)(1, 2);
+    printf(&quot;%d\n&quot;, a);
+}
+int f(char a, char b) { return a + b; }
+</code></pre>
+</li>
+<li>
+<p>程序2</p>
+<pre><code class="language-c">int far f(char, char);
+main() {
+    int a;
+    int b;
+    long c;
+    int(far * p)(char, char);
+
+    p = f;
+    b = (int)f;
+    c = (long)f;
+
+    printf(&quot;main offset=%x\n&quot;, main);
+    printf(&quot;main=%lx\n&quot;, (long)main);
+    printf(&quot;f offset=%x\n&quot;, (int)f);
+    printf(&quot;f=%lx\n&quot;, f);
+    printf(&quot;p=%lx b=%x c=%lx\n&quot;, p, b, c);
+
+    a = p(1, 2);
+    printf(&quot;%d\n&quot;, a);
+
+    a = ((int(far *)(char, char))c)(1, 2);
+    printf(&quot;%d\n&quot;, a);
+}
+int far f(char a, char b) { return a + b; }
+</code></pre>
+</li>
+</ul>
+<h2 id="向函数传函数指针">向函数传函数指针</h2>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">int add(int a, int b) { return a + b; }
+int f2(int (*p)(int, int));
+int a;
+main() {
+    p = add;
+    a = f2(p);
+    printf(&quot;%d\n&quot;, a);
+}
+int f2(int (*p)(int, int)) {
+    printf(&quot;---------------f2-----------------\n&quot;);
+    return p(1, 2) + 1;
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201009102929.png" alt="image-20201009102929141" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="函数指针数组的用法">函数指针数组的用法</h2>
+<ul>
+<li>
+<p>code</p>
+<pre><code class="language-c">int add(int a, int b) { return a + b; }
+int sub(int a, int b) { return a - b; }
+int mul(int a, int b) { return a * b; }
+int div(int a, int b) { return a / b; }
+int f2(int (*p)(int, int));
+void f3(int (*p[])(int, int), int);
+int (*p)(int, int);
+int (*pb[4])(int, int) = {add, sub, mul, div};
+int a;
+int i;
+main() {
+    p = add;
+    a = f2(p);
+    printf(&quot;%d\n&quot;, a);
+    f3(pb, 4);
+}
+int f2(int (*p)(int, int)) {
+    printf(&quot;---------------f2-----------------\n&quot;);
+    return p(1, 2) + 1;
+}
+void f3(int (*p[])(int, int), int size) {
+    printf(&quot;---------------f3-----------------\n&quot;);
+    for (i = 0; i &lt; size; i++) {
+        a = p[i](8, 4);
+        printf(&quot;%d\n&quot;, a);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>运行结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201009103102.png" alt="image-20201009103102619" loading="lazy"></figure>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%90%91%E5%87%BD%E6%95%B0%E4%BC%A0%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">向函数传函数指针</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E7%9A%84%E7%94%A8%E6%B3%95">函数指针数组的用法</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-9/">
+              <h3 class="post-title">
+                C语言综合研究与高强度程序设计训练9
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

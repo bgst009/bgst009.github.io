@@ -1,0 +1,245 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-定位内存地址的方法 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-定位内存地址的方法 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="定位内存地址的方法
+and 和 or
+
+and 逻辑与  0  置为0
+
+全为 1 才出 1 否则全部为 0
+可用于 对 二进制位的数字 设 0
+
+
+or 逻辑或     1  置为1
+
+只要有1 就为 1
+可用于对 二进制数字设 1
+
+
+..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-定位内存地址的方法
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="定位内存地址的方法">定位内存地址的方法</h1>
+<h2 id="and-和-or">and 和 or</h2>
+<ol>
+<li>and 逻辑与  0  置为0
+<ol>
+<li>全为 <strong>1</strong> 才出 <strong>1</strong> 否则全部为 <strong>0</strong></li>
+<li>可用于 对 二进制位的数字 设 <strong>0</strong></li>
+</ol>
+</li>
+<li>or 逻辑或     1  置为1
+<ol>
+<li>只要有<strong>1</strong> 就为 <strong>1</strong></li>
+<li>可用于对 二进制数字设 <strong>1</strong></li>
+</ol>
+</li>
+</ol>
+<h2 id="以字符的形式给出数据">以字符的形式给出数据</h2>
+<ul>
+<li>like  ‘………’ 	其中单引号包含的 内容 编译器将把 其中的内容 转化为相应的 ASCII</li>
+</ul>
+<h2 id="大小写转换">大小写转换</h2>
+<p>and 置为大写 1101 1111b</p>
+<p>or    置为小写 0100 0000b</p>
+<h2 id="bxidata">[bx+idata]</h2>
+<ul>
+<li>idata 是立即数</li>
+</ul>
+<blockquote>
+<p>常用格式</p>
+<ol>
+<li>mov ax,[200+bx]</li>
+<li>mov ax,200[bx]</li>
+<li>mov ax,[bx].200</li>
+</ol>
+</blockquote>
+<ul>
+<li>可以处理数组</li>
+</ul>
+<h2 id="si-和-di">SI 和 DI</h2>
+<ul>
+<li>类似于<strong>BX</strong> <mark>但是</mark> 不能 分成两个 8 为寄存器</li>
+<li>全为偏移地址寄存器 <strong><mark>bx为基址寄存器</mark></strong></li>
+</ul>
+<h2 id="bxsi-和-bxdi">[BX+SI] 	和 [BX+DI]</h2>
+<blockquote>
+<p>常用格式</p>
+<p><strong>mov ax,[bx] [si]</strong></p>
+</blockquote>
+<h2 id="bxsiidata-和-bxdiidata">[BX+SI+idata] 和 [bx+di+idata]</h2>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%9A%E4%BD%8D%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E7%9A%84%E6%96%B9%E6%B3%95">定位内存地址的方法</a>
+<ul>
+<li><a href="#and-%E5%92%8C-or">and 和 or</a></li>
+<li><a href="#%E4%BB%A5%E5%AD%97%E7%AC%A6%E7%9A%84%E5%BD%A2%E5%BC%8F%E7%BB%99%E5%87%BA%E6%95%B0%E6%8D%AE">以字符的形式给出数据</a></li>
+<li><a href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2">大小写转换</a></li>
+<li><a href="#bxidata">[bx+idata]</a></li>
+<li><a href="#si-%E5%92%8C-di">SI 和 DI</a></li>
+<li><a href="#bxsi-%E5%92%8C-bxdi">[BX+SI] 	和 [BX+DI]</a></li>
+<li><a href="#bxsiidata-%E5%92%8C-bxdiidata">[BX+SI+idata] 和 [bx+di+idata]</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-自己分配内存/">
+              <h3 class="post-title">
+                汇编语言-自己分配内存
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

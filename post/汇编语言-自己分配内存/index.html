@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>汇编语言-自己分配内存 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="汇编语言-自己分配内存 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="自己分配内存
+自己分配内存
+
+一个 segement 最少占据 16 个字节
+
+
+假设 数据段 有 N个字节 则 实际占用 $$(N/16 + 1)*16$$ 个
+
+
+都是 16 的倍数
+
+//实验5
+assume cs:codesg
+
+a..." />
+    <meta name="keywords" content="归纳" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              汇编语言-自己分配内存
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-17
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/9EqYBcXwSl/" class="post-tag">
+                  # 归纳
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="自己分配内存">自己分配内存</h1>
+<h2 id="自己分配内存-2">自己分配内存</h2>
+<ul>
+<li>一个 segement 最少占据 16 个字节</li>
+<li>
+<blockquote>
+<p>假设 数据段 有 N个字节 则 实际占用 $$(N/16 + 1)*16$$ 个</p>
+</blockquote>
+</li>
+<li>都是 16 的倍数</li>
+</ul>
+<pre><code class="language-Assembly">//实验5
+assume cs:codesg
+
+a segment
+		db 1,2,3,4,5,6,7,8
+a ends
+
+b segment
+		db 1,2,3,4,5,6,7,8
+b ends
+
+c segment
+		db 0,0,0,0,0,0,0,0
+c ends
+
+codesg segment
+
+start:
+
+
+		mov ax,c
+		mov es,ax
+
+
+		sub cx,cx
+		sub bx,bx
+		add cx,8
+
+addnum: mov ax,a
+		mov ds,ax
+
+		sub dx,dx
+
+		mov dl,ds:[bx] ;拿出第一个数据
+
+		mov ax,b
+		mov ds,ax
+
+		add dl,ds:[bx]  ;拿出第二个数据,并且相加
+
+		mov es:[bx],dl
+
+		inc bx
+
+		loop addnum
+
+
+
+	mov ax,4c00h
+	int 21h
+
+codesg ends
+
+end start
+</code></pre>
+<h2 id="总结">总结</h2>
+<ul>
+<li>db 字节型</li>
+<li>dw 字型</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E8%87%AA%E5%B7%B1%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98">自己分配内存</a>
+<ul>
+<li><a href="#%E8%87%AA%E5%B7%B1%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98-2">自己分配内存</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/汇编语言-第一个程序/">
+              <h3 class="post-title">
+                汇编语言-第一个程序
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

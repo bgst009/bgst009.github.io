@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C语言综合研究与高强度程序设计训练7 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="C语言综合研究与高强度程序设计训练7 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+写一个程序，进行如下工作:
+（1）从内存偏移地址2000h处开始，读取偏移地址n处的整型数据d，按照如下格式打印
+偏移地址n数据d
+（2）将数据d当作新的偏移地址n，读取偏移地址n处的整型数据d按照上面的格式打印。直到偏移地址为xff为，..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              C语言综合研究与高强度程序设计训练7
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-04
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>写一个程序，进行如下工作:<br>
+（1）从内存偏移地址2000h处开始，读取偏移地址n处的整型数据d，按照如下格式打印<br>
+偏移地址n数据d<br>
+（2）将数据d当作新的偏移地址n，读取偏移地址n处的整型数据d按照上面的格式打印。直到偏移地址为xff为，或用户从键盘输入字符“q”</p>
+</blockquote>
+<h2 id="1">1</h2>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">int n = 0x2000;
+int c;
+int t;
+main() {
+    while (n != 0xffff &amp;&amp; c != 'q') {
+        printf(&quot;offset address %xh -&gt; data %c\n&quot;, n, *(char *)n);
+        printf(&quot;stop input q: &quot;);
+        scanf(&quot;%c&quot;, &amp;c);
+        printf(&quot;\ninput n: &quot;);
+        scanf(&quot;%x&quot;, &amp;t);
+        n += t;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005123641.png" alt="image-20201005123640831" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="2">2</h2>
+<ul>
+<li>
+<p><code>b.c</code></p>
+<pre><code class="language-c">int n = 0x2000;
+int c;
+int t;
+main() {
+    while (n != 0xffff &amp;&amp; c != 'q') {
+        printf(&quot;offset address %xh -&gt; data %c\n&quot;, n, *(int *)n);
+
+        printf(&quot;stop input q: &quot;);
+        scanf(&quot;%c&quot;, &amp;c);
+
+        printf(&quot;\ninput n: &quot;);
+        scanf(&quot;%x&quot;, &amp;t);
+        t += n;
+        n += *(int *)t;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005124652.png" alt="image-20201005124652055" loading="lazy"></figure>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/1003_-zong-he-yan-jiu-4-5-bu-chong-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                1003_综合研究4-5补充研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

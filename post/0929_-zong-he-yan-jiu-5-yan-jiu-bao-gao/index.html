@@ -1,0 +1,572 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>0929_综合研究5研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="0929_综合研究5研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+用debug 对一下程序进行分析，记录每一条c语句运行后，相关内存单元的值
+
+a.c
+
+注意理解指针的机制，“**” 和 “&amp;” 运算的意义
+
+char ch;
+char *p;
+char **pa;
+char far *pf;
+..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              0929_综合研究5研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-29
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>用<mark>debug</mark> 对一下程序进行分析，记录每一条c语句运行后，相关内存单元的值</p>
+</blockquote>
+<h2 id="ac">a.c</h2>
+<blockquote>
+<p>注意理解指针的机制，“**” 和 “&amp;” 运算的意义</p>
+</blockquote>
+<pre><code class="language-c">char ch;
+char *p;
+char **pa;
+char far *pf;
+int n;
+
+main() {
+    p = (unsigned char *)0x1000;
+    ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;
+
+    p = &amp;ch;
+
+    *p = *p + 1;
+
+    pa = &amp;p;
+    **pa = **pa + 1;
+
+    pf = (char far *)&amp;ch;
+    *pf = *pf + 1;
+
+    n = (int)&amp;ch;
+    *(char *)n = *(char *)n + 1;
+}
+</code></pre>
+<ul>
+<li>
+<p>第一句 <code>p = (unsigned char *)0x1000;</code>p在数据段中偏移地址为<mark>01af</mark>然后看内存中的值</p>
+<pre><code class="language-c">    /*mov	word ptr DGROUP:_p,4096*/
+    p = (unsigned char *)0x1000;
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114715.png" alt="image-20200929114715440" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114758.png" alt="image-20200929114758733" loading="lazy"></figure>
+</li>
+<li>
+<p>第二句 <code>ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;</code></p>
+<pre><code class="language-c">    /*
+        mov	al,byte ptr [4096]
+        mov	bx,word ptr DGROUP:_p
+        add	al,byte ptr [bx]
+        xor	bx,bx
+        mov	es,bx
+        mov	bx,512
+        add	al,byte ptr es:[bx]
+        mov	byte ptr DGROUP:_ch,al
+    */
+    ch = *(unsigned char *)0x1000 + *p + *(unsigned char far *)0x200;
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114830.png" alt="image-20200929114830832" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929114933.png" alt="image-20200929114933614" loading="lazy"></figure>
+</li>
+<li>
+<p>第三句 <code>p = &amp;ch;</code></p>
+<pre><code class="language-c">    /*                      [01af]            01a8*/
+    /*mov	word ptr DGROUP:_p,offset DGROUP:_ch*/
+    p = &amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115117.png" alt="image-20200929115116923" loading="lazy"></figure>
+</li>
+<li>
+<p>第四句 <code>*p = *p + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_p
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_p
+        mov	byte ptr [bx],al
+    */
+    *p = *p + 1;
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115201.png" alt="image-20200929115201697" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115239.png" alt="image-20200929115238797" loading="lazy"></figure>
+</li>
+<li>
+<p>第五句 <code>pa = &amp;p;</code></p>
+<pre><code class="language-c">    /*                ds:[01a6]         01af
+    mov	word ptr DGROUP:_pa,offset DGROUP:_p
+    */
+    pa = &amp;p;
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115547.png" alt="image-20200929115547139" loading="lazy"></figure>
+</li>
+<li>
+<p>第六句 <code>**pa = **pa + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_pa
+        mov	bx,word ptr [bx]
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_pa
+        mov	bx,word ptr [bx] bx=01a6
+        mov	byte ptr [bx],al
+    */
+    **pa = **pa + 1;
+</code></pre>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115644.png" alt="image-20200929115644803" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115712.png" alt="image-20200929115711875" loading="lazy"></figure>
+</li>
+<li>
+<p>第七句 <code>pf = (**char** far *)&amp;ch;</code></p>
+<pre><code class="language-c">    /*                  01ad
+        mov	word ptr DGROUP:_pf+2,ds
+                        [01a8]              01a8
+        mov	word ptr DGROUP:_pf,offset DGROUP:_ch
+    */
+    pf = (char far *)&amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929115906.png" alt="image-20200929115906423" loading="lazy"></figure>
+<p>可以看到pf存在的是<mark>ch</mark>的地址</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120128.png" alt="image-20200929120128258" loading="lazy"></figure>
+</li>
+<li>
+<p>第八句 <code>*pf = *pf + 1;</code></p>
+<pre><code class="language-c">    /*
+        les	bx,dword ptr DGROUP:_pf
+        mov	al,byte ptr es:[bx]
+        inc	al
+        les	bx,dword ptr DGROUP:_pf
+        mov	byte ptr es:[bx],al
+    */
+    *pf = *pf + 1;
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120436.png" alt="image-20200929120436617" loading="lazy"></figure>
+<p>可以看到p指向的内存中的值增加一</p>
+<figure data-type="image" tabindex="14"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120344.png" alt="image-20200929120344832" loading="lazy"></figure>
+</li>
+<li>
+<p>第九句 <code>n = (**int**)&amp;ch;</code></p>
+<pre><code class="language-c">    /*                      01a8
+        mov	ax,offset DGROUP:_ch
+                        01a9
+        mov	word ptr DGROUP:_n,ax
+    */
+    n = (int)&amp;ch;
+</code></pre>
+<figure data-type="image" tabindex="15"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120603.png" alt="image-20200929120603717" loading="lazy"></figure>
+<figure data-type="image" tabindex="16"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120647.png" alt="image-20200929120647507" loading="lazy"></figure>
+</li>
+<li>
+<p>第十句 <code>*(**char** *)n = *(**char** *)n + 1;</code></p>
+<pre><code class="language-c">    /*
+        mov	bx,word ptr DGROUP:_n
+        mov	al,byte ptr [bx]
+        inc	al
+        mov	bx,word ptr DGROUP:_n
+        mov	byte ptr [bx],al
+    */
+    *(char *)n = *(char *)n + 1;
+</code></pre>
+<figure data-type="image" tabindex="17"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120716.png" alt="image-20200929120716356" loading="lazy"></figure>
+<figure data-type="image" tabindex="18"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929120800.png" alt="image-20200929120800531" loading="lazy"></figure>
+</li>
+</ul>
+<p>综上可以看出<code>*p</code>的功能是取出以<code>p</code>中数据作为偏移地址的内存中的值，<code>&amp;p</code>的功能就是取出<code>p</code>的偏移地址</p>
+<h2 id="bc">b.c</h2>
+<blockquote>
+<p>注意理解 struct指针的用法，指针“＋”运算的意义。</p>
+</blockquote>
+<pre><code class="language-c">typedef struct {
+    int number;
+    char c;
+    char name[8];
+} stu;
+
+stu a;
+
+char *pchar;
+int *pint;
+stu *pstu;
+
+main() {
+    pstu = &amp;a;
+
+    pstu-&gt;number = 1;
+    (*pstu).c = 80;
+    pstu-&gt;name[0] = 'T';
+    pstu-&gt;name[1] = 'o';
+    (*pstu).name[2] = 'm';
+    (*pstu).name[3] = '0';
+
+    pchar = 0;
+    pint = 0;
+    pstu = 0;
+
+    pchar = pchar + 1;
+    pint = pint + 1;
+    pstu = pstu + 1;
+}
+</code></pre>
+<ul>
+<li>
+<p>通过汇编代码可以得出不论是指针的<code>-&gt;</code> 运算和<code>.</code> 运算最后翻译成的汇编都是把<code>stu</code> 的首地址传给<code>bx</code>然后通过<code>bx</code>加上偏移来访问结构体变量的真正内存地址</p>
+<figure data-type="image" tabindex="19"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929111437.png" alt="image-20200929111437771" loading="lazy"></figure>
+<figure data-type="image" tabindex="20"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929111851.png" alt="image-20200929111851178" loading="lazy"></figure>
+</li>
+<li>
+<p>字符型指针加一就把指针内存中的数据增加一，整形指针加一就把指针内存中的数据增加二，结构体指针加一就是把指针内存中的数据增加结构体中各个变量长度总和。</p>
+<figure data-type="image" tabindex="21"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929112528.png" alt="image-20200929112528048" loading="lazy"></figure>
+</li>
+</ul>
+<h2 id="cc">c.c</h2>
+<blockquote>
+<p>将字符串“hello world！”分别拷贝到从0:200、:210起始的内存中:将数组a分别拷贝到0:220、0:230起始的内存中。</p>
+<p>注意理解“［］”运算的意义及数组名与指针的关系。</p>
+<p>假设p是一个指针，p［n］的意义等同于＊（p＋n）</p>
+</blockquote>
+<pre><code class="language-c">char *p;
+char far *pf;
+char str[20] = &quot;hello world!&quot;;
+int a[8] = {11, 22, 33, 44, 55, 66, 77, 88};
+int n;
+
+main() {
+    pf = (char far *)0x200;
+    for (n = 0; str[n]; n++)
+        *(pf + n) = str[n];
+
+    p = str;
+    pf = (char far *)0x210;
+    for (n = 0; p[n]; n++)
+        pf[n] = *(str + n);
+
+    for (n = 0; n &lt; 8; n++)
+        ((int far *)0x220)[n] = *(a + n);
+    for (n = 0; n &lt; 8; n++)
+        *(int far *)(0x230 + n * 2) = *(&amp;a[0] + n);
+}
+</code></pre>
+<ul>
+<li>
+<p>1</p>
+<pre><code class="language-c">/*
+	mov	word ptr DGROUP:_pf+2,0
+	mov	word ptr DGROUP:_pf,512
+*/
+pf = (char far *)0x200;
+</code></pre>
+<figure data-type="image" tabindex="22"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929122947.png" alt="image-20200929122947409" loading="lazy"></figure>
+</li>
+<li>
+<p>2</p>
+<pre><code class="language-c">/*
+;	?debug	L 9		[01ca]
+	mov	word ptr DGROUP:_n,0
+	jmp	short @5
+@4:
+;	?debug	L 10
+	mov	bx,word ptr DGROUP:_n ;[01ca]
+	mov	al,byte ptr DGROUP:_str[bx] ;[bx+0194]
+	les	bx,dword ptr DGROUP:_pf
+	add	bx,word ptr DGROUP:_n
+	mov	byte ptr es:[bx],al
+@3:
+	inc	word ptr DGROUP:_n
+@5:					[01ca]
+	mov	bx,word ptr DGROUP:_n
+	cmp	byte ptr DGROUP:_str[bx],0
+	jne	@4
+*/
+for (n = 0; str[n]; n++)
+	*(pf + n) = str[n];
+</code></pre>
+<p>初始化后</p>
+<figure data-type="image" tabindex="23"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123634.png" alt="image-20200929123634814" loading="lazy"></figure>
+</li>
+<li>
+<p>3</p>
+<pre><code class="language-c">/*					01d0				0194
+	mov	word ptr DGROUP:_p,offset DGROUP:_str
+*/
+p = str;
+</code></pre>
+<figure data-type="image" tabindex="24"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123821.png" alt="image-20200929123821356" loading="lazy"></figure>
+<figure data-type="image" tabindex="25"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123859.png" alt="image-20200929123859645" loading="lazy"></figure>
+</li>
+<li>
+<p>4</p>
+<pre><code class="language-c">/*
+	mov	word ptr DGROUP:_pf+2,0
+	mov	word ptr DGROUP:_pf,528
+*/
+
+pf = (char far *)0x210;
+</code></pre>
+<figure data-type="image" tabindex="26"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123930.png" alt="image-20200929123929928" loading="lazy"></figure>
+<figure data-type="image" tabindex="27"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929123957.png" alt="image-20200929123957303" loading="lazy"></figure>
+</li>
+<li>
+<p>5</p>
+<pre><code class="language-c">/*
+;	?debug	L 14
+	mov	word ptr DGROUP:_n,0
+	jmp	short @9
+@8:
+;	?debug	L 15
+	mov	bx,word ptr DGROUP:_n
+	mov	al,byte ptr DGROUP:_str[bx]
+	les	bx,dword ptr DGROUP:_pf
+	add	bx,word ptr DGROUP:_n
+	mov	byte ptr es:[bx],al
+@7:
+	inc	word ptr DGROUP:_n
+@9:
+	mov	bx,word ptr DGROUP:_p
+	add	bx,word ptr DGROUP:_n
+	cmp	byte ptr [bx],0
+	jne	@8
+*/
+for (n = 0; p[n]; n++)
+        pf[n] = *(str + n);
+</code></pre>
+<p>拷贝hello world从0:200 -&gt; 0:210</p>
+<figure data-type="image" tabindex="28"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124213.png" alt="image-20200929124213070" loading="lazy"></figure>
+</li>
+<li>
+<p>6</p>
+<pre><code class="language-c">/*
+@6:
+;	?debug	L 17
+	mov	word ptr DGROUP:_n,0
+	jmp	short @13
+@12:
+;	?debug	L 18
+	mov	bx,word ptr DGROUP:_n
+	shl	bx,1
+	mov	ax,word ptr DGROUP:_a[bx]
+	mov	dx,word ptr DGROUP:_n
+	shl	dx,1
+	xor	bx,bx
+	mov	es,bx
+	mov	bx,544
+	add	bx,dx
+	mov	word ptr es:[bx],ax
+@11:
+	inc	word ptr DGROUP:_n
+@13:
+	cmp	word ptr DGROUP:_n,8
+	jl	@12
+*/
+for (n = 0; n &lt; 8; n++)
+        ((int far *)0x220)[n] = *(a + n);
+</code></pre>
+<p>初始化</p>
+<figure data-type="image" tabindex="29"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124433.png" alt="image-20200929124433711" loading="lazy"></figure>
+</li>
+<li>
+<p>7</p>
+<pre><code class="language-c">/*
+@10:
+;	?debug	L 19
+	mov	word ptr DGROUP:_n,0
+	jmp	short @17
+@16:
+;	?debug	L 20
+	mov	bx,word ptr DGROUP:_n
+	shl	bx,1
+	mov	ax,word ptr DGROUP:_a[bx]
+	push	ax
+	mov	ax,word ptr DGROUP:_n
+	shl	ax,1
+	add	ax,560
+	cwd	
+	mov	bx,ax
+	mov	es,dx
+	pop	ax
+	mov	word ptr es:[bx],ax
+@15:
+	inc	word ptr DGROUP:_n
+@17:
+	cmp	word ptr DGROUP:_n,8
+	jl	@16
+*/
+for (n = 0; n &lt; 8; n++)
+        *(int far *)(0x230 + n * 2) = *(&amp;a[0] + n);
+</code></pre>
+<p>拷贝a从0:220-&gt;0:230</p>
+<figure data-type="image" tabindex="30"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200929124530.png" alt="image-20200929124530273" loading="lazy"></figure>
+<p>综上<code>p[n]</code>的意思是访问以<code>p</code>为基地址<code>n</code>为偏移地址中的数据，数组名<code>p</code>和指针<code>*p</code>存储的都是数据的起始地址</p>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#ac">a.c</a></li>
+<li><a href="#bc">b.c</a></li>
+<li><a href="#cc">c.c</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/0928_-zong-he-yan-jiu-1-3-bu-chong-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                0928_综合研究1-3补充研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

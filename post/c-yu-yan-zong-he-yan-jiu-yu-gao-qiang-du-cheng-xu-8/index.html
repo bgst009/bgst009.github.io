@@ -1,0 +1,229 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C语言综合研究与高强度程序8 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="C语言综合研究与高强度程序8 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+（1）定义一个描述学生成绩的数据类型:
+struct stu｛ unsigned char c； unsigned char os； unsigned char masm； unsigned char java； struct stu f..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              C语言综合研究与高强度程序8
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-05
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>（1）定义一个描述学生成绩的数据类型:<br>
+<code>struct stu｛ unsigned char c； unsigned char os； unsigned char masm； unsigned char java； struct stu far ＊next； ｝</code><br>
+<code>struct stu</code>型数据的前四个数据项存储学生的几门课程的成绩；数据项<code>next</code>存储下一个学生成绩的地址。<br>
+（2）定义一个数组: <code>struct stu［375］</code>；<br>
+（3）将内存0:0处的3000个数据当作375个 struct stu型的数据，将它们的c、os、masmjava数据项的内容拷贝到数组a的对应数据项中。<br>
+（4）查找数组a中课程成绩总分小于400大于200的数据，用next数据项将它们连接起来。（5）将连接起来的数据打印出来。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">struct stu {
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    unsigned char java;
+    struct stu *next;
+};
+
+int n;
+struct stu a[375];
+struct stu *s;
+int sum;
+main() {
+    long address = 0x00000000;
+
+    for (n = 0; n &lt; 375; n++) {
+        a[n].c = *(char far *)address++;
+        a[n].os = *(char far *)address++;
+        a[n].masm = *(char far *)address++;
+        a[n].java = *(char far *)address++;
+    }
+
+    s-&gt;next = 0;
+    for (n = 0; n &lt; 375; n++) {
+        if (a[n].c + a[n].os + a[n].masm + a[n].java &lt; 400 &amp;&amp;
+            a[n].c + a[n].os + a[n].masm + a[n].java &gt; 200) {
+            a[n].next = s-&gt;next;
+            s-&gt;next = &amp;a[n];
+        }
+    }
+
+    n = 0;
+    while (s-&gt;next) {
+        s = s-&gt;next;
+        if (!s)
+            break;
+        printf(&quot;%d: &quot;, ++n);
+        sum = s-&gt;c + s-&gt;os + s-&gt;masm + s-&gt;java;
+        printf(&quot;c: %c,os: %c,masm: %c,java: %c,sum: %d\n&quot;, s-&gt;c, s-&gt;os, s-&gt;masm,
+               s-&gt;java, sum);
+    }
+}
+
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201005181125.png" alt="image-20201005181125417" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/c-yu-yan-zong-he-yan-jiu-yu-gao-qiang-du-cheng-xu-she-ji-xun-lian-7/">
+              <h3 class="post-title">
+                C语言综合研究与高强度程序设计训练7
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

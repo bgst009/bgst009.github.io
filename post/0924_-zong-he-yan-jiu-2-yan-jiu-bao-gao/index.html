@@ -1,0 +1,238 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> 0924_综合研究2研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title=" 0924_综合研究2研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="研究问题
+
+在main函数中添加代码，打印出下列函数的段地址和偏移地址
+
+int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+void f3(void) { a = 3; }
+m..." />
+    <meta name="keywords" content="C" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+               0924_综合研究2研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-24
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/f9uwaThCs/" class="post-tag">
+                  # C
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="研究问题">研究问题</h2>
+<blockquote>
+<p>在main函数中添加代码，打印出下列函数的段地址和偏移地址</p>
+</blockquote>
+<pre><code class="language-c">int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+void f3(void) { a = 3; }
+main() {
+    .....
+}
+</code></pre>
+<h2 id="研究过程">研究过程</h2>
+<ol>
+<li>
+<p>因为代码段地址是存储在<code>cs</code>中的所以我们可以通过<code>printf(&quot;\nCS: %x\n&quot;, _CS);</code>来打印出程序运行时的段地址</p>
+</li>
+<li>
+<p>函数的标号就是对应的偏移地址我们可以通过<code>printf(&quot;\nf1: %x\n&quot;, f1);</code>来打印出函数的偏移地址</p>
+</li>
+<li>
+<p>所以修改<code>a.c</code> 添加相应打印输出语句</p>
+<pre><code class="language-c">int a;
+void f1(void) { a = 1; }
+void f2(void) { a = 2; }
+void f3(void) { a = 3; }
+main() {
+    char *string = &quot;--------------------&quot;;
+    printf(&quot;\nCS: %x\n&quot;, _CS);
+    printf(&quot;%s&quot;, string);
+    printf(&quot;\nf1: %x\n&quot;, f1);
+    printf(&quot;\nf2: %x\n&quot;, f2);
+    printf(&quot;\nf3: %x\n&quot;, f3);
+}
+</code></pre>
+</li>
+<li>
+<p>编译链接完后执行可执行文件可以分别看出<strong>3</strong>个函数的偏移地址和段地址</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200924130620.png" alt="image-20200924130620295" loading="lazy"></figure>
+</li>
+<li>
+<p>然后在DEBUG中验证输出结果是否正确</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200924130910.png" alt="image-20200924130910136" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200924131638.png" alt="image-20200924131638053" loading="lazy"></figure>
+</li>
+<li>
+<p>发现<code>DEBUG</code>中执行<code>a.exe</code> 打印出的<code>CS</code> 的值和直接运行的结果不一致，剩下三个函数的偏移地址都一致但是<code>DEBUG</code>中打印的<code>cs</code> 的值是正确的，所以推测直接运行 <code>a.exe</code>的结果也是正确的。可能是应为<code>DEBUG</code>本身就是一个可执行程序所以在运行时系统就已经分配给<code>DEBUG</code>一块内存然后<code>DEBUG</code>再分配内存给<code>a.exe</code>,而直接运行<code>a.exe</code>的话就系统直接分配的内存所以两次的结果会不同。</p>
+</li>
+</ol>
+<h2 id="研究结果">研究结果</h2>
+<ul>
+<li>函数的名称就好像汇编程序里面的标号起到一个定位的作用，方便程序嵌套和跳转</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98">研究问题</a></li>
+<li><a href="#%E7%A0%94%E7%A9%B6%E8%BF%87%E7%A8%8B">研究过程</a></li>
+<li><a href="#%E7%A0%94%E7%A9%B6%E7%BB%93%E6%9E%9C">研究结果</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/0923_-zong-he-yan-jiu-1-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                 0923_综合研究1研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1777 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python入门 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python入门 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="入门
+Python变量和数据类型
+1. Python中数据类型
+计算机顾名思义就是可以做数学计算的机器，因此，计算机程序理所当然地可以处理各种数值。但是，计算机能处理的远不止数值，还可以处理文本、图形、音频、视频、网页等各种各样的数据，不同..." />
+    <meta name="keywords" content="Python入门" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Python入门
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-20
+              </span>
+              <span>
+                68 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/RHrM0w46mi/" class="post-tag">
+                  # Python入门
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="入门">入门</h1>
+<h1 id="python变量和数据类型">Python变量和数据类型</h1>
+<h2 id="1-python中数据类型">1. Python中数据类型</h2>
+<p>计算机顾名思义就是可以做数学计算的机器，因此，计算机程序理所当然地可以处理各种数值。但是，计算机能处理的远不止数值，还可以处理文本、图形、音频、视频、网页等各种各样的数据，不同的数据，需要定义不同的数据类型。在Python中，能够直接处理的数据类型有以下几种：</p>
+<p><strong>一、整数</strong></p>
+<p>Python可以处理任意大小的整数，当然包括负整数，在Python程序中，整数的表示方法和数学上的写法一模一样，例如：<code>1</code>，<code>100</code>，<code>-8080</code>，<code>0</code>，等等。</p>
+<p>计算机由于使用二进制，所以，有时候用十六进制表示整数比较方便，十六进制用<code>0x</code>前缀和0-9，a-f表示，例如：<code>0xff00</code>，<code>0xa5b4c3d2</code>，等等。</p>
+<p><strong>二、浮点数</strong></p>
+<p>浮点数也就是小数，之所以称为浮点数，是因为按照科学记数法表示时，一个浮点数的小数点位置是可变的，比如，1.23x10<sup>9和12.3x10</sup>8是相等的。浮点数可以用数学写法，如<code>1.23</code>，<code>3.14</code>，<code>-9.01</code>，等等。但是对于很大或很小的浮点数，就必须用科学计数法表示，把10用e替代，1.23x10^9就是<strong>1.23e9</strong>，或者<strong>12.3e8</strong>，0.000012可以写成<strong>1.2e-5</strong>，等等。</p>
+<p>整数和浮点数在计算机内部存储的方式是不同的，整数运算永远是精确的（除法难道也是精确的？是的！），而浮点数运算则可能会有四舍五入的误差。</p>
+<p><strong>三、字符串</strong></p>
+<p>字符串是以<code>''</code>或<code>&quot;&quot;</code>括起来的任意文本，比如**'abc'<strong>，</strong>&quot;xyz&quot;<strong>等等。请注意，</strong>''<strong>或</strong>&quot;&quot;**本身只是一种表示方式，不是字符串的一部分，因此，字符串<code>'abc'</code>只有<code>a，b，c</code>这3个字符。</p>
+<p><strong>四、布尔值</strong></p>
+<p>布尔值和布尔代数的表示完全一致，一个布尔值只有<code>True</code>、<code>False</code>两种值，要么是<code>True</code>，要么是<code>False</code>，在Python中，可以直接用<code>True</code>、<code>False</code>表示布尔值（请注意大小写），也可以通过布尔运算计算出来。</p>
+<p>布尔值可以用<code>and</code>、<code>or</code>和<code>not</code>运算。</p>
+<p><code>and</code>运算是与运算，只有所有都为 True，and运算结果才是 True。</p>
+<p><code>or</code>运算是或运算，只要其中有一个为 True，or 运算结果就是 True。</p>
+<p><code>not</code>运算是非运算，它是一个单目运算符，把 True 变成 False，False 变成 True。</p>
+<p><strong>五、空值</strong></p>
+<p>空值是Python里一个特殊的值，用<code>None</code>表示。None不能理解为0，因为0是有意义的，而None是一个特殊的空值。</p>
+<p>此外，Python还提供了列表、字典等多种数据类型，还允许创建自定义数据类型，我们后面会继续讲到</p>
+<h2 id="2-python之print语句">2. Python之print语句</h2>
+<p><strong>print</strong>语句可以向屏幕上输出指定的文字。比如输出'hello, world'，用代码实现如下：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print 'hello, world'
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>1.当我们在Python交互式环境下编写代码时，<code>&gt;&gt;&gt;</code>是Python解释器的提示符，不是代码的一部分。</p>
+<p>2.当我们在文本编辑器中编写代码时，千万不要自己添加 &gt;&gt;&gt;。</p>
+<p>print语句也可以跟上多个字符串，用逗号“,”隔开，就可以连成一串输出：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print 'The quick brown fox', 'jumps over', 'the lazy dog'
+The quick brown fox jumps over the lazy dog
+</code></pre>
+<p>print会依次打印每个字符串，遇到逗号“,”会输出一个空格，因此，输出的字符串是这样拼起来的：</p>
+<p>{% asset_img 54055502000179c205060086.jpg %}</p>
+<p>print也可以打印整数，或者计算结果：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print 300
+300    #运行结果
+&gt;&gt;&gt; print 100 + 200
+300    #运行结果
+</code></pre>
+<p>因此，我们可以把计算100 + 200的结果打印得更漂亮一点：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print '100 + 200 =', 100 + 200
+100 + 200 = 300     #运行结果
+</code></pre>
+<p><strong>注意:</strong> 对于100 + 200，Python解释器自动计算出结果300，但是，'100 + 200 ='是字符串而非数学公式，Python把它视为字符串，请自行解释上述打印结果。</p>
+<h2 id="3-python的注释">3. Python的注释</h2>
+<p>任何时候，我们都可以给程序加上注释。注释是用来说明代码的，给自己或别人看，而程序运行的时候，Python解释器会直接忽略掉注释，所以，有没有注释不影响程序的执行结果，但是影响到别人能不能看懂你的代码。</p>
+<p>Python的注释以<code>#</code>开头，后面的文字直到行尾都算注释</p>
+<pre><code class="language-python"># 这一行全部都是注释...
+print 'hello' # 这也是注释
+</code></pre>
+<p>注释还有一个巧妙的用途，就是一些代码我们不想运行，但又不想删除，就可以用注释暂时屏蔽掉：</p>
+<pre><code class="language-python"># 暂时不想运行下面一行代码:
+# print 'hello, python.'
+</code></pre>
+<h2 id="4-python中什么是变量">4. Python中什么是变量</h2>
+<p>在Python中，变量的概念基本上和初中代数的方程变量是一致的。</p>
+<p>例如，对于方程式 <code>y=x*x</code>，<code>x</code>就是变量。当<code>x=2</code>时，计算结果是<code>4</code>，当<code>x=5</code>时，计算结果是<code>25</code>。</p>
+<p>只是在计算机程序中，变量不仅可以是数字，还可以是任意数据类型。</p>
+<p>在Python程序中，变量是用一个变量名表示，变量名必须是大小写英文、数字和下划线（_）的组合，且不能用数字开头，比如：</p>
+<pre><code class="language-python">a = 1
+</code></pre>
+<p>变量<code>a</code>是一个整数。</p>
+<pre><code class="language-python">t_007 = 'T007'
+</code></pre>
+<p>变量<code>t_007</code>是一个字符串。</p>
+<p>在Python中，等号<code>=</code>是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量，例如：</p>
+<pre><code class="language-python">a = 123    # a是整数
+print a
+a = 'imooc'   # a变为字符串
+print a
+</code></pre>
+<p>这种变量本身类型不固定的语言称之为动态语言，与之对应的是静态语言。</p>
+<p>静态语言在定义变量时必须指定变量类型，如果赋值的时候类型不匹配，就会报错。例如Java是静态语言，赋值语句如下（// 表示注释）：</p>
+<pre><code class="language-python">int a = 123; // a是整数类型变量
+a = &quot;mooc&quot;; // 错误：不能把字符串赋给整型变量
+</code></pre>
+<p>和静态语言相比，动态语言更灵活，就是这个原因。</p>
+<p>请不要把赋值语句的等号等同于数学的等号。比如下面的代码：</p>
+<pre><code class="language-python">x = 10
+x = x + 2
+</code></pre>
+<p>如果从数学上理解x = x + 2那无论如何是不成立的，在程序中，赋值语句先计算右侧的表达式x + 2，得到结果12，再赋给变量x。由于x之前的值是10，重新赋值后，x的值变成12。</p>
+<p>最后，理解变量在计算机内存中的表示也非常重要。当我们写：<code>a = 'ABC'</code>时，Python解释器干了两件事情：</p>
+<p>\1. 在内存中创建了一个<code>'ABC'</code>的字符串；</p>
+<p>\2. 在内存中创建了一个名为<code>a</code>的变量，并把它指向<code>'ABC'</code>。</p>
+<p>也可以把一个变量a赋值给另一个变量b，这个操作实际上是把变量b指向变量a所指向的数据，例如下面的代码：</p>
+<pre><code class="language-python">a = 'ABC'
+b = a
+a = 'XYZ'
+print b
+</code></pre>
+<p>最后一行打印出变量b的内容到底是'ABC'呢还是'XYZ'？如果从数学意义上理解，就会错误地得出b和a相同，也应该是'XYZ'，但实际上b的值是'ABC'，让我们一行一行地执行代码，就可以看到到底发生了什么事：</p>
+<p>执行<code>a = 'ABC'</code>，解释器创建了字符串  'ABC'和变量 a，并把a指向 'ABC'：</p>
+<p>{% asset_img 540581030001c11202360058.jpg %}</p>
+<p>执行<code>b = a</code>，解释器创建了变量 b，并把b指向 a 指向的字符串'ABC'：</p>
+<p>{% asset_img 53fc5e880001399902360084.jpg %}</p>
+<p>执行<code>a = 'XYZ'</code>，解释器创建了字符串'XYZ'，并把a的指向改为'XYZ'，但b并没有更改：</p>
+<p>{% asset_img 53fc5e9f0001b98d02360090.jpg %}</p>
+<p>所以，最后打印变量<code>b</code>的结果自然是<code>'ABC'</code>了。</p>
+<h2 id="5python中定义字符串">5.Python中定义字符串</h2>
+<p>前面我们讲解了什么是字符串。字符串可以用<code>''</code>或者<code>&quot;&quot;</code>括起来表示。</p>
+<p>如果字符串本身包含<code>'</code>怎么办？比如我们要表示字符串<code>I'm OK</code>，这时，可以用<code>&quot; &quot;</code>括起来表示：</p>
+<pre><code class="language-python">&quot;I'm OK&quot;
+</code></pre>
+<p>类似的，如果字符串包含<code>&quot;</code>，我们就可以用<code>' '</code>括起来表示：</p>
+<pre><code class="language-python">'Learn &quot;Python&quot; in imooc'
+</code></pre>
+<p>如果字符串既包含<code>'</code>又包含<code>&quot;</code>怎么办？</p>
+<p>这个时候，就需要对字符串的某些特殊字符进行“转义”，Python字符串用<code>\</code>进行转义。</p>
+<p>要表示字符串 <code>Bob said &quot;I'm OK&quot;.</code><br>
+由于 ' 和 &quot; 会引起歧义，因此，我们在它前面插入一个<code>\</code>表示这是一个普通字符，不代表字符串的起始，因此，这个字符串又可以表示为</p>
+<pre><code class="language-python">'Bob said \&quot;I\'m OK\&quot;.'
+</code></pre>
+<p>**注意：**转义字符 \ 不计入字符串的内容中。</p>
+<p>常用的转义字符还有：</p>
+<pre><code class="language-python">\n 表示换行
+\t 表示一个制表符
+\\ 表示 \ 字符本身
+</code></pre>
+<h2 id="6python中raw字符串与多行字符串">6.Python中raw字符串与多行字符串</h2>
+<p>如果一个字符串包含很多需要转义的字符，对每一个字符都进行转义会很麻烦。为了避免这种情况，我们可以在字符串前面加个前缀<code>r</code>，表示这是一个 raw 字符串，里面的字符就不需要转义了。例如：</p>
+<pre><code class="language-python">r'\(~_~)/ \(~_~)/'
+</code></pre>
+<p>但是<code>r'...'</code>表示法不能表示多行字符串，也不能表示包含<code>'</code>和 <code>&quot;</code>的字符串（为什么？）</p>
+<p>如果要表示多行字符串，可以用<code>'''...'''</code>表示：</p>
+<pre><code class="language-python">'''Line 1
+Line 2
+Line 3'''
+</code></pre>
+<p>上面这个字符串的表示方法和下面的是完全一样的：</p>
+<p>'Line 1\nLine 2\nLine 3'</p>
+<p>还可以在多行字符串前面添加<code>r</code>，把这个多行字符串也变成一个raw字符串：</p>
+<pre><code class="language-python">r'''Python is created by &quot;Guido&quot;.
+It is free and easy to learn.
+Let's start learn Python in imooc!'''
+</code></pre>
+<h2 id="7-python中unicode字符串">7. Python中Unicode字符串</h2>
+<p>字符串还有一个编码问题。</p>
+<p>因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），0 - 255被用来表示大小写英文字母、数字和一些符号，这个编码表被称为ASCII编码，比如大写字母 A 的编码是65，小写字母 z 的编码是122。</p>
+<p>如果要表示中文，显然一个字节是不够的，至少需要两个字节，而且还不能和ASCII编码冲突，所以，中国制定了GB2312编码，用来把中文编进去。</p>
+<p>类似的，日文和韩文等其他语言也有这个问题。为了统一所有文字的编码，Unicode应运而生。Unicode把所有语言都统一到一套编码里，这样就不会再有乱码问题了。</p>
+<p>Unicode通常用两个字节表示一个字符，原有的英文编码从单字节变成双字节，只需要把高字节全部填为0就可以。</p>
+<p>因为Python的诞生比Unicode标准发布的时间还要早，所以最早的Python只支持ASCII编码，普通的字符串'ABC'在Python内部都是ASCII编码的。</p>
+<p>Python在后来添加了对Unicode的支持，以Unicode表示的字符串用u'...'表示，比如：</p>
+<pre><code class="language-python">print u'中文'
+中文
+</code></pre>
+<p><strong>注意:</strong> 不加 u ，中文就不能正常显示。</p>
+<p>Unicode字符串除了多了一个<code>u</code>之外，与普通字符串没啥区别，转义字符和多行表示法仍然有效：</p>
+<p><strong>转义：</strong></p>
+<pre><code class="language-python">u'中文\n日文\n韩文'
+</code></pre>
+<p><strong>多行：</strong></p>
+<pre><code class="language-python">u'''第一行
+第二行'''
+</code></pre>
+<p><strong>raw+多行：</strong></p>
+<pre><code class="language-python">ur'''Python的Unicode字符串支持&quot;中文&quot;,
+&quot;日文&quot;,
+&quot;韩文&quot;等多种语言'''
+</code></pre>
+<p>如果中文字符串在Python环境下遇到 UnicodeDecodeError，这是因为.py文件保存的格式有问题。可以在第一行添加注释</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+</code></pre>
+<p>目的是告诉Python解释器，用UTF-8编码读取源代码。然后用Notepad++ 另存为... 并选择UTF-8格式保存。</p>
+<h2 id="python中整数和浮点数">Python中整数和浮点数</h2>
+<p>Python支持对整数和浮点数直接进行四则混合运算，运算规则和数学上的四则运算规则完全一致。</p>
+<p>基本的运算：</p>
+<pre><code class="language-python">1 + 2 + 3   # ==&gt; 6
+4 * 5 - 6   # ==&gt; 14
+7.5 / 8 + 2.1   # ==&gt; 3.0375
+</code></pre>
+<p>使用括号可以提升优先级，这和数学运算完全一致，注意只能使用小括号，但是括号可以嵌套很多层：</p>
+<pre><code class="language-python">(1 + 2) * 3    # ==&gt; 9
+(2.2 + 3.3) / (1.5 * (9 - 0.3))    # ==&gt; 0.42145593869731807
+</code></pre>
+<p>和数学运算不同的地方是，Python的整数运算结果仍然是整数，浮点数运算结果仍然是浮点数：</p>
+<pre><code class="language-python">1 + 2    # ==&gt; 整数 3
+1.0 + 2.0    # ==&gt; 浮点数 3.0
+</code></pre>
+<p>但是整数和浮点数混合运算的结果就变成浮点数了：</p>
+<pre><code class="language-python">1 + 2.0    # ==&gt; 浮点数 3.0
+</code></pre>
+<p>为什么要区分整数运算和浮点数运算呢？这是因为整数运算的结果永远是精确的，而浮点数运算的结果不一定精确，因为计算机内存再大，也无法精确表示出无限循环小数，比如<code>0.1</code>换成二进制表示就是无限循环小数。</p>
+<p>那整数的除法运算遇到除不尽的时候，结果难道不是浮点数吗？我们来试一下：</p>
+<pre><code class="language-python">11 / 4    # ==&gt; 2
+</code></pre>
+<p>令很多初学者惊讶的是，Python的整数除法，即使除不尽，结果仍然是整数，余数直接被扔掉。不过，Python提供了一个求余的运算 % 可以计算余数：</p>
+<pre><code class="language-python">11 % 4    # ==&gt; 3
+</code></pre>
+<p>如果我们要计算 11 / 4 的精确结果，按照“整数和浮点数混合运算的结果是浮点数”的法则，把两个数中的一个变成浮点数再运算就没问题了：</p>
+<pre><code class="language-python">11.0 / 4    # ==&gt; 2.75
+</code></pre>
+<h2 id="8-python中布尔类型">8. Python中布尔类型</h2>
+<p>我们已经了解了Python支持布尔类型的数据，布尔类型只有<code>True</code>和<code>False</code>两种值，但是布尔类型有以下几种运算：</p>
+<p><strong>与运算</strong>：只有两个布尔值都为 True 时，计算结果才为 True。</p>
+<pre><code class="language-python">True and True   # ==&gt; True
+True and False   # ==&gt; False
+False and True   # ==&gt; False
+False and False   # ==&gt; False
+</code></pre>
+<p><strong>或运算</strong>：只要有一个布尔值为 True，计算结果就是 True。</p>
+<pre><code class="language-python">True or True   # ==&gt; True
+True or False   # ==&gt; True
+False or True   # ==&gt; True
+False or False   # ==&gt; False
+</code></pre>
+<p><strong>非运算</strong>：把True变为False，或者把False变为True：</p>
+<pre><code class="language-python">not True   # ==&gt; False
+not False   # ==&gt; True
+</code></pre>
+<p>布尔运算在计算机中用来做条件判断，根据计算结果为True或者False，计算机可以自动执行不同的后续代码。</p>
+<p>在Python中，布尔类型还可以与其他数据类型做 and、or和not运算，请看下面的代码：</p>
+<pre><code class="language-python">a = True
+print a and 'a=T' or 'a=F'
+</code></pre>
+<p>计算结果不是布尔类型，而是字符串 'a=T'，这是为什么呢？</p>
+<p>因为Python把<code>0</code>、<code>空字符串''</code>和<code>None</code>看成 False，其他数值和非空字符串都看成 True，所以：</p>
+<pre><code class="language-python">True and 'a=T' 计算结果是 'a=T'
+继续计算 'a=T' or 'a=F' 计算结果还是 'a=T'
+</code></pre>
+<p><strong>要解释上述结果，又涉及到 and 和 or 运算的一条重要法则：短路计算。</strong></p>
+<ol>
+<li>
+<p>在计算<code>a and b</code>时，如果 a 是 False，则根据与运算法则，整个结果必定为 False，因此返回 a；如果 a 是 True，则整个计算结果必定取决与 b，因此返回 b。</p>
+</li>
+<li>
+<p>在计算<code>a or b</code>时，如果 a 是 True，则根据或运算法则，整个计算结果必定为 True，因此返回 a；如果 a 是 False，则整个计算结果必定取决于 b，因此返回 b。</p>
+</li>
+</ol>
+<p>所以Python解释器在做布尔运算时，只要能提前确定计算结果，它就不会往后算了，直接返回结果。</p>
+<h1 id="list和tuple类型">List和Tuple类型</h1>
+<h2 id="1-python创建list">1. Python创建list</h2>
+<p>Python内置的一种数据类型是列表：<code>list</code>。list是一种有序的集合，可以随时添加和删除其中的元素。</p>
+<p>比如，列出班里所有同学的名字，就可以用一个list表示：</p>
+<pre><code class="language-python">&gt;&gt;&gt; ['Michael', 'Bob', 'Tracy']
+['Michael', 'Bob', 'Tracy']
+</code></pre>
+<p>list是数学意义上的有序集合，也就是说，list中的元素是按照顺序排列的。</p>
+<p>构造list非常简单，按照上面的代码，直接用<code>[ ]</code>把list的所有元素都括起来，就是一个list对象。通常，我们会把list赋值给一个变量，这样，就可以通过变量来引用list：</p>
+<pre><code class="language-python">&gt;&gt;&gt; classmates = ['Michael', 'Bob', 'Tracy']
+&gt;&gt;&gt; classmates # 打印classmates变量的内容
+['Michael', 'Bob', 'Tracy']
+</code></pre>
+<p>由于Python是动态语言，所以list中包含的元素并不要求都必须是同一种数据类型，我们完全可以在list中包含各种数据：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Michael', 100, True]
+</code></pre>
+<p>一个元素也没有的list，就是空list：</p>
+<pre><code class="language-python">&gt;&gt;&gt; empty_list = []
+</code></pre>
+<h2 id="2-python按照索引访问list">2. Python按照索引访问list</h2>
+<p>由于list是一个有序集合，所以，我们可以用一个list按分数从高到低表示出班里的3个同学：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>那我们如何从list中获取指定第 N 名的同学呢？方法是通过索引来获取list中的指定元素。</p>
+<p><strong>需要特别注意的是</strong>，索引从 0 开始，也就是说，第一个元素的索引是0，第二个元素的索引是1，以此类推。</p>
+<p>因此，要打印第一名同学的名字，用 L[0]:</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[0]
+Adam
+</code></pre>
+<p>要打印第二名同学的名字，用 L[1]:</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[1]
+Lisa
+</code></pre>
+<p>要打印第三名同学的名字，用 L[2]:</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[2]
+Bart
+</code></pre>
+<p>要打印第四名同学的名字，用 L[3]:</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[3]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>报错了！IndexError意思就是索引超出了范围，因为上面的list只有3个元素，有效的索引是 0，1，2。</p>
+<p>所以，使用索引时，<strong><mark>千万注意不要越界</mark></strong>。</p>
+<h2 id="3-python之倒序访问list">3.  Python之倒序访问list</h2>
+<p>我们还是用一个list按分数从高到低表示出班里的3个同学：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>这时，老师说，请分数最低的同学站出来。</p>
+<p>要写代码完成这个任务，我们可以先数一数这个 list，发现它包含3个元素，因此，最后一个元素的索引是2：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[2]
+Bart
+</code></pre>
+<p>有没有更简单的方法？</p>
+<p>有！</p>
+<p>Bart同学是最后一名，俗称倒数第一，所以，我们可以用 -1 这个索引来表示最后一个元素：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[-1]
+Bart
+</code></pre>
+<p>Bart同学表示躺枪。</p>
+<p>类似的，倒数第二用 -2 表示，倒数第三用 -3 表示，倒数第四用 -4 表示：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print L[-2]
+Lisa
+&gt;&gt;&gt; print L[-3]
+Adam
+&gt;&gt;&gt; print L[-4]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>L[-4] 报错了，因为倒数第四不存在，一共只有3个元素。</p>
+<p>使用倒序索引时，也要注意**<mark>不要越界</mark>**。</p>
+<h2 id="4-python之添加新元素">4. Python之添加新元素</h2>
+<p>现在，班里有3名同学：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>今天，班里转来一名新同学 Paul，如何把新同学添加到现有的 list 中呢？</p>
+<p>第一个办法是用 list 的<code>append()</code>方法，把新同学追加到 list 的末尾：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+&gt;&gt;&gt; L.append('Paul')
+&gt;&gt;&gt; print L
+['Adam', 'Lisa', 'Bart', 'Paul']
+</code></pre>
+<p>**<mark>append()</mark>**总是把新的元素添加到 list 的尾部。</p>
+<p>如果 Paul 同学表示自己总是考满分，要求添加到第一的位置，怎么办？</p>
+<p>方法是用list的 **<mark>insert()</mark>**方法，它接受两个参数，第一个参数是索引号，第二个参数是待添加的新元素：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+&gt;&gt;&gt; L.insert(0, 'Paul')
+&gt;&gt;&gt; print L
+['Paul', 'Adam', 'Lisa', 'Bart']
+</code></pre>
+<p><strong>L.insert(0, 'Paul')</strong> 的意思是，'Paul'将被添加到索引为 0 的位置上（也就是第一个），而原来索引为 0 的Adam同学，以及后面的所有同学，都自动向后移动一位。</p>
+<h2 id="5-python从list删除元素">5. Python从list删除元素</h2>
+<p>Paul同学刚来几天又要转走了，那么我们怎么把Paul 从现有的list中删除呢？</p>
+<p>如果Paul同学排在最后一个，我们可以用list的<code>pop()</code>方法删除：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart', 'Paul']
+&gt;&gt;&gt; L.pop()
+'Paul'
+&gt;&gt;&gt; print L
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>**<mark>pop()</mark>**方法总是删掉list的最后一个元素，并且它还返回这个元素，所以我们执行 L.pop() 后，会打印出 'Paul'。</p>
+<p>如果Paul同学不是排在最后一个怎么办？比如Paul同学排在第三：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Paul', 'Bart']
+</code></pre>
+<p>要把Paul踢出list，我们就必须先定位Paul的位置。由于Paul的索引是2，因此，用**<mark><code>pop(2)</code></mark>**把Paul删掉：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L.pop(2)
+'Paul'
+&gt;&gt;&gt; print L
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<h2 id="6-python中替换元素">6.  Python中替换元素</h2>
+<p>假设现在班里仍然是3名同学：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>现在，Bart同学要转学走了，碰巧来了一个Paul同学，要更新班级成员名单，我们可以先把Bart删掉，再把Paul添加进来。</p>
+<p>另一个办法是直接用Paul把Bart给替换掉：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[2] = 'Paul'
+&gt;&gt;&gt; print L
+L = ['Adam', 'Lisa', 'Paul']
+</code></pre>
+<p>对list中的某一个索引赋值，就可以直接用新的元素替换掉原来的元素，list包含的元素个数保持不变。</p>
+<p>由于Bart还可以用 -1 做索引，因此，下面的代码也可以完成同样的替换工作：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[-1] = 'Paul'
+</code></pre>
+<h2 id="7-python之创建tuple">7. Python之创建tuple</h2>
+<p>tuple是另一种有序的列表，中文翻译为“ 元组 ”。tuple 和 list 非常类似，<mark>但是，tuple一旦创建完毕，就不能修改了</mark>。</p>
+<p>同样是表示班里同学的名称，用tuple表示如下：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = ('Adam', 'Lisa', 'Bart')
+</code></pre>
+<p>创建tuple和创建list唯一不同之处是用**<code>( )</code>替代了<code>[ ]</code>。**</p>
+<p>现在，这个<code>t</code>就不能改变了，tuple没有 append()方法，也没有insert()和pop()方法。所以，新同学没法直接往 tuple 中添加，老同学想退出 tuple 也不行。</p>
+<p>获取 tuple 元素的方式和 list 是一模一样的，我们可以正常使用 t[0]，t[-1]等索引方式访问元素，但是不能赋值成别的元素，不信可以试试：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t[0] = 'Paul'
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+<h2 id="8-python之创建单元素tuple">8. Python之创建单元素tuple</h2>
+<p>tuple和list一样，可以包含 0 个、1个和任意多个元素。</p>
+<p>包含多个元素的 tuple，前面我们已经创建过了。</p>
+<p>包含 0 个元素的 tuple，也就是空tuple，直接用 ()表示：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = ()
+&gt;&gt;&gt; print t
+()
+</code></pre>
+<p>创建包含1个元素的 tuple 呢？来试试：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = (1)
+&gt;&gt;&gt; print t
+1
+</code></pre>
+<p>好像哪里不对！t 不是 tuple ，而是整数1。<strong>为什么</strong>呢？</p>
+<p>因为<code>()</code>既可以表示tuple，又可以作为括号表示运算时的优先级，结果 (1) 被Python解释器计算出结果 1，导致我们得到的不是tuple，而是整数 1。</p>
+<p>正是因为用()定义单元素的tuple有歧义，所以 Python 规定，单元素 tuple 要多加一个逗号“,”，这样就避免了歧义：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = (1,)
+&gt;&gt;&gt; print t
+(1,)
+</code></pre>
+<p>Python在打印单元素tuple时，也自动添加了一个“,”，为了更明确地告诉你这是一个tuple。</p>
+<p>多元素 tuple 加不加这个额外的“,”效果是一样的：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = (1, 2, 3,)
+&gt;&gt;&gt; print t
+(1, 2, 3)
+</code></pre>
+<h2 id="9-python之可变的tuple">9. Python之“可变”的tuple</h2>
+<p>前面我们看到了tuple一旦创建就不能修改。现在，我们来看一个“可变”的tuple：</p>
+<pre><code class="language-python">&gt;&gt;&gt; t = ('a', 'b', ['A', 'B'])
+</code></pre>
+<p><strong>注意</strong>到 t 有 3 个元素：<strong>'a'，'b'<strong>和一个list：</strong>['A', 'B']</strong>。list作为一个整体是tuple的第3个元素。list对象可以通过 t[2] 拿到：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = t[2]
+</code></pre>
+<p>然后，我们把list的两个元素改一改：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[0] = 'X'
+&gt;&gt;&gt; L[1] = 'Y'
+</code></pre>
+<p>再看看tuple的内容：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print t
+('a', 'b', ['X', 'Y'])
+</code></pre>
+<p>不是说tuple一旦定义后就不可变了吗？怎么现在又变了？</p>
+<p>别急，我们先看看定义的时候tuple包含的3个元素：</p>
+<p>{% asset_img 540538d400010f4603500260.jpg %}</p>
+<p>当我们把list的元素**'A'和'B'<strong>修改为</strong>'X'和'Y'**后，tuple变为：</p>
+<p>{% asset_img 540538e9000110c003500260.jpg %}<br>
+表面上看，tuple的元素确实变了，但其实变的不是 tuple 的元素，而是list的元素。</p>
+<p>tuple一开始指向的list并没有改成别的list，所以，tuple所谓的**“不变”<strong>是说，tuple的每个元素，指向永远不变。即</strong>指向'a'，就不能改成指向'b'**，指向一个list，就不能改成指向其他对象，但指向的这个list本身是可变的！</p>
+<p>理解了**“指向不变”**后，要创建一个内容也不变的tuple怎么做？那就必须保证tuple的每一个元素本身也不能变。</p>
+<h1 id="条件判断和循环">条件判断和循环</h1>
+<h2 id="1-python之if语句">1. Python之if语句</h2>
+<p>计算机之所以能做很多自动化的任务，因为它可以自己做条件判断。</p>
+<p>比如，输入用户年龄，根据年龄打印不同的内容，在Python程序中，可以用if语句实现：</p>
+<pre><code class="language-python">age = 20
+if age &gt;= 18:
+    print 'your age is', age
+    print 'adult'
+print 'END'
+</code></pre>
+<p><strong>注意:</strong> Python代码的缩进规则。具有相同缩进的代码被视为代码块，上面的3，4行 print 语句就构成一个代码块（但不包括第5行的print）。如果 if 语句判断为 True，就会执行这个代码块。</p>
+<p>缩进请严格按照Python的习惯写法：4个空格，不要使用Tab，更不要混合Tab和空格，否则很容易造成因为缩进引起的语法错误。</p>
+<p><strong>注意</strong>: if 语句后接表达式，然后用<code>:</code>表示代码块开始。</p>
+<p>如果你在Python交互环境下敲代码，还要特别留意缩进，并且退出缩进需要多敲一行回车：</p>
+<pre><code class="language-python">&gt;&gt;&gt; age = 20
+&gt;&gt;&gt; if age &gt;= 18:
+...     print 'your age is', age
+...     print 'adult'
+...
+your age is 20
+adult
+</code></pre>
+<h2 id="2-python之-if-else">2. Python之 if-else</h2>
+<p>当 if 语句判断表达式的结果为 True 时，就会执行 if 包含的代码块：</p>
+<pre><code class="language-python">if age &gt;= 18:
+    print 'adult'
+</code></pre>
+<p>如果我们想判断年龄在18岁以下时，打印出 'teenager'，怎么办？</p>
+<p>方法是再写一个 if:</p>
+<pre><code class="language-python">if age &lt; 18:
+    print 'teenager'
+</code></pre>
+<p>或者用 not 运算：</p>
+<pre><code class="language-python">if not age &gt;= 18:
+    print 'teenager'
+</code></pre>
+<p>细心的同学可以发现，这两种条件判断是“非此即彼”的，要么符合条件1，要么符合条件2，因此，完全可以用一个 if ... else ... 语句把它们统一起来：</p>
+<pre><code class="language-python">if age &gt;= 18:
+    print 'adult'
+else:
+    print 'teenager'
+</code></pre>
+<p>利用 if ... else ... 语句，我们可以根据条件表达式的值为 True 或者 False ，分别执行 if 代码块或者 else 代码块。</p>
+<p><strong><mark>注意</mark>:</strong> else 后面有个“:”。</p>
+<h2 id="3-python之-if-elif-else">3. Python之 if-elif-else</h2>
+<p>有的时候，一个 if ... else ... 还不够用。比如，根据年龄的划分：</p>
+<pre><code class="language-python">条件1：18岁或以上：adult
+条件2：6岁或以上：teenager
+条件3：6岁以下：kid
+</code></pre>
+<p>我们可以用一个 if age &gt;= 18 判断是否符合条件1，如果不符合，再通过一个 if 判断 age &gt;= 6 来判断是否符合条件2，否则，执行条件3：</p>
+<pre><code class="language-python">if age &gt;= 18:
+    print 'adult'
+else:
+    if age &gt;= 6:
+        print 'teenager'
+    else:
+        print 'kid'
+</code></pre>
+<p>这样写出来，我们就得到了一个两层嵌套的 if ... else ... 语句。这个逻辑没有问题，但是，如果继续增加条件，比如3岁以下是 baby：</p>
+<pre><code class="language-python">if age &gt;= 18:
+    print 'adult'
+else:
+    if age &gt;= 6:
+        print 'teenager'
+    else:
+        if age &gt;= 3:
+            print 'kid'
+        else:
+            print 'baby'
+</code></pre>
+<p>这种缩进只会越来越多，代码也会越来越难看。</p>
+<p>要避免嵌套结构的 if ... else ...，我们可以用 if ... 多个elif ... else ... 的结构，一次写完所有的规则：</p>
+<pre><code class="language-python">if age &gt;= 18:
+    print 'adult'
+elif age &gt;= 6:
+    print 'teenager'
+elif age &gt;= 3:
+    print 'kid'
+else:
+    print 'baby'
+</code></pre>
+<p>elif 意思就是 else if。这样一来，我们就写出了结构非常清晰的一系列条件判断。</p>
+<p><strong>特别注意:</strong> 这一系列条件判断会从上到下依次判断，如果某个判断为 True，执行完对应的代码块，后面的条件判断就直接忽略，不再执行了。</p>
+<h3 id="请思考下面的代码">请思考下面的代码：</h3>
+<pre><code class="language-python">age = 8
+if age &gt;= 6:
+    print 'teenager'
+elif age &gt;= 18:
+    print 'adult'
+else:
+    print 'kid'
+</code></pre>
+<p>当 age = 8 时，结果正确，但 age = 20 时，为什么没有打印出 adult？</p>
+<p>如果要修复，应该如何修复？</p>
+<blockquote>
+<p>交换      print 'teenager'     print 'adult'</p>
+</blockquote>
+<h2 id="4-python之-for循环">4. Python之 for循环</h2>
+<p>list或tuple可以表示一个有序集合。如果我们想依次访问一个list中的每一个元素呢？比如 list：</p>
+<pre><code class="language-python">L = ['Adam', 'Lisa', 'Bart']
+print L[0]
+print L[1]
+print L[2]
+</code></pre>
+<p>如果list只包含几个元素，这样写还行，如果list包含1万个元素，我们就不可能写1万行print。</p>
+<p>这时，循环就派上用场了。</p>
+<p>Python的 for 循环就可以依次把list或tuple的每个元素迭代出来：</p>
+<pre><code class="language-python">L = ['Adam', 'Lisa', 'Bart']
+for name in L:
+    print name
+</code></pre>
+<p><strong>注意:</strong> name 这个变量是在 for 循环中定义的，意思是，依次取出list中的每一个元素，并把元素赋值给 name，然后执行for循环体（就是缩进的代码块）。</p>
+<p>这样一来，遍历一个list或tuple就非常容易了。</p>
+<h2 id="5-python之-while循环">5. Python之 while循环</h2>
+<p>和 for 循环不同的另一种循环是 while 循环，while 循环不会迭代 list 或 tuple 的元素，而是根据表达式判断循环是否结束。</p>
+<p>比如要从 0 开始打印不大于 N 的整数：</p>
+<pre><code class="language-python">N = 10
+x = 0
+while x &lt; N:
+    print x
+    x = x + 1
+</code></pre>
+<p>while循环每次先判断 x &lt; N，如果为True，则执行循环体的代码块，否则，退出循环。</p>
+<p>在循环体内，x = x + 1 会让 x 不断增加，最终因为 x &lt; N 不成立而退出循环。</p>
+<p>如果没有这一个语句，<strong>while循环在判断 x &lt; N 时总是为True</strong>，就会无限循环下去，变成死循环，所以要特别留意while循环的退出条件。</p>
+<h2 id="6-python之-break退出循环">6. Python之 break退出循环</h2>
+<p>用 for 循环或者 while 循环时，如果要在循环体内直接退出循环，可以使用 break 语句。</p>
+<p>比如计算1至100的整数和，我们用while来实现：</p>
+<pre><code class="language-python">sum = 0
+x = 1
+while True:
+    sum = sum + x
+    x = x + 1
+    if x &gt; 100:
+        break
+print sum
+</code></pre>
+<p>咋一看， while True 就是一个死循环，但是在循环体内，我们还判断了 x &gt; 100 条件成立时，用break语句退出循环，这样也可以实现循环的结束。</p>
+<h2 id="7-python之-continue继续循环">7. Python之 continue继续循环</h2>
+<p>在循环过程中，可以用break退出当前循环，还可以用continue跳过后续循环代码，继续下一次循环。</p>
+<p>假设我们已经写好了利用for循环计算平均分的代码：</p>
+<pre><code>L = [75, 98, 59, 81, 66, 43, 69, 85]
+sum = 0.0
+n = 0
+for x in L:
+    sum = sum + x
+    n = n + 1
+print sum / n
+</code></pre>
+<p>现在老师只想统计及格分数的平均分，就要把 x &lt; 60 的分数剔除掉，这时，利用 continue，可以做到当 x &lt; 60的时候，不继续执行循环体的后续代码，直接进入下一次循环：</p>
+<pre><code class="language-python">for x in L:
+    if x &lt; 60:
+        continue
+    sum = sum + x
+    n = n + 1
+</code></pre>
+<h2 id="8-python之-多重循环">8. Python之 多重循环</h2>
+<p>在循环内部，还可以嵌套循环，我们来看一个例子：</p>
+<pre><code>for x in ['A', 'B', 'C']:
+    for y in ['1', '2', '3']:
+        print x + y
+</code></pre>
+<p>x 每循环一次，y 就会循环 3 次，这样，我们可以打印出一个全排列：</p>
+<p>A1<br>
+A2<br>
+A3<br>
+B1<br>
+B2<br>
+B3<br>
+C1<br>
+C2<br>
+C3</p>
+<h1 id="dict和set类型">Dict和Set类型</h1>
+<h2 id="1-python之什么是dict">1. Python之什么是dict</h2>
+<p><strong>map</strong></p>
+<p>我们已经知道，list 和 tuple 可以用来表示顺序集合，例如，班里同学的名字：</p>
+<pre><code class="language-python">['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>或者考试的成绩列表：</p>
+<pre><code class="language-python">[95, 85, 59]
+</code></pre>
+<p>但是，要根据名字找到对应的成绩，用两个 list 表示就不方便。</p>
+<p>如果把名字和分数关联起来，组成类似的查找表：</p>
+<pre><code class="language-python">'Adam' ==&gt; 95
+'Lisa' ==&gt; 85
+'Bart' ==&gt; 59
+</code></pre>
+<p>给定一个名字，就可以直接查到分数。</p>
+<p>Python的 dict 就是专门干这件事的。用 <strong>dict</strong> 表示**“名字”-“成绩”**的查找表如下：</p>
+<pre><code class="language-python">d = {
+    'Adam': 95,
+    'Lisa': 85,
+    'Bart': 59
+}
+</code></pre>
+<p>我们把<strong>名字称为key</strong>，对应的<strong>成绩称为value</strong>，dict就是通过 <strong>key</strong> 来查找 <strong>value</strong>。</p>
+<p>花括号 {} 表示这是一个dict，然后按照 <strong>key: value</strong>, 写出来即可。最后一个 key: value 的逗号可以省略。</p>
+<p>由于dict也是集合，len() 函数可以计算任意集合的大小：</p>
+<pre><code class="language-python">&gt;&gt;&gt; len(d)
+3
+</code></pre>
+<p><strong>注意:</strong> 一个 key-value 算一个，因此，dict大小为3。</p>
+<h2 id="2-python之访问dict">2. Python之访问dict</h2>
+<p>我们已经能创建一个dict，用于表示名字和成绩的对应关系：</p>
+<pre><code class="language-python">d = {
+    'Adam': 95,
+    'Lisa': 85,
+    'Bart': 59
+}
+</code></pre>
+<p>那么，如何根据名字来查找对应的成绩呢？</p>
+<p>可以简单地使用 d[key] 的形式来查找对应的 value，这和 list 很像，不同之处是，<strong>list 必须使用索引返回对应的元素，而dict使用key：</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print d['Adam']
+95
+&gt;&gt;&gt; print d['Paul']
+Traceback (most recent call last):
+  File &quot;index.py&quot;, line 11, in &lt;module&gt;
+    print d['Paul']
+KeyError: 'Paul'
+</code></pre>
+<p><strong>注意:</strong> 通过 key 访问 dict 的value，只要 key 存在，dict就返回对应的value。如果key不存在，会直接报错：KeyError。</p>
+<p>要避免 KeyError 发生，有两个办法：</p>
+<p><strong>一是先判断一下 key 是否存在，用 in 操作符：</strong></p>
+<pre><code class="language-python">if 'Paul' in d:
+    print d['Paul']
+</code></pre>
+<p>如果 'Paul' 不存在，if语句判断为False，自然不会执行 print d['Paul'] ，从而避免了错误。</p>
+<p><strong>二是使用dict本身提供的一个 get 方法，在Key不存在的时候，返回None：</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print d.get('Bart')
+59
+&gt;&gt;&gt; print d.get('Paul')
+None
+</code></pre>
+<h3 id="任务">任务</h3>
+<p>根据如下dict：</p>
+<pre><code class="language-python">d = {
+    'Adam': 95,
+    'Lisa': 85,
+    'Bart': 59
+}
+</code></pre>
+<p>请打印出：</p>
+<pre><code class="language-python">Adam: 95
+Lisa: 85
+Bart: 59
+</code></pre>
+<h2 id="3-python中dict的特点">3. Python中dict的特点</h2>
+<p><strong>dict的第一个特点是查找速度快，无论dict有10个元素还是10万个元素，查找速度都一样</strong>。而list的查找速度随着元素增加而逐渐下降。</p>
+<p>不过dict的查找速度快不是没有代价的，<strong>dict的缺点是占用内存大，还会浪费很多内容</strong>，list正好相反，占用内存小，但是查找速度慢。</p>
+<p>由于dict是按 key 查找，所以，<mark>在一个dict中，key不能重复</mark>。</p>
+<p>**dict的第二个特点就是存储的key-value序对是没有顺序的！**这和list不一样：</p>
+<pre><code class="language-python">d = {
+    'Adam': 95,
+    'Lisa': 85,
+    'Bart': 59
+}
+</code></pre>
+<p>当我们试图打印这个dict时：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print d
+{'Lisa': 85, 'Adam': 95, 'Bart': 59}
+</code></pre>
+<p>打印的顺序不一定是我们创建时的顺序，而且，不同的机器打印的顺序都可能不同==，这说明dict内部是<strong>无序</strong>的==，不能用dict存储有序的集合。</p>
+<p><strong>dict的第三个特点是作为 key 的元素必须不可变</strong>，Python的基本类型如字符串、整数、浮点数都是不可变的，都可以作为 key。但是list是可变的，就不能作为 key。</p>
+<p>可以试试用list作为key时会报什么样的错误。</p>
+<p>不可变这个限制仅作用于key，value是否可变无所谓：</p>
+<pre><code class="language-python">{
+    '123': [1, 2, 3],  # key 是 str，value是list
+    123: '123',  # key 是 int，value 是 str
+    ('a', 'b'): True  # key 是 tuple，并且tuple的每个元素都是不可变对象，value是 boolean
+}
+</code></pre>
+<p>最常用的key还是字符串，因为用起来最方便。</p>
+<h2 id="4-python更新dict">4. Python更新dict</h2>
+<p>dict是可变的，也就是说，我们可以随时往dict中添加新的 key-value。比如已有dict：</p>
+<pre><code class="language-python">d = {
+    'Adam': 95,
+    'Lisa': 85,
+    'Bart': 59
+}
+</code></pre>
+<p>要把新同学'Paul'的成绩 72 加进去，用赋值语句：</p>
+<pre><code class="language-python">&gt;&gt;&gt; d['Paul'] = 72
+</code></pre>
+<p>再看看dict的内容：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print d
+{'Lisa': 85, 'Paul': 72, 'Adam': 95, 'Bart': 59}
+</code></pre>
+<p>如果 key 已经存在，则赋值会用新的 value 替换掉原来的 value：</p>
+<pre><code class="language-python">&gt;&gt;&gt; d['Bart'] = 60
+&gt;&gt;&gt; print d
+{'Lisa': 85, 'Paul': 72, 'Adam': 95, 'Bart': 60}
+</code></pre>
+<h2 id="5-python之-遍历dict">5. Python之 遍历dict</h2>
+<p>由于dict也是一个集合，所以，遍历dict和遍历list类似，都可以通过 for 循环实现。</p>
+<p>直接使用for循环可以遍历 dict 的 key：</p>
+<pre><code class="language-python">&gt;&gt;&gt; d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+&gt;&gt;&gt; for key in d:
+...     print key
+... 
+Lisa
+Adam
+Bart
+</code></pre>
+<p>由于通过 key 可以获取对应的 value，因此，在循环体内，可以获取到value的值。</p>
+<h2 id="6-python中什么是set">6. Python中什么是set</h2>
+<p><strong>dict的作用是建立一组 key 和一组 value 的映射关系，dict的key是不能重复的。</strong></p>
+<p>有的时候，我们只想要 dict 的 key，不关心 key 对应的 value，目的就是保证这个集合的元素不会重复，这时，set就派上用场了。</p>
+<p><strong>set 持有一系列元素，这一点和 list 很像，但是set的元素没有重复，而且是无序的，这点和 dict 的 key很像。</strong></p>
+<p>创建 set 的方式是调用 set() 并传入一个 list，list的元素将作为set的元素：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set(['A', 'B', 'C'])
+</code></pre>
+<p>可以查看 set 的内容：</p>
+<pre><code class="language-python">&gt;&gt;&gt; print s
+set(['A', 'C', 'B'])
+</code></pre>
+<p><strong>请注意</strong>，上述打印的形式类似 list， 但它不是 list，仔细看还可以发现，打印的顺序和原始 list 的顺序有可能是不同的，因为set内部存储的元素是<strong>无序</strong>的。</p>
+<p>因为set不能包含重复的元素，所以，当我们传入包含重复元素的 list 会怎么样呢？</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set(['A', 'B', 'C', 'C'])
+&gt;&gt;&gt; print s
+set(['A', 'C', 'B'])
+&gt;&gt;&gt; len(s)
+3
+</code></pre>
+<p>结果显示，set会自动去掉重复的元素，原来的list有4个元素，但set只有3个元素。</p>
+<h2 id="7-python之-访问set">7. Python之 访问set</h2>
+<p>由于<strong>set存储的是无序集合</strong>，所以我们没法通过索引来访问。</p>
+<p>访问 set中的某个元素实际上就是判断一个元素是否在set中。</p>
+<p>例如，存储了班里同学名字的set：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set(['Adam', 'Lisa', 'Bart', 'Paul'])
+</code></pre>
+<p>我们可以用 in 操作符判断：</p>
+<p>Bart是该班的同学吗？</p>
+<pre><code class="language-python">&gt;&gt;&gt; 'Bart' in s
+True
+</code></pre>
+<p>Bill是该班的同学吗？</p>
+<pre><code class="language-python">&gt;&gt;&gt; 'Bill' in s
+False
+</code></pre>
+<p>bart是该班的同学吗？</p>
+<pre><code class="language-python">&gt;&gt;&gt; 'bart' in s
+False
+</code></pre>
+<p><mark>看来大小写很重要</mark>，'Bart' 和 'bart'被认为是两个不同的元素。</p>
+<h2 id="8-python之-set的特点">8. Python之 set的特点</h2>
+<p><strong>set的内部结构和dict很像，唯一区别是不存储value</strong>，因此，判断一个元素是否在set中速度很快。</p>
+<p><strong>set存储的元素和dict的key类似，必须是不变对象</strong>，因此，任何可变对象是不能放入set中的。</p>
+<p>最后，set存储的元素也是没有顺序的。</p>
+<p>set的这些特点，可以应用在哪些地方呢？</p>
+<p>星期一到星期日可以用字符串'MON', 'TUE', ... 'SUN'表示。</p>
+<p>假设我们让用户输入星期一至星期日的某天，如何判断用户的输入是否是一个有效的星期呢？</p>
+<p>可以用 <strong>if 语句</strong>判断，但这样做非常繁琐：</p>
+<pre><code class="language-python">x = '???' # 用户输入的字符串
+if x!= 'MON' and x!= 'TUE' and x!= 'WED' ... and x!= 'SUN':
+    print 'input error'
+else:
+    print 'input ok'
+</code></pre>
+<p>**注意：**if 语句中的...表示没有列出的其它星期名称，测试时，请输入完整。</p>
+<p>如果事先创建好一个set，包含'MON' ~ 'SUN'：</p>
+<pre><code class="language-python">weekdays = set(['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'])
+</code></pre>
+<p>再判断输入是否有效，只需要判断该字符串是否在set中：</p>
+<pre><code class="language-python">x = '???' # 用户输入的字符串
+if x in weekdays:
+    print 'input ok'
+else:
+    print 'input error'
+</code></pre>
+<p>这样一来，代码就简单多了。</p>
+<h2 id="9-python之-遍历set">9. Python之 遍历set</h2>
+<p>由于 set 也是一个集合，所以，遍历 set 和遍历 list 类似，都可以通过 for 循环实现。</p>
+<p>直接使用 for 循环可以遍历 set 的元素：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set(['Adam', 'Lisa', 'Bart'])
+&gt;&gt;&gt; for name in s:
+...     print name
+... 
+Lisa
+Adam
+Bart
+</code></pre>
+<p><strong>注意:</strong> 观察 for 循环在遍历set时，元素的顺序和list的顺序很可能是不同的，而且不同的机器上运行的结果也可能不同。</p>
+<h2 id="python之-更新set">Python之 更新set</h2>
+<p>由于<strong>set存储的是一组不重复的无序元素</strong>，因此，更新set主要做两件事：</p>
+<p><strong>一是把新的元素添加到set中，二是把已有元素从set中删除。</strong></p>
+<p>添加元素时，用set的add()方法：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set([1, 2, 3])
+&gt;&gt;&gt; s.add(4)
+&gt;&gt;&gt; print s
+set([1, 2, 3, 4])
+</code></pre>
+<p>如果添加的元素已经存在于set中，add()不会报错，但是不会加进去了：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set([1, 2, 3])
+&gt;&gt;&gt; s.add(3)
+&gt;&gt;&gt; print s
+set([1, 2, 3])
+</code></pre>
+<p>删除set中的元素时，用set的remove()方法：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set([1, 2, 3, 4])
+&gt;&gt;&gt; s.remove(4)
+&gt;&gt;&gt; print s
+set([1, 2, 3])
+</code></pre>
+<p>如果删除的元素不存在set中，remove()会报错：</p>
+<pre><code class="language-python">&gt;&gt;&gt; s = set([1, 2, 3])
+&gt;&gt;&gt; s.remove(4)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+KeyError: 4
+</code></pre>
+<p>所以用add()可以直接添加，而remove()前需要判断。</p>
+<h2 id="函数">函数</h2>
+<h2 id="python之什么是函数">Python之什么是函数</h2>
+<p>我们知道圆的面积计算公式为：</p>
+<pre><code>S = πr²
+</code></pre>
+<p>当我们知道半径r的值时，就可以根据公式计算出面积。假设我们需要计算3个不同大小的圆的面积：</p>
+<pre><code>r1 = 12.34
+r2 = 9.08
+r3 = 73.1
+s1 = 3.14 * r1 * r1
+s2 = 3.14 * r2 * r2
+s3 = 3.14 * r3 * r3
+</code></pre>
+<p>当代码出现有规律的重复的时候，你就需要当心了，每次写3.14 * x * x不仅很麻烦，而且，如果要把3.14改成3.14159265359的时候，得全部替换。</p>
+<p>有了函数，我们就不再每次写s = 3.14 * x * x，而是写成更有意义的函数调用 <code>s = area_of_circle(x)</code>，而函数 area_of_circle 本身只需要写一次，就可以多次调用。</p>
+<p><strong>抽象</strong>是数学中非常常见的概念。举个例子：</p>
+<p>计算数列的和，比如：<strong>1 + 2 + 3 + ... + 100</strong>，写起来十分不方便，于是数学家发明了求和符号∑，可以把1 + 2 + 3 + ... + 100记作：</p>
+<pre><code>100
+∑n
+n=1
+</code></pre>
+<p>这种抽象记法非常强大，因为我们看到∑就可以理解成求和，而不是还原成低级的加法运算。</p>
+<p>而且，这种抽象记法是可扩展的，比如：</p>
+<pre><code>100
+∑(n²+1)
+n=1
+</code></pre>
+<p>还原成加法运算就变成了：</p>
+<pre><code>(1 x 1 + 1) + (2 x 2 + 1) + (3 x 3 + 1) + ... + (100 x 100 + 1)
+</code></pre>
+<p>可见，借助抽象，我们才能不关心底层的具体计算过程，而直接在更高的层次上思考问题。</p>
+<p>写计算机程序也是一样，函数就是最基本的一种代码抽象的方式。</p>
+<p>Python不但能非常灵活地定义函数，而且本身内置了很多有用的函数，可以直接调用。</p>
+<h2 id="python之调用函数">Python之调用函数</h2>
+<p>Python内置了很多有用的函数，我们可以直接调用。</p>
+<p>要调用一个函数，需要知道<strong>函数</strong>的<strong>名称</strong>和<strong>参数</strong>，比如求绝对值的函数 abs，它接收一个参数。</p>
+<pre><code class="language-python">可以直接从Python的官方网站查看文档：
+http://docs.python.org/2/library/functions.html#abs
+</code></pre>
+<p>也可以在交互式命令行通过 help(abs) 查看abs函数的帮助信息。</p>
+<p>调用 <strong>abs</strong> 函数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; abs(100)
+100
+&gt;&gt;&gt; abs(-20)
+20
+&gt;&gt;&gt; abs(12.34)
+12.34
+</code></pre>
+<p>调用函数的时候，如果传入的参数数量不对，会报<strong>TypeError</strong>的错误，并且Python会明确地告诉你：abs()有且仅有1个参数，但给出了两个：</p>
+<pre><code class="language-python">&gt;&gt;&gt; abs(1, 2)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: abs() takes exactly one argument (2 given)
+</code></pre>
+<p>如果传入的参数数量是对的，但参数类型不能被函数所接受，也会报<strong>TypeError</strong>的错误，并且给出错误信息：str是错误的参数类型：</p>
+<pre><code class="language-python">&gt;&gt;&gt; abs('a')
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: bad operand type for abs(): 'str'
+</code></pre>
+<p>而比较函数 cmp(x, y) 就需要两个参数，如果 **x&lt;y，返回 <strong>-1</strong>，如果 <strong>x==y</strong>，返回 <strong>0</strong>，如果 <strong>x&gt;y</strong>，返回 <strong>1</strong>：</p>
+<pre><code class="language-python">&gt;&gt;&gt; cmp(1, 2)
+-1
+&gt;&gt;&gt; cmp(2, 1)
+1
+&gt;&gt;&gt; cmp(3, 3)
+0
+</code></pre>
+<p>Python内置的常用函数还包括数据类型转换函数，比如  int()函数可以把其他数据类型转换为整数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; int('123')
+123
+&gt;&gt;&gt; int(12.34)
+12
+</code></pre>
+<p>str()函数把其他类型转换成 str：</p>
+<pre><code class="language-python">&gt;&gt;&gt; str(123)
+'123'
+&gt;&gt;&gt; str(1.23)
+'1.23'
+</code></pre>
+<h2 id="python之编写函数">Python之编写函数</h2>
+<p>在Python中，定义一个函数要使用 <strong>def</strong> 语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用 return 语句返回。</p>
+<p>我们以自定义一个求绝对值的 my_abs 函数为例：</p>
+<pre><code class="language-python">def my_abs(x):
+    if x &gt;= 0:
+        return x
+    else:
+        return -x
+</code></pre>
+<p><strong>请注意</strong>，函数体内部的语句在执行时，一旦执行到return时，函数就执行完毕，并将结果返回。因此，函数内部通过条件判断和循环可以实现非常复杂的逻辑。</p>
+<p>如果没有return语句，函数执行完毕后也会返回结果，只是结果为 None。</p>
+<p>return None可以简写为return。</p>
+<h3 id="任务-2">任务</h3>
+<p>请定义一个 square_of_sum 函数，它接受一个list，返回list中每个元素平方的和。</p>
+<pre><code class="language-python">def square_of_sum(L):
+    return sum([i * i for i in L])
+
+print square_of_sum([1, 2, 3, 4, 5])
+print square_of_sum([-5, 0, 5, 15, 25])
+</code></pre>
+<h2 id="python函数之返回多值">Python函数之返回多值</h2>
+<p>函数可以返回多个值吗？答案是肯定的。</p>
+<p>比如在游戏中经常需要从一个点移动到另一个点，给出坐标、位移和角度，就可以计算出新的坐标：</p>
+<p><strong># math</strong>包提供了**sin()**和 **cos()**函数，我们先用import引用它：</p>
+<pre><code class="language-python">import math
+def move(x, y, step, angle):
+    nx = x + step * math.cos(angle)
+    ny = y - step * math.sin(angle)
+    return nx, ny
+</code></pre>
+<p>这样我们就可以同时获得返回值：</p>
+<pre><code class="language-python">&gt;&gt;&gt; x, y = move(100, 100, 60, math.pi / 6)
+&gt;&gt;&gt; print x, y
+151.961524227 70.0
+</code></pre>
+<p>但其实这只是一种假象，Python函数返回的仍然是单一值：</p>
+<pre><code class="language-python">&gt;&gt;&gt; r = move(100, 100, 60, math.pi / 6)
+&gt;&gt;&gt; print r
+(151.96152422706632, 70.0)
+</code></pre>
+<p>用print打印返回结果，原来返回值是一个<strong>tuple</strong>！</p>
+<p>但是，在语法上，返回一个tuple可以省略括号，而多个变量可以同时接收一个tuple，按位置赋给对应的值，所以，<strong>Python的函数</strong>返回多值其实就是<strong>返回一个tuple</strong>，但写起来更方便。</p>
+<h3 id="任务-3">任务</h3>
+<p>一元二次方程的定义是：ax² + bx + c = 0</p>
+<p>请编写一个函数，返回一元二次方程的两个解。</p>
+<p>**注意：**Python的math包提供了sqrt()函数用于计算平方根。</p>
+<pre><code class="language-python">import math
+
+def quadratic_equation(a, b, c):
+    de=b**2-4*a*c
+    if de&gt;=0:
+        x1=(-b+math.sqrt(de))/(2*a)
+        x2=(-b-math.sqrt(de))/(2*a)
+        return x1,x2
+    else:
+        return
+
+print quadratic_equation(2, 3, 0)
+print quadratic_equation(1, -6, 5)
+</code></pre>
+<h2 id="python之递归函数">Python之递归函数</h2>
+<p>在函数内部，可以调用其他函数。如果一个函数在内部调用自身本身，这个函数就是递归函数。</p>
+<p>举个例子，我们来计算阶乘 <strong>n! = 1 * 2 * 3 * ... * n</strong>，用函数 **fact(n)**表示，可以看出：</p>
+<pre><code class="language-python">fact(n) = n! = 1 * 2 * 3 * ... * (n-1) * n = (n-1)! * n = fact(n-1) * n
+</code></pre>
+<p>所以，**fact(n)**可以表示为 <strong>n * fact(n-1)</strong>，只有n=1时需要特殊处理。</p>
+<p>于是，fact(n)用递归的方式写出来就是：</p>
+<pre><code class="language-python">def fact(n):
+    if n==1:
+        return 1
+    return n * fact(n - 1)
+</code></pre>
+<p>上面就是一个递归函数。可以试试：</p>
+<pre><code class="language-python">&gt;&gt;&gt; fact(1)
+1
+&gt;&gt;&gt; fact(5)
+120
+&gt;&gt;&gt; fact(100)
+93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000L
+</code></pre>
+<p>如果我们计算fact(5)，可以根据函数定义看到计算过程如下：</p>
+<pre><code>===&gt; fact(5)
+===&gt; 5 * fact(4)
+===&gt; 5 * (4 * fact(3))
+===&gt; 5 * (4 * (3 * fact(2)))
+===&gt; 5 * (4 * (3 * (2 * fact(1))))
+===&gt; 5 * (4 * (3 * (2 * 1)))
+===&gt; 5 * (4 * (3 * 2))
+===&gt; 5 * (4 * 6)
+===&gt; 5 * 24
+===&gt; 120
+</code></pre>
+<p>递归函数的优点是定义简单，逻辑清晰。理论上，所有的递归函数都可以写成循环的方式，但循环的逻辑不如递归清晰。</p>
+<p>使用递归函数需要注意防止栈溢出。在计算机中，函数调用是通过栈（stack）这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，会导致栈溢出。可以试试计算 fact(10000)。</p>
+<h3 id="任务-4">任务</h3>
+<p>汉诺塔 (http://baike.baidu.com/view/191666.htm) 的移动也可以看做是递归函数。</p>
+<p>我们对柱子编号为a, b, c，将所有圆盘从a移到c可以描述为：</p>
+<p>如果a只有一个圆盘，可以直接移动到c；</p>
+<p>如果a有N个圆盘，可以看成a有1个圆盘（底盘） + (N-1)个圆盘，首先需要把 (N-1) 个圆盘移动到 b，然后，将 a的最后一个圆盘移动到c，再将b的(N-1)个圆盘移动到c。</p>
+<p>请编写一个函数，给定输入 n, a, b, c，打印出移动的步骤：</p>
+<p>move(n, a, b, c)</p>
+<p>例如，输入 move(2, 'A', 'B', 'C')，打印出：</p>
+<p>A --&gt; B<br>
+A --&gt; C<br>
+B --&gt; C</p>
+<pre><code class="language-python">#-*- coding:utf-8 -*-
+def move(n, x, y, z):
+    if n==1:
+        print x,'--&gt;',z
+        return
+    move(n-1,x,z,y)#将前n-1个盘子从x移动到y上
+    move(1,x,y,z)#将最底下的最后一个盘子从x移动到z上
+    move(n-1,y,x,z)#将y上的n-1个盘子移动到z上
+move(4, 'A', 'B', 'C')
+</code></pre>
+<h2 id="python之定义默认参数">Python之定义默认参数</h2>
+<p>定义函数的时候，还可以有默认参数。</p>
+<p>例如Python自带的 <strong>int()</strong> 函数，其实就有两个参数，我们既可以传一个参数，又可以传两个参数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; int('123')
+123
+&gt;&gt;&gt; int('123', 8)
+83
+</code></pre>
+<p>int()函数的第二个参数是转换进制，如果不传，默认是十进制 (base=10)，如果传了，就用传入的参数。</p>
+<p>可见，<strong>函数的默认参数的作用是简化调用</strong>，你只需要把必须的参数传进去。但是在需要的时候，又可以传入额外的参数来覆盖默认参数值。</p>
+<p>我们来定义一个计算 x 的N次方的函数:</p>
+<pre><code class="language-python">def power(x, n):
+    s = 1
+    while n &gt; 0:
+        n = n - 1
+        s = s * x
+    return s
+</code></pre>
+<p>假设计算平方的次数最多，我们就可以把 n 的默认值设定为 2：</p>
+<pre><code class="language-python">def power(x, n=2):
+    s = 1
+    while n &gt; 0:
+        n = n - 1
+        s = s * x
+    return s
+</code></pre>
+<p>这样一来，计算平方就不需要传入两个参数了：</p>
+<pre><code class="language-python">&gt;&gt;&gt; power(5)
+25
+</code></pre>
+<p>由于函数的参数按从左到右的顺序匹配，所以<strong>默认参数只能定义在必需参数的后面：</strong></p>
+<pre><code class="language-python"># OK:
+def fn1(a, b=1, c=2):
+    pass
+# Error:
+def fn2(a=1, b):
+    pass
+</code></pre>
+<h3 id="任务-5">任务</h3>
+<p>请定义一个 greet() 函数，它包含一个默认参数，如果没有传入，打印 'Hello, world.'，如果传入，打印 'Hello, xxx.'</p>
+<pre><code class="language-python">def greet(a='world'):
+    print 'hello,',a,'.'
+
+greet()
+greet('Bart')
+</code></pre>
+<h2 id="python之定义可变参数">Python之定义可变参数</h2>
+<p>如果想让一个函数能接受任意个参数，我们就可以定义一个可变参数：</p>
+<pre><code class="language-python">def fn(*args):
+    print args
+</code></pre>
+<p>可变参数的名字前面有个 ***** 号，我们可以传入0个、1个或多个参数给可变参数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; fn()
+()
+&gt;&gt;&gt; fn('a')
+('a',)
+&gt;&gt;&gt; fn('a', 'b')
+('a', 'b')
+&gt;&gt;&gt; fn('a', 'b', 'c')
+('a', 'b', 'c')
+</code></pre>
+<p>可变参数也不是很神秘，Python解释器会把传入的一组参数组装成一个tuple传递给可变参数，因此，在函数内部，直接把变量 args 看成一个 tuple 就好了。</p>
+<p>定义可变参数的目的也是为了简化调用。假设我们要计算任意个数的平均值，就可以定义一个可变参数：</p>
+<pre><code class="language-python">def average(*args):
+    ...
+</code></pre>
+<p>这样，在调用的时候，可以这样写：</p>
+<pre><code class="language-python">&gt;&gt;&gt; average()
+0
+&gt;&gt;&gt; average(1, 2)
+1.5
+&gt;&gt;&gt; average(1, 2, 2, 3, 4)
+2.4
+</code></pre>
+<h3 id="任务-6">任务</h3>
+<p>请编写接受可变参数的 average() 函数。</p>
+<pre><code class="language-python">def average(*args):
+    sum = 0.0
+    if len(args) == 0:
+        return sum
+    for x in args:
+        sum = sum + x
+    return sum / len(args)
+print average()
+print average(1, 2)
+print average(1, 2, 2, 3, 4)
+</code></pre>
+<h1 id="切片">切片</h1>
+<h2 id="1-对list进行切片">1 对list进行切片</h2>
+<h2 id="对list进行切片">对list进行切片</h2>
+<p>取一个list的部分元素是非常常见的操作。比如，一个list如下：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart', 'Paul']
+</code></pre>
+<p>取前3个元素，应该怎么做？</p>
+<p>笨办法：</p>
+<pre><code class="language-python">&gt;&gt;&gt; [L[0], L[1], L[2]]
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>之所以是笨办法是因为扩展一下，取前N个元素就没辙了。</p>
+<p>取前N个元素，也就是索引为0-(N-1)的元素，可以用循环：</p>
+<pre><code class="language-python">&gt;&gt;&gt; r = []
+&gt;&gt;&gt; n = 3
+&gt;&gt;&gt; for i in range(n):
+...     r.append(L[i])
+... 
+&gt;&gt;&gt; r
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>对这种经常取指定索引范围的操作，用循环十分繁琐，因此，Python提供了切片（Slice）操作符，能大大简化这种操作。</p>
+<p>对应上面的问题，取前3个元素，用一行代码就可以完成切片：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[0:3]
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>L[0:3]表示，从索引0开始取，直到索引3为止，但不包括索引3。即索引0，1，2，正好是3个元素。</p>
+<p>如果第一个索引是0，还可以省略：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[:3]
+['Adam', 'Lisa', 'Bart']
+</code></pre>
+<p>也可以从索引1开始，取出2个元素出来：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[1:3]
+['Lisa', 'Bart']
+</code></pre>
+<p>只用一个 <strong>:</strong> ，表示从头到尾：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[:]
+['Adam', 'Lisa', 'Bart', 'Paul']
+</code></pre>
+<p>因此，L[:]实际上复制出了一个新list。</p>
+<p>切片操作还可以指定第三个参数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L[::2]
+['Adam', 'Bart']
+</code></pre>
+<p>第三个参数表示每N个取一个，上面的 L[::2] 会每两个元素取出一个来，也就是隔一个取一个。</p>
+<p>把list换成tuple，切片操作完全相同，只是切片的结果也变成了tuple。</p>
+<h3 id="任务-7">任务</h3>
+<p>range()函数可以创建一个数列：</p>
+<pre><code class="language-python">&gt;&gt;&gt; range(1, 101)
+[1, 2, 3, ..., 100]
+</code></pre>
+<p>请利用切片，取出：</p>
+<ol>
+<li>前10个数；</li>
+<li>3的倍数；</li>
+<li>不大于50的5的倍数。</li>
+</ol>
+<pre><code class="language-python">L = range(1, 101)
+
+print L[:10]
+print L[2::3]
+print L[4:50:5]
+</code></pre>
+<h2 id="倒序切片">倒序切片</h2>
+<p>对于list，既然Python支持L[-1]取倒数第一个元素，那么它同样支持倒数切片，试试：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart', 'Paul']
+
+&gt;&gt;&gt; L[-2:]
+['Bart', 'Paul']
+
+&gt;&gt;&gt; L[:-2]
+['Adam', 'Lisa']
+
+&gt;&gt;&gt; L[-3:-1]
+['Lisa', 'Bart']
+
+&gt;&gt;&gt; L[-4:-1:2]
+['Adam', 'Bart']
+</code></pre>
+<p>记住倒数第一个元素的索引是-1。倒序切片包含起始索引，不包含结束索引。</p>
+<h3 id="任务-8">任务</h3>
+<p>利用倒序切片对 1 - 100 的数列取出：</p>
+<p>* 最后10个数；</p>
+<p>* 最后10个5的倍数。</p>
+<pre><code class="language-python">L = range(1, 101)
+print L[-10:]
+print L[-46::5]
+</code></pre>
+<h2 id="对字符串切片">对字符串切片</h2>
+<p>字符串 'xxx'和 Unicode字符串 u'xxx'也可以看成是一种list，每个元素就是一个字符。因此，字符串也可以用切片操作，只是操作结果仍是字符串：</p>
+<pre><code class="language-python">&gt;&gt;&gt; 'ABCDEFG'[:3]
+'ABC'
+&gt;&gt;&gt; 'ABCDEFG'[-3:]
+'EFG'
+&gt;&gt;&gt; 'ABCDEFG'[::2]
+'ACEG'
+</code></pre>
+<p>在很多编程语言中，针对字符串提供了很多各种截取函数，其实目的就是对字符串切片。Python没有针对字符串的截取函数，只需要切片一个操作就可以完成，非常简单。</p>
+<h3 id="任务-9">任务</h3>
+<p>字符串有个方法 upper() 可以把字符变成大写字母：</p>
+<pre><code class="language-python">&gt;&gt;&gt; 'abc'.upper()
+'ABC'
+</code></pre>
+<p>但它会把所有字母都变成大写。请设计一个函数，它接受一个字符串，然后返回一个仅首字母变成大写的字符串。</p>
+<p>**提示：**利用切片操作简化字符串操作。</p>
+<pre><code class="language-python">def firstCharUpper(s):
+    return s[0].upper() + s[1:]
+print firstCharUpper('hello')
+print firstCharUpper('sunday')
+print firstCharUpper('september')
+</code></pre>
+<h1 id="迭代">迭代</h1>
+<h2 id="什么是迭代">什么是迭代</h2>
+<p>在Python中，如果给定一个<strong>list</strong>或<strong>tuple</strong>，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。</p>
+<p>在Python中，迭代是通过 for ... in 来完成的，而很多语言比如C或者Java，迭代list是通过下标完成的，比如Java代码：</p>
+<pre><code class="language-python">for (i=0; i&lt;list.length; i++) {
+    n = list[i];
+}
+</code></pre>
+<p>可以看出，Python的for循环抽象程度要高于Java的for循环。</p>
+<p><strong>因为 Python 的 for循环不仅可以用在list或tuple上，还可以作用在其他任何可迭代对象上。</strong></p>
+<p>因此，迭代操作就是对于一个集合，无论该集合是有序还是无序，我们用 for 循环总是可以依次取出集合的每一个元素。</p>
+<pre><code class="language-python">注意: 集合是指包含一组元素的数据结构，我们已经介绍的包括：
+1. 有序集合：list，tuple，str和unicode；
+2. 无序集合：set
+3. 无序集合并且具有 key-value 对：dict
+</code></pre>
+<p>而迭代是一个动词，它指的是一种操作，<strong>在Python中，就是 for 循环</strong>。</p>
+<p>迭代与按下标访问数组最大的不同是，后者是一种具体的迭代实现方式，而前者只关心迭代结果，根本不关心迭代内部是如何实现的。</p>
+<h3 id="任务-10">任务</h3>
+<p>请用for循环迭代数列 1-100 并打印出7的倍数。</p>
+<pre><code class="language-python">for i in range(1, 101):
+    if i % 7 == 0:
+        print i
+</code></pre>
+<h2 id="索引迭代">索引迭代</h2>
+<p>Python中，<strong>迭代永远是取出元素本身，而非元素的索引。</strong></p>
+<p>对于有序集合，元素确实是有索引的。有的时候，我们确实想在 for 循环中拿到索引，怎么办？</p>
+<p>方法是使用 <strong>enumerate() 函数</strong>：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = ['Adam', 'Lisa', 'Bart', 'Paul']
+&gt;&gt;&gt; for index, name in enumerate(L):
+...     print index, '-', name
+... 
+0 - Adam
+1 - Lisa
+2 - Bart
+3 - Paul
+</code></pre>
+<p>使用 enumerate() 函数，我们可以在for循环中同时绑定索引index和元素name。但是，这不是 enumerate() 的特殊语法。实际上，enumerate() 函数把：</p>
+<pre><code class="language-python">['Adam', 'Lisa', 'Bart', 'Paul']
+</code></pre>
+<p>变成了类似：</p>
+<pre><code class="language-python">[(0, 'Adam'), (1, 'Lisa'), (2, 'Bart'), (3, 'Paul')]
+</code></pre>
+<p>因此，迭代的每一个元素实际上是一个tuple：</p>
+<pre><code class="language-python">for t in enumerate(L):
+    index = t[0]
+    name = t[1]
+    print index, '-', name
+</code></pre>
+<p>如果我们知道每个tuple元素都包含两个元素，for循环又可以进一步简写为：</p>
+<pre><code class="language-python">for index, name in enumerate(L):
+    print index, '-', name
+</code></pre>
+<p>这样不但代码更简单，而且还少了两条赋值语句。</p>
+<p>可见，索引迭代也不是真的按索引访问，而是由 enumerate() 函数自动把每个元素变成 (index, element) 这样的tuple，再迭代，就同时获得了索引和元素本身。</p>
+<h3 id="任务-11">任务</h3>
+<p>zip()函数可以把两个 list 变成一个 list：</p>
+<pre><code class="language-python">&gt;&gt;&gt; zip([10, 20, 30], ['A', 'B', 'C'])
+[(10, 'A'), (20, 'B'), (30, 'C')]
+</code></pre>
+<p>在迭代 ['Adam', 'Lisa', 'Bart', 'Paul'] 时，如果我们想打印出名次 - 名字（名次从1开始)，请考虑如何在迭代中打印出来。</p>
+<p>**提示：**考虑使用zip()函数和range()函数</p>
+<pre><code class="language-python">L = ['Adam', 'Lisa', 'Bart', 'Paul']
+for index, name in zip(range(1, len(L)+1), L):
+    print index, '-', name
+</code></pre>
+<h2 id="迭代dict的value">迭代dict的value</h2>
+<p>我们已经了解了<strong>dict对象</strong>本身就是可<strong>迭代对象</strong>，用 for 循环直接迭代 dict，可以每次拿到dict的一个key。</p>
+<p>如果我们希望迭代 dict 对象的value，应该怎么做？</p>
+<p>dict 对象有一个 <strong>values() 方法</strong>，这个方法把dict转换成一个包含所有value的list，这样，我们迭代的就是 dict的每一个 value：</p>
+<pre><code>d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+print d.values()
+# [85, 95, 59]
+for v in d.values():
+    print v
+# 85
+# 95
+# 59
+</code></pre>
+<p>如果仔细阅读Python的文档，还可以发现，dict除了**values()**方法外，还有一个 <strong>itervalues()</strong> 方法，用 <strong>itervalues()</strong> 方法替代 <strong>values()</strong> 方法，迭代效果完全一样：</p>
+<pre><code>d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+print d.itervalues()
+# &lt;dictionary-valueiterator object at 0x106adbb50&gt;
+for v in d.itervalues():
+    print v
+# 85
+# 95
+# 59
+</code></pre>
+<p><strong>那这两个方法有何不同之处呢？</strong></p>
+<p>\1. <strong>values()</strong> 方法实际上把一个 dict 转换成了包含 value 的list。</p>
+<p>\2. 但是 <strong>itervalues()</strong> 方法不会转换，它会在迭代过程中依次从 dict 中取出 value，所以 itervalues() 方法比 values() 方法节省了生成 list 所需的内存。</p>
+<p>\3. 打印 itervalues() 发现它返回一个 <dictionary-valueiterator> 对象，这说明在Python中，<strong>for 循环可作用的迭代对象远不止 list，tuple，str，unicode，dict等</strong>，任何可迭代对象都可以作用于for循环，而内部如何迭代我们通常并不用关心。</p>
+<p><strong>如果一个对象说自己可迭代，那我们就直接用 for 循环去迭代它，可见，迭代是一种抽象的数据操作，它不对迭代对象内部的数据有任何要求。</strong></p>
+<h3 id="任务-12">任务</h3>
+<p>给定一个dict：</p>
+<p>d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }</p>
+<p>请计算所有同学的平均分。</p>
+<pre><code class="language-python">d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }
+sum = 0.0
+for v in d.itervalues():
+    sum = sum + v
+print sum / len(d)
+</code></pre>
+<h2 id="迭代dict的key和value">迭代dict的key和value</h2>
+<p>我们了解了如何<strong>迭代 dict</strong> 的<strong>key</strong>和<strong>value</strong>，那么，在一个 for 循环中，能否同时迭代 key和value？答案是肯定的。</p>
+<p>首先，我们看看 dict 对象的 <strong>items()</strong> 方法返回的值：</p>
+<pre><code class="language-python">&gt;&gt;&gt; d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+&gt;&gt;&gt; print d.items()
+[('Lisa', 85), ('Adam', 95), ('Bart', 59)]
+</code></pre>
+<p>可以看到，items() 方法把dict对象转换成了包含tuple的list，我们对这个list进行迭代，可以同时获得key和value：</p>
+<pre><code class="language-python">&gt;&gt;&gt; for key, value in d.items():
+...     print key, ':', value
+... 
+Lisa : 85
+Adam : 95
+Bart : 59
+</code></pre>
+<p>和 values() 有一个 itervalues() 类似， <strong>items()</strong> 也有一个对应的 <strong>iteritems()</strong>，iteritems() 不把dict转换成list，而是在迭代过程中不断给出 tuple，所以， iteritems() 不占用额外的内存。</p>
+<h3 id="任务-13">任务</h3>
+<p>请根据dict：</p>
+<p>d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }</p>
+<p>打印出 name : score，最后再打印出平均分 average : score。</p>
+<pre><code class="language-python">d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59, 'Paul': 74 }
+sum = 0.0
+for k, v in d.iteritems():
+    sum = sum + v
+    print k, ':', v
+print 'average', ':', sum / len(d)
+</code></pre>
+<h1 id="列表生成式">列表生成式</h1>
+<h2 id="生成列表">生成列表</h2>
+<p>要生成list [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]，我们可以用range(1, 11)：</p>
+<pre><code class="language-python">&gt;&gt;&gt; range(1, 11)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre>
+<p>但如果要生成[1x1, 2x2, 3x3, ..., 10x10]怎么做？方法一是循环：</p>
+<pre><code class="language-python">&gt;&gt;&gt; L = []
+&gt;&gt;&gt; for x in range(1, 11):
+...    L.append(x * x)
+... 
+&gt;&gt;&gt; L
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+<p>但是循环太繁琐，而列表生成式则可以用一行语句代替循环生成上面的list：</p>
+<pre><code class="language-python">&gt;&gt;&gt; [x * x for x in range(1, 11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+<p>这种写法就是Python特有的列表生成式。利用列表生成式，可以以非常简洁的代码生成 list。</p>
+<p>写列表生成式时，把要生成的元素 x * x 放到前面，后面跟 for 循环，就可以把list创建出来，十分有用，多写几次，很快就可以熟悉这种语法。</p>
+<h3 id="任务-14">任务</h3>
+<p>请利用列表生成式生成列表 [1x2, 3x4, 5x6, 7x8, ..., 99x100]</p>
+<p>**提示：**range(1, 100, 2) 可以生成list [1, 3, 5, 7, 9,...]</p>
+<pre><code class="language-python">print [x * (x + 1) for x in range(1, 100, 2)]
+</code></pre>
+<h2 id="复杂表达式">复杂表达式</h2>
+<p>使用<strong>for循环</strong>的迭代不仅可以迭代普通的list，还可以迭代dict。</p>
+<p>假设有如下的dict：</p>
+<pre><code>d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+</code></pre>
+<p>完全可以通过一个复杂的列表生成式把它变成一个 HTML 表格：</p>
+<pre><code class="language-python">tds = ['&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;' % (name, score) for name, score in d.iteritems()]
+print '&lt;table&gt;'
+print '&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;tr&gt;'
+print '\n'.join(tds)
+print '&lt;/table&gt;'
+</code></pre>
+<p>**注：**字符串可以通过 % 进行格式化，用指定的参数替代 %s。字符串的join()方法可以把一个 list 拼接成一个字符串。</p>
+<p>把打印出来的结果保存为一个html文件，就可以在浏览器中看到效果了：</p>
+<pre><code class="language-html">&lt;table border=&quot;1&quot;&gt;
+&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;tr&gt;
+&lt;tr&gt;&lt;td&gt;Lisa&lt;/td&gt;&lt;td&gt;85&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Adam&lt;/td&gt;&lt;td&gt;95&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Bart&lt;/td&gt;&lt;td&gt;59&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>{% asset_img 540fcd2a0001ff4600940104.jpg %}</p>
+<h3 id="任务-15">任务</h3>
+<p>在生成的表格中，对于没有及格的同学，请把分数标记为红色。</p>
+<p>**提示：**红色可以用 <td style="color:red"> 实现。</p>
+<p>{% asset_img 540fcd610001be6800940104.jpg%}</p>
+<pre><code class="language-python">d = { 'Adam': 95, 'Lisa': 85, 'Bart': 59 }
+def generate_tr(name, score):
+    if score &lt; 60:
+        return '&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td style=&quot;color:red&quot;&gt;%s&lt;/td&gt;&lt;/tr&gt;' % (name, score)
+    return '&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;' % (name, score)
+tds = [generate_tr(name, score) for name, score in d.iteritems()]
+print '&lt;table border=&quot;1&quot;&gt;'
+print '&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;tr&gt;'
+print '\n'.join(tds)
+print '&lt;/table&gt;'
+</code></pre>
+<h2 id="条件过滤">条件过滤</h2>
+<p>列表生成式的 <strong>for 循环后面还可以加上 if 判断</strong>。例如：</p>
+<pre><code class="language-python">&gt;&gt;&gt; [x * x for x in range(1, 11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+<p>如果我们只想要偶数的平方，不改动 range()的情况下，可以加上 if 来筛选：</p>
+<pre><code class="language-python">&gt;&gt;&gt; [x * x for x in range(1, 11) if x % 2 == 0]
+[4, 16, 36, 64, 100]
+</code></pre>
+<p>有了 if 条件，只有 if 判断为 True 的时候，才把循环的当前元素添加到列表中。</p>
+<h3 id="任务-16">任务</h3>
+<p>请编写一个函数，它接受一个 list，然后把list中的所有字符串变成大写后返回，非字符串元素将被忽略。</p>
+<p><strong>提示：</strong></p>
+<p>\1. isinstance(x, str) 可以判断变量 x 是否是字符串；</p>
+<p>\2. 字符串的 upper() 方法可以返回大写的字母。</p>
+<pre><code class="language-python">def toUppers(L):
+    return [x.upper() for x in L if isinstance(x, str)]
+print toUppers(['Hello', 'world', 101])
+</code></pre>
+<h2 id="多层表达式">多层表达式</h2>
+<p>for循环可以嵌套，因此，在列表生成式中，也可以用多层 for 循环来生成列表。</p>
+<p>对于字符串 'ABC' 和 '123'，可以使用两层循环，生成全排列：</p>
+<pre><code class="language-python">&gt;&gt;&gt; [m + n for m in 'ABC' for n in '123']
+['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']
+</code></pre>
+<p>翻译成循环代码就像下面这样：</p>
+<pre><code class="language-python">L = []
+for m in 'ABC':
+    for n in '123':
+        L.append(m + n)
+</code></pre>
+<pre><code class="language-python">print [100 * n1 + 10 * n2 + n3 for n1 in range(1, 10) for n2 in range(10) for n3 in range(10) if n1==n3]
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%85%A5%E9%97%A8">入门</a></li>
+<li><a href="#python%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">Python变量和数据类型</a>
+<ul>
+<li><a href="#1-python%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">1. Python中数据类型</a></li>
+<li><a href="#2-python%E4%B9%8Bprint%E8%AF%AD%E5%8F%A5">2. Python之print语句</a></li>
+<li><a href="#3-python%E7%9A%84%E6%B3%A8%E9%87%8A">3. Python的注释</a></li>
+<li><a href="#4-python%E4%B8%AD%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F">4. Python中什么是变量</a></li>
+<li><a href="#5python%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%AD%97%E7%AC%A6%E4%B8%B2">5.Python中定义字符串</a></li>
+<li><a href="#6python%E4%B8%ADraw%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E5%A4%9A%E8%A1%8C%E5%AD%97%E7%AC%A6%E4%B8%B2">6.Python中raw字符串与多行字符串</a></li>
+<li><a href="#7-python%E4%B8%ADunicode%E5%AD%97%E7%AC%A6%E4%B8%B2">7. Python中Unicode字符串</a></li>
+<li><a href="#python%E4%B8%AD%E6%95%B4%E6%95%B0%E5%92%8C%E6%B5%AE%E7%82%B9%E6%95%B0">Python中整数和浮点数</a></li>
+<li><a href="#8-python%E4%B8%AD%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">8. Python中布尔类型</a></li>
+</ul>
+</li>
+<li><a href="#list%E5%92%8Ctuple%E7%B1%BB%E5%9E%8B">List和Tuple类型</a>
+<ul>
+<li><a href="#1-python%E5%88%9B%E5%BB%BAlist">1. Python创建list</a></li>
+<li><a href="#2-python%E6%8C%89%E7%85%A7%E7%B4%A2%E5%BC%95%E8%AE%BF%E9%97%AElist">2. Python按照索引访问list</a></li>
+<li><a href="#3-python%E4%B9%8B%E5%80%92%E5%BA%8F%E8%AE%BF%E9%97%AElist">3.  Python之倒序访问list</a></li>
+<li><a href="#4-python%E4%B9%8B%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%85%83%E7%B4%A0">4. Python之添加新元素</a></li>
+<li><a href="#5-python%E4%BB%8Elist%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0">5. Python从list删除元素</a></li>
+<li><a href="#6-python%E4%B8%AD%E6%9B%BF%E6%8D%A2%E5%85%83%E7%B4%A0">6.  Python中替换元素</a></li>
+<li><a href="#7-python%E4%B9%8B%E5%88%9B%E5%BB%BAtuple">7. Python之创建tuple</a></li>
+<li><a href="#8-python%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%8D%95%E5%85%83%E7%B4%A0tuple">8. Python之创建单元素tuple</a></li>
+<li><a href="#9-python%E4%B9%8B%E5%8F%AF%E5%8F%98%E7%9A%84tuple">9. Python之“可变”的tuple</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E5%92%8C%E5%BE%AA%E7%8E%AF">条件判断和循环</a>
+<ul>
+<li><a href="#1-python%E4%B9%8Bif%E8%AF%AD%E5%8F%A5">1. Python之if语句</a></li>
+<li><a href="#2-python%E4%B9%8B-if-else">2. Python之 if-else</a></li>
+<li><a href="#3-python%E4%B9%8B-if-elif-else">3. Python之 if-elif-else</a>
+<ul>
+<li><a href="#%E8%AF%B7%E6%80%9D%E8%80%83%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81">请思考下面的代码：</a></li>
+</ul>
+</li>
+<li><a href="#4-python%E4%B9%8B-for%E5%BE%AA%E7%8E%AF">4. Python之 for循环</a></li>
+<li><a href="#5-python%E4%B9%8B-while%E5%BE%AA%E7%8E%AF">5. Python之 while循环</a></li>
+<li><a href="#6-python%E4%B9%8B-break%E9%80%80%E5%87%BA%E5%BE%AA%E7%8E%AF">6. Python之 break退出循环</a></li>
+<li><a href="#7-python%E4%B9%8B-continue%E7%BB%A7%E7%BB%AD%E5%BE%AA%E7%8E%AF">7. Python之 continue继续循环</a></li>
+<li><a href="#8-python%E4%B9%8B-%E5%A4%9A%E9%87%8D%E5%BE%AA%E7%8E%AF">8. Python之 多重循环</a></li>
+</ul>
+</li>
+<li><a href="#dict%E5%92%8Cset%E7%B1%BB%E5%9E%8B">Dict和Set类型</a>
+<ul>
+<li><a href="#1-python%E4%B9%8B%E4%BB%80%E4%B9%88%E6%98%AFdict">1. Python之什么是dict</a></li>
+<li><a href="#2-python%E4%B9%8B%E8%AE%BF%E9%97%AEdict">2. Python之访问dict</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1">任务</a></li>
+</ul>
+</li>
+<li><a href="#3-python%E4%B8%ADdict%E7%9A%84%E7%89%B9%E7%82%B9">3. Python中dict的特点</a></li>
+<li><a href="#4-python%E6%9B%B4%E6%96%B0dict">4. Python更新dict</a></li>
+<li><a href="#5-python%E4%B9%8B-%E9%81%8D%E5%8E%86dict">5. Python之 遍历dict</a></li>
+<li><a href="#6-python%E4%B8%AD%E4%BB%80%E4%B9%88%E6%98%AFset">6. Python中什么是set</a></li>
+<li><a href="#7-python%E4%B9%8B-%E8%AE%BF%E9%97%AEset">7. Python之 访问set</a></li>
+<li><a href="#8-python%E4%B9%8B-set%E7%9A%84%E7%89%B9%E7%82%B9">8. Python之 set的特点</a></li>
+<li><a href="#9-python%E4%B9%8B-%E9%81%8D%E5%8E%86set">9. Python之 遍历set</a></li>
+<li><a href="#python%E4%B9%8B-%E6%9B%B4%E6%96%B0set">Python之 更新set</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0">函数</a></li>
+<li><a href="#python%E4%B9%8B%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0">Python之什么是函数</a></li>
+<li><a href="#python%E4%B9%8B%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0">Python之调用函数</a></li>
+<li><a href="#python%E4%B9%8B%E7%BC%96%E5%86%99%E5%87%BD%E6%95%B0">Python之编写函数</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-2">任务</a></li>
+</ul>
+</li>
+<li><a href="#python%E5%87%BD%E6%95%B0%E4%B9%8B%E8%BF%94%E5%9B%9E%E5%A4%9A%E5%80%BC">Python函数之返回多值</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-3">任务</a></li>
+</ul>
+</li>
+<li><a href="#python%E4%B9%8B%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0">Python之递归函数</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-4">任务</a></li>
+</ul>
+</li>
+<li><a href="#python%E4%B9%8B%E5%AE%9A%E4%B9%89%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0">Python之定义默认参数</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-5">任务</a></li>
+</ul>
+</li>
+<li><a href="#python%E4%B9%8B%E5%AE%9A%E4%B9%89%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">Python之定义可变参数</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-6">任务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%88%87%E7%89%87">切片</a>
+<ul>
+<li><a href="#1-%E5%AF%B9list%E8%BF%9B%E8%A1%8C%E5%88%87%E7%89%87">1 对list进行切片</a></li>
+<li><a href="#%E5%AF%B9list%E8%BF%9B%E8%A1%8C%E5%88%87%E7%89%87">对list进行切片</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-7">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E5%80%92%E5%BA%8F%E5%88%87%E7%89%87">倒序切片</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-8">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AF%B9%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%87%E7%89%87">对字符串切片</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-9">任务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%BF%AD%E4%BB%A3">迭代</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%AD%E4%BB%A3">什么是迭代</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-10">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E8%BF%AD%E4%BB%A3">索引迭代</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-11">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%AD%E4%BB%A3dict%E7%9A%84value">迭代dict的value</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-12">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%AD%E4%BB%A3dict%E7%9A%84key%E5%92%8Cvalue">迭代dict的key和value</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-13">任务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F">列表生成式</a>
+<ul>
+<li><a href="#%E7%94%9F%E6%88%90%E5%88%97%E8%A1%A8">生成列表</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-14">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE%E5%BC%8F">复杂表达式</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-15">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4">条件过滤</a>
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1-16">任务</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E5%B1%82%E8%A1%A8%E8%BE%BE%E5%BC%8F">多层表达式</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/JDBC连接池-JDBCTemplate/">
+              <h3 class="post-title">
+                JDBC连接池&amp;JDBCTemplate
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

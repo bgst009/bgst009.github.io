@@ -1,0 +1,375 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>研究试验5 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="研究试验5 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="研究试验5
+
+函数如何接受不确定参数
+
+编写a.c ，解答 相关问题
+
+
+main 是如何给 showchar 传递参数的?
+showchar 是如何接受参数？
+
+
+a.c
+
+
+c 代码
+void showchar(char a, int ..." />
+    <meta name="keywords" content="ASM" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              研究试验5
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-11
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/z74Ni2u5JH/" class="post-tag">
+                  # ASM
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="研究试验5">研究试验5</h1>
+<blockquote>
+<p>函数如何接受不确定参数</p>
+</blockquote>
+<h2 id="编写ac-解答-相关问题">编写<code>a.c</code> ，解答 相关问题</h2>
+<blockquote>
+<ol>
+<li><code>main</code> 是如何给 <code>showchar</code> 传递参数的?</li>
+<li><code>showchar</code> 是如何接受参数？</li>
+</ol>
+</blockquote>
+<h3 id="ac"><code>a.c</code></h3>
+<ul>
+<li>
+<p>c 代码</p>
+<pre><code class="language-c">void showchar(char a, int b);
+
+main()
+{
+    showchar('a', 2);
+}
+
+void showchar(char a, int b)
+{
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40) = 'a';
+    *(char far *)(0xb8000000 + 160 * 10 + 2 * 40 + 1) = 2;
+}
+</code></pre>
+</li>
+<li>
+<p>汇编代码</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091533.png" alt="image-20200611091835656" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091538.png" alt="image-20200611091940357" loading="lazy"></figure>
+</li>
+</ul>
+<h3 id="问题解答">问题解答</h3>
+<ol>
+<li>
+<p><code>main</code>函数通过 栈 给 <code>showchar</code> 传递参数</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091543.png" alt="image-20200611093446099" loading="lazy"></figure>
+</li>
+<li>
+<p><code>showchar</code> 应该也是从栈中获取的但是汇编代码中没有相关的栈操作。</p>
+</li>
+</ol>
+<h2 id="编写-bc-思考相关问题">编写 <code>b.c</code> 思考相关问题</h2>
+<blockquote>
+<ol>
+<li><code>showchar</code> 函数是要如何知道呀显示多少个字符的？</li>
+<li><code>printf</code>函数是如何知道有多少个参数的？</li>
+</ol>
+</blockquote>
+<h3 id="bc"><code>b.c</code></h3>
+<ul>
+<li>
+<p>c 代码</p>
+<pre><code class="language-c">void showchar(int, int, ...);
+
+main()
+{
+    showchar(8, 2, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h');
+}
+
+void showchar(int n, int color, ...)
+{
+    int a;
+    for (a = 0; a != n; a++)
+    {
+        *(char far *)(0xb8000000 + 160 * 10 + 80 + a + a) = *(int *)(_BP + 8 + a + a);
+        *(char far *)(0xb8000000 + 160 * 10 + 81 + a + a) = color;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>汇编代码</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091546.png" alt="image-20200611100510959" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091551.png" alt="image-20200611100524352" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091612.png" alt="image-20200611100549657" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091618.png" alt="image-20200611100619466" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091621.png" alt="image-20200611100647742" loading="lazy"></figure>
+</li>
+</ul>
+<h3 id="printf-函数是如何知道有多少给参数"><code>printf</code> 函数是如何知道有多少给参数</h3>
+<ul>
+<li>
+<p>先写一个 <code>printf.c</code> 的测试用例</p>
+<pre><code class="language-c">main(){
+    printf(&quot;%c,%c,%c,%c&quot;,'a','b','c','d');
+    printf(&quot;%d,%d,%d,%d&quot;,1,2,3,4);
+}
+</code></pre>
+</li>
+<li>
+<p>汇编代码</p>
+<ul>
+<li>
+<p>第一个<code>printf</code></p>
+<figure data-type="image" tabindex="9"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091624.png" alt="image-20200611104837574" loading="lazy"></figure>
+</li>
+<li>
+<p>第二个 <code>printf</code></p>
+<figure data-type="image" tabindex="10"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091627.png" alt="image-20200611105231039" loading="lazy"></figure>
+</li>
+<li>
+<p>通过对照 <code>printf</code> 函数 可以猜想 <code>mov ax,0194;</code>和 <code>mov ax 01a0</code> 因该是 <code>printf</code>的第一个参数，然后通过 <code>debug</code> 可以验证猜想是正确的</p>
+<figure data-type="image" tabindex="11"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091630.png" alt="image-20200611110541403" loading="lazy"></figure>
+<p>通过观察可以看到 <code>25 63 2c 25 63 2c 25 63 2c 25 63 2c 25 63 00</code> 对应 字符串 <code>%c,%c,%c,%c</code> 和 <code>25 64 2c 25 64 2c 25 64 2c 25 64 00</code> 对应字符串 <code>%d,%d,%d,%d</code>,，故根据以往编程经验猜想 <code>00</code> 为终止条件。所以把第三个 <code>%c</code> 对应的汇编代码开头改变为 <code>00</code>，看看是不是只输出两个字符 通过下图可以看出猜想正确。所以可以得出<code>printf</code>可能是根据传入的<code>%</code>的个数来确定打印的字符数，读入一个<code>%</code>就会读取后面一个字符来确定打印的方式，当读出一个<code>0</code>时打印结束</p>
+<figure data-type="image" tabindex="12"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200623091633.png" alt="image-20200611111912747" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题解答-2">问题解答</h3>
+<ol>
+<li>第一个参数 <code>n</code> 就是告知函数 <code>showchar</code>显示多少给字符</li>
+<li><code>printf</code>是通过 <code>%</code>的个数来得知有多少个参数，通过 <code>00</code>来判断结束。</li>
+</ol>
+<h2 id="实现一个简单的-printf-函数-只需支持-cd-即可">实现一个简单的 <code>printf</code> 函数 只需支持 <code>%c,%d</code> 即可</h2>
+<pre><code class="language-c">void myPrintf(char *, ...);
+
+main()
+{
+    myPrintf(&quot;xxxxx%c,%n,ddddd%d&quot;, 'x', 5);
+}
+
+void myPrintf(char *str, ...)
+{
+    int stackIndex = 0;
+    int stringIndex = 0;
+    int screenIndex = 0;
+    int screenBenchmark = 160 * 10;
+
+    while (str[stringIndex] != 0)
+    {
+        if (str[stringIndex] == '%')
+        {
+            if (str[stringIndex + 1] == 'c')
+            {
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = *(char *)(_BP + 6 + stackIndex); /*跨 push call 第一个参数 才能取到相应的值*/
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+                screenIndex += 2;
+                stringIndex += 2;
+                stackIndex += 2;
+            }
+            else if (str[stringIndex + 1] == 'd')
+            {
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = *(char *)(_BP + 6 + stackIndex) + 0x30;
+                *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+
+                stackIndex += 2;
+                screenIndex += 2;
+                stringIndex += 2;
+            }
+            else if (str[stringIndex + 1] == 'n')
+            {
+                screenBenchmark += 160;
+                screenIndex = 0;
+                stringIndex += 2;
+            }
+        }
+        else
+        {
+            *(char far *)(0xb8000000 + screenBenchmark + screenIndex) = str[stringIndex];
+            *(char far *)(0xb8000000 + screenBenchmark + screenIndex + 1) = 2;
+
+            screenIndex += 2;
+            stringIndex += 1;
+        }
+    }
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%A0%94%E7%A9%B6%E8%AF%95%E9%AA%8C5">研究试验5</a>
+<ul>
+<li><a href="#%E7%BC%96%E5%86%99ac-%E8%A7%A3%E7%AD%94-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98">编写<code>a.c</code> ，解答 相关问题</a>
+<ul>
+<li><a href="#ac"><code>a.c</code></a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94">问题解答</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BC%96%E5%86%99-bc-%E6%80%9D%E8%80%83%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98">编写 <code>b.c</code> 思考相关问题</a>
+<ul>
+<li><a href="#bc"><code>b.c</code></a></li>
+<li><a href="#printf-%E5%87%BD%E6%95%B0%E6%98%AF%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E6%9C%89%E5%A4%9A%E5%B0%91%E7%BB%99%E5%8F%82%E6%95%B0"><code>printf</code> 函数是如何知道有多少给参数</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94-2">问题解答</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-printf-%E5%87%BD%E6%95%B0-%E5%8F%AA%E9%9C%80%E6%94%AF%E6%8C%81-cd-%E5%8D%B3%E5%8F%AF">实现一个简单的 <code>printf</code> 函数 只需支持 <code>%c,%d</code> 即可</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/研究试验1-3补充/">
+              <h3 class="post-title">
+                研究试验1-3补充
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

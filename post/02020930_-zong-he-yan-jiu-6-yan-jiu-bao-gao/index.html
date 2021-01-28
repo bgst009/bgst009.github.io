@@ -1,0 +1,514 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>02020930_综合研究6研究报告 | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="02020930_综合研究6研究报告 | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1
+
+（1）写一个C程序，打印int、long、 double型变量所占的字节数、地址、各个字节的地址和内容。
+
+int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+   ..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              02020930_综合研究6研究报告
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-30
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="1">1</h2>
+<blockquote>
+<p>（1）写一个C程序，打印int、long、 double型变量所占的字节数、地址、各个字节的地址和内容。</p>
+</blockquote>
+<pre><code class="language-c">int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+        printf(&quot;value  %d &quot;, *((&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
+        printf(&quot;value  %ld &quot;, *((&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %lf &quot;, *((&amp;da) + i));
+    }
+}int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+        printf(&quot;value  %d &quot;, *((&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
+        printf(&quot;value  %ld &quot;, *((&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
+        printf(&quot;value  %lf &quot;, *((&amp;da) + i));
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930184753.png" alt="image-20200930184753489" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>a.c</code></p>
+<pre><code class="language-c">int ia = 6;
+long la = 7;
+double da = 8;
+main() {
+    int i;
+    /*     printf(&quot;%x %x %x %x\n&quot;, &amp;ia, ((int)(&amp;ia) + 1), (char *)((char)(&amp;ia) +
+     *1), (char *)((char)(&amp;ia) + 1)); */
+    printf(&quot;int %d          ,address %lx,size %d\n&quot;, ia, (long)&amp;ia,
+           sizeof(int));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;ia + i);
+ +       printf(&quot;value  %x &quot;, *(char *)((int)(&amp;ia) + i));
+    }
+    printf(&quot;\n&quot;);
+
+    printf(&quot;long %ld         ,address %lx,size %d\n&quot;, la, (long)&amp;la,
+           sizeof(long));
+    for (i = 0; i &lt; sizeof(long); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;la + i);
++        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;la) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;double %lf,address %lx,size %d\n&quot;, da, (long)&amp;da, sizeof(double));
+    for (i = 0; i &lt; sizeof(double); ++i) {
+        if (i % 2 == 0)
+            printf(&quot;\n&quot;);
+        printf(&quot;address  %lx &quot;, (long)&amp;da + i);
++        printf(&quot;value  %x &quot;, *(char *)((int)(&amp;da) + i));
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007094453.png" alt="image-20201007094453071" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2">2</h2>
+<blockquote>
+<p>（2）写一个C程序，打印stu型变量所占的字节数、地址、各数据项地址、内容和各个字节的内容。</p>
+</blockquote>
+<pre><code class="language-c">  typedef struct
+  {
+  int num；
+  unsigned char c；
+  unsigned char osi
+  unsigned char masm；
+  char name［20］
+  }stu；
+</code></pre>
+<blockquote>
+<p>提示:研究 sizeof的用法；可将任何一个变量的存储空间，看做一个数组。</p>
+</blockquote>
+<pre><code class="language-c">typedef struct {
+    int num;
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    char name[20];
+} stu;
+
+main() {
+    int i = 0;
+    stu s;
+    s.num = 9;
+    s.c = '1';
+    s.os = '2';
+    s.masm = '3';
+    s.name[0] = 'L';
+    s.name[1] = 'i';
+    s.name[2] = 'L';
+    s.name[3] = '\0';
+
+    printf(&quot;size: %d,address: %lx\n&quot;, sizeof(s), (long)&amp;s);
+    printf(&quot;num :    %d,address: %lx\n&quot;, s.num, (long)&amp;(s.num));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.num) + i);
+        printf(&quot;value  %d &quot;, *(&amp;(s.num) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;c   :    %c,address: %lx\n&quot;, s.c, (long)&amp;(s.c));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.c) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.c) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;os  :    %c,address: %lx\n&quot;, s.os, (long)&amp;(s.os));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.os) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.os) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;masm:    %c,address: %lx\n&quot;, s.masm, (long)&amp;(s.masm));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.masm) + i);
+        printf(&quot;value  %c &quot;, *(&amp;(s.masm) + i));
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;name:  %s,address: %lx\n&quot;, s.name, (long)&amp;(s.name));
+    /* printf(&quot;%d&quot;, sizeof(char *)); */
+    for (i = 0; i &lt; 20; i++) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.name) + i);
+        printf(&quot;value  %c &quot;, *((*(&amp;s.name)) + i));
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930193943.png" alt="image-20200930193943568" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>b.c</code></p>
+<pre><code class="language-c">typedef struct {
+    int num;
+    unsigned char c;
+    unsigned char os;
+    unsigned char masm;
+    char name[20];
+} stu;
+
+char *cp;
+
+main() {
+    int i = 0;
+    stu s;
+    s.num = 9;
+    s.c = '1';
+    s.os = '2';
+    s.masm = '3';
+    s.name[0] = 'L';
+    s.name[1] = 'i';
+    s.name[2] = 'L';
+    s.name[3] = '\0';
+
+    printf(&quot;size: %d,address: %lx\n&quot;, sizeof(s), (long)&amp;s);
+    printf(&quot;num :    %d,address: %lx\n&quot;, s.num, (long)&amp;(s.num));
+    for (i = 0; i &lt; sizeof(int); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.num) + i);
+        cp = (char *)((int)&amp;(s.num) + i);
+        printf(&quot;value  %d &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;c   :    %c,address: %lx\n&quot;, s.c, (long)&amp;(s.c));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.c) + i);
+        cp = (char *)((int)&amp;(s.c) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;os  :    %c,address: %lx\n&quot;, s.os, (long)&amp;(s.os));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.os) + i);
+        cp = (char *)((int)&amp;(s.os) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;masm:    %c,address: %lx\n&quot;, s.masm, (long)&amp;(s.masm));
+    for (i = 0; i &lt; sizeof(char); ++i) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.masm) + i);
+        cp = (char *)((int)&amp;(s.masm) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+    printf(&quot;name:  %s,address: %lx\n&quot;, s.name, (long)&amp;(s.name));
+    /* printf(&quot;%d&quot;, sizeof(char *)); */
+    for (i = 0; i &lt; 20; i++) {
+        printf(&quot;address  %lx &quot;, (long)&amp;(s.name) + i);
+        cp = (char *)((int)&amp;(s.name) + i);
+        printf(&quot;value  %c &quot;, *cp);
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007095106.png" alt="image-20201007095106825" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3">3</h2>
+<blockquote>
+<p>（3）写一个程序，这个程序的运行结果反映如下主题参数的存储空间与局部变量的存储空间，在函数运行后收回。</p>
+</blockquote>
+<pre><code class="language-c">long *f(int a);
+long res[2];
+long p;
+long l;
+main() {
+    long *a = f(5);
+    p = a[0];
+    l = a[1];
+
+    printf(&quot;parm  %d ,address %lx\n&quot;, *(long *)a[0], p);
+    printf(&quot;local %d ,address %lx\n&quot;, *(long *)a[1], l);
+}
+
+long *f(int parm) {
+    int local = 1;
+    local += parm;
+    printf(&quot;parm  %d address %lx\n&quot;, parm, (long)&amp;parm);
+    printf(&quot;local %d address %lx\n&quot;, local, (long)&amp;local);
+
+    res[0] = (long)&amp;parm;
+    res[1] = (long)&amp;local;
+
+    /*     printf(&quot;parm %d ,address %lx\n&quot;, *(long *)res[0], res[0]);
+        printf(&quot;parm %d ,address %lx\n&quot;, *(long *)res[1], res[1]); */
+    return res;
+}
+</code></pre>
+<ul>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200930213929.png" alt="image-20200930213929300" loading="lazy"></figure>
+</li>
+<li>
+<p>修正</p>
+<ul>
+<li>
+<p><code>c.c</code></p>
+<pre><code class="language-c">long *f(int a);
+long res[2];
+
+main() {
+    f(5);
+    printf(&quot;============\n&quot;);
+    f(8);
+}
+
+long *f(int parm) {
+    int local = 1;
+    local += parm;
+
+    printf(&quot;parm  %d address %lx\n&quot;, parm, (long)&amp;parm);
+    printf(&quot;local %d address %lx\n&quot;, local, (long)&amp;local);
+
+    return res;
+}
+</code></pre>
+</li>
+<li>
+<p>结果</p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20201007095242.png" alt="image-20201007095242216" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/0929_-zong-he-yan-jiu-5-yan-jiu-bao-gao/">
+              <h3 class="post-title">
+                0929_综合研究5研究报告
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

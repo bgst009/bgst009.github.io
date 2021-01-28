@@ -1,0 +1,784 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>常用API | Gridea</title>
+<link rel="shortcut icon" href="https://bgst009.github.io//favicon.ico?v=1611835701765">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bgst009.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="常用API | Gridea - Atom Feed" href="https://bgst009.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="[TOC]
+常用API
+API
+
+概述
+
+API(Application Programming Interface)，应用程序编程接口。Java API是一本程序员的 字典 ，是JDK中提供给 我们使用的类的说明文档。这些类将底层的代码实..." />
+    <meta name="keywords" content="Java_basic" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://bgst009.github.io/">
+  <img class="avatar" src="https://bgst009.github.io//images/avatar.png?v=1611835701765" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              常用API
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-14
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+                <a href="https://bgst009.github.io/tag/oenOsAIQjU/" class="post-tag">
+                  # Java_basic
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>[TOC]</p>
+<h1 id="常用api">常用API</h1>
+<h1 id="api">API</h1>
+<hr>
+<h2 id="概述">概述</h2>
+<hr>
+<p>API(Application Programming Interface)，应用程序编程接口。Java API是一本程序员的 字典 ，是JDK中提供给 我们使用的类的说明文档。这些类将底层的代码实现封装了起来，我们不需要关心这些类是如何实现的，只需要学 习这些类如何使用即可。所以我们可以通过查询API的方式，来学习Java提供的类，并得知如何使用它们。</p>
+<h2 id="api使用过程">API使用过程</h2>
+<hr>
+<ol>
+<li>打开帮助文档。</li>
+<li>点击显示，找到索引，看到输入框。</li>
+<li>你要找谁？在输入框里输入，然后回车。</li>
+<li>看包。java.lang下的类不需要导包，其他需要。</li>
+<li>看类的解释和说明。</li>
+<li>学习构造方法。</li>
+<li>使用成员方法</li>
+</ol>
+<h1 id="scanner类">Scanner类</h1>
+<hr>
+<h2 id="读取一个数">读取一个数</h2>
+<hr>
+<pre><code class="language-java">Scanner sc = new Scanner(System.in);
+int num = sc.nextInt();
+System.out.println(num);
+</code></pre>
+<h1 id="random类">Random类</h1>
+<hr>
+<h2 id="产生随机数">产生随机数</h2>
+<hr>
+<pre><code class="language-java">Random rm = new Random();
+int num = rm.nextInt();
+System.out.println(num);
+</code></pre>
+<h2 id="产生-0n-之间的随机数">产生 [0，n) 之间的随机数</h2>
+<hr>
+<pre><code class="language-java">int num = rm.nextInt(10);
+System.out.println(num);
+</code></pre>
+<h1 id="arraylist类">ArrayList类</h1>
+<hr>
+<h2 id="对象数组">对象数组</h2>
+<pre><code class="language-java">public class demo01 {
+    public static void main(String[] args) {
+        Person[] array = new Person[3];
+
+        Person one = new Person(&quot;01&quot;,1);
+        Person two = new Person(&quot;02&quot;,2);
+        Person three = new Person(&quot;03&quot;,3);
+
+        array[0]=one;//把one的地址值存到array[0]中
+        array[1]=two;
+        array[2]=three;
+
+        System.out.println(array[0]);
+        System.out.println(array[0].getName());//
+        System.out.println(one.getAge());//
+
+        for(int x=0;x&lt;array.length;x++){
+            System.out.println(array[x].getName()+&quot; ---- &quot;+array[x].getAge());
+        }
+    }
+}
+</code></pre>
+<p><em><strong>alt + insert</strong></em></p>
+<hr>
+<h2 id="arraylist容器">ArrayList容器</h2>
+<hr>
+<ul>
+<li>
+<p>是<strong>大小可变的数组的实现</strong>，存储在内的数据称为元素。此类提供一些方法来操作内部存储 的元素。 ArrayList 中可不断添加元素，其<strong>大小也自动增长</strong>。</p>
+</li>
+<li>
+<p>泛型只能是<strong>引用类型</strong>，<strong>不</strong>能是<strong>基本类型</strong>，要在array list中存储基本类型数据，必须使用基本类型对应的<strong>包装类</strong></p>
+</li>
+<li>
+<p><strong>包装类</strong> 位于Java lang 下，不需要导包</p>
+</li>
+<li></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用方法">常用方法</h2>
+<pre><code class="language-java">public boolean add(E e)//向集合中添加元素，参数类型和泛型一致
+
+public E get(int index)//从集合中获取元素，参数是索引编号，从0开始，返回值为对应位置的元素，不删除
+    
+public E remove(int index)//从集合中删除元素，参数是索引编号，返回值就是所删除的元素
+    
+public int size() //获取集合的长度，返回值是集合中包含的元素个数
+</code></pre>
+<h1 id="string-类">String 类</h1>
+<hr>
+<h2 id="注意">注意</h2>
+<hr>
+<ol>
+<li>String类代表字符串</li>
+<li>字符串都是常量，在创建后不可改变，<mark>如果要改变StringBuilder类对象</mark></li>
+<li>字符串可共享使用</li>
+</ol>
+<h2 id="创建字符串31种">创建字符串<em>3+1</em>种</h2>
+<hr>
+<p><mark>三种构造方法，一种直接创建</mark></p>
+<ol>
+<li>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 7: public$̲$     $$String(…'>public$$     $$String()$$  创建空白字符串
+</p>
+</li>
+<li>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 7: public$̲$  $$String(byt…'>public$$  $$String(byte[]$$   $$array$$$$)$$ 根据字节数组来创建字符串
+</p>
+</li>
+</ol>
+<h2 id="字符串常量池堆中">字符串常量池（堆中）</h2>
+<p><mark>双引号直接创建的字符串在常量池</mark></p>
+<p><strong>对于基本类型来说 ，==是值的比较</strong></p>
+<p><strong>对于引用类型来说， ==是地址值的比较</strong></p>
+<ul>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024303.png" alt="" loading="lazy"></li>
+<li><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024324.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="字符串比较">字符串比较</h2>
+<h3 id="内容比较">内容比较</h3>
+<ol>
+<li>public boolean  equals(Object obj) <strong>参数可以是任何对象，但只有字符串且相等才返回true</strong>
+<ol>
+<li>比较双方无序</li>
+<li>一个常量和一个变量 推荐 用常量调用</li>
+</ol>
+</li>
+<li>public boolean equalsIgnoreCase(Object obj)  <strong>忽略大小写</strong></li>
+</ol>
+<p><mark>alt + enter</mark> local variable</p>
+<h2 id="字符串相关信息获取">字符串相关信息获取</h2>
+<ul>
+<li>int length（）；获取长度</li>
+<li>String contact（String str）；拼接字符串，返回拼接后的字符串</li>
+<li>char charAt(int index);获取指定位置的字符</li>
+<li>int indexOf(String str);返回字符串中首次出现str的index</li>
+</ul>
+<h2 id="字符串的截取">字符串的截取</h2>
+<ul>
+<li>public String substring(int index),//截取从index开始直到末尾</li>
+<li>public String substring（int begin,int end）//截取==[begin ,end)==</li>
+</ul>
+<h2 id="字符串的转换">字符串的转换</h2>
+<ul>
+<li>public char[] toCharArray();//返回字符数组</li>
+<li>public byte[] getBytes(); //返回字节数据</li>
+<li>public String replace(CharSequence  oldstring,CharSequence newstring);// 替换，返回结果</li>
+</ul>
+<h2 id="字符串的分割">字符串的分割</h2>
+<ul>
+<li>
+<pre><code class="language-JAVA">String[] s = str3.split(&quot; &quot;);
+</code></pre>
+</li>
+</ul>
+<h1 id="static静态">static静态</h1>
+<h2 id="关键字概述">关键字概述</h2>
+<ul>
+<li>一个类成员变量或者方法，一旦使用<strong>static</strong> 那么其内容不在属于 对象 ，而是属于 类本身</li>
+<li>凡是本类对象，共享同一份 数据</li>
+</ul>
+<h2 id="关键字修饰成员变量">关键字修饰成员变量</h2>
+<pre><code class="language-java">
+public class studentdemotest {
+    public static void main(String[] args) {
+        Student one = new Student(&quot;001&quot;,1);
+        one.room=&quot;100&quot;;
+        System.out.println(one.getName()+&quot; &quot;+one.getAge()+&quot; &quot;+one.getId()+&quot; &quot;+one.room);
+
+        Student two = new Student(&quot;002&quot;,2);
+        System.out.println(two.getName()+&quot; &quot;+two.getAge()+&quot; &quot;+two.getId()+&quot; &quot;+two.room);
+    }
+}
+package cn.itcast.day07.static_demo;
+
+public class Student {
+    private  String name;
+    private int age;
+    private int id;
+    static String room;
+    private static int id_counter=0;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.id=++id_counter;
+    }
+
+    public Student() {
+        id_counter++;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+
+</code></pre>
+<h1 id="arrays">Arrays</h1>
+<hr>
+<ul>
+<li>java.until.Arrays 与数组相关的工具类，提供大量静态方法 来实现操作</li>
+</ul>
+<h2 id="1-将数组转换为字符串">1. 将数组转换为字符串</h2>
+<ul>
+<li>默认输出</li>
+</ul>
+<pre><code class="language-java">			int[] a = {1,2,3,444,56};
+        String str = Arrays.toString(a);
+        System.out.println(str);
+//[1, 2, 3, 444, 56]
+</code></pre>
+<h2 id="2排序">2.排序</h2>
+<ul>
+<li>升序(从小到大)</li>
+</ul>
+<pre><code class="language-java">			int[] a = {1,2,3,444,56};
+			Arrays.sort(a);
+        String str1 = Arrays.toString(a);
+        System.out.println(str1);
+//[1, 2, 3, 56, 444]
+</code></pre>
+<h2 id="练习">练习</h2>
+<blockquote>
+<p>字符串排序后倒序输出</p>
+</blockquote>
+<pre><code class="language-java">import java.util.Arrays;
+
+public class practise {
+    public static void main(String[] args) {
+        String str = &quot;sadfsfaleuwaefhlefaksfa&quot;;
+
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
+
+        for (int i = chars.length - 1; i &gt;= 0; i--) {
+            System.out.println(chars[i]);
+        }
+    }
+}
+//wusssllkhfffffeeedaaaaa
+</code></pre>
+<h1 id="math类">Math类</h1>
+<h2 id="1abs绝对值">1.abs绝对值</h2>
+<pre><code class="language-java"> System.out.println(Math.abs(-5));//5
+</code></pre>
+<h2 id="2-ceil-向上取整">2. ceil 向上取整</h2>
+<pre><code class="language-java">System.out.println(Math.ceil(4.1));//5.0
+</code></pre>
+<h2 id="3-floor-向下取整">3. floor 向下取整</h2>
+<pre><code class="language-java">System.out.println(Math.floor(4.8));//4.0
+</code></pre>
+<h2 id="4-round-四舍五入">4. round 四舍五入</h2>
+<pre><code class="language-java"> System.out.println(Math.round(4.5));//5
+</code></pre>
+<h2 id="练习-2">练习</h2>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/bgst009/markdownPicUrl/raw/master/20200923024236.png" alt="" loading="lazy"></figure>
+<h1 id="objects">objects</h1>
+<hr>
+<h2 id="1-tostring方法">1. toString方法</h2>
+<hr>
+<ul>
+<li>如果类中没重写，则打印输出的为地址值，否则则为其它</li>
+</ul>
+<h2 id="2equals方法">2.equals方法</h2>
+<hr>
+<ul>
+<li>默认比较两个对象的地址</li>
+</ul>
+<h2 id="空指针安全">空指针安全</h2>
+<hr>
+<ul>
+<li>null 不能调用方法，会抛出空指针异常</li>
+</ul>
+<h1 id="data类">Data类</h1>
+<hr>
+<blockquote>
+<p>unti</p>
+</blockquote>
+<blockquote>
+<p>精确到毫秒</p>
+</blockquote>
+<blockquote>
+<p>日期和毫秒可相互转换</p>
+<blockquote>
+<p>日期-》毫秒 === 当前日期到时间原点的毫秒值</p>
+</blockquote>
+<blockquote>
+<p>毫秒-》日期</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>getime()  把日期转换为毫秒</li>
+<li>Data（Long Date）long型数据 毫秒------带参构造</li>
+<li>Data（）–---------无参构造</li>
+</ul>
+<h2 id="dataformat类抽象类">DataFormat类(抽象类)</h2>
+<hr>
+<blockquote>
+<p>text</p>
+</blockquote>
+<blockquote>
+<p>时间和字符串之间来转换</p>
+</blockquote>
+<h1 id="system类">System类</h1>
+<hr>
+<h2 id="获取ms">获取ms</h2>
+<hr>
+<pre><code class="language-java">  public static void test01(){
+        //获取毫秒值
+        long b = System.currentTimeMillis();
+        for (int i = 0; i &lt; 9999; i++) {
+            System.out.println(i);
+        }
+        long e = System.currentTimeMillis();
+        System.out.println(&quot;共计：&quot;+(e-b)+&quot;ms&quot;);
+    }
+</code></pre>
+<h2 id="copy-数组">copy 数组</h2>
+<pre><code class="language-java">    public static void test02(){
+
+        int [] s={1,2,3,4,5,};
+        int [] d={6,7,8,9,10,};
+
+        System.out.println(&quot;befor copy:&quot;+ Arrays.toString(d));
+        System.arraycopy(s,0,d,0,3);
+        System.out.println(&quot;after cpoy:&quot;+ Arrays.toString(d));
+
+    }
+</code></pre>
+<h1 id="stringbuilder">StringBuilder</h1>
+<blockquote>
+<ul>
+<li>java.lang.StringBUilder</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><mark>字符串缓冲区</mark></p>
+</blockquote>
+<blockquote>
+<p>//构造方法//StringBuilder()默认长度16//StringBuilder(str)</p>
+</blockquote>
+<h2 id="constructor">Constructor</h2>
+<pre><code class="language-java"> StringBuilder bu1 = new StringBuilder();
+        System.out.println(&quot;bu1: &quot;+bu1);
+
+        StringBuilder bu2=new StringBuilder(&quot;abc&quot;);
+        System.out.println(&quot;bu2: &quot;+bu2);
+        /**
+         * bu1:
+         * bu2: abc
+         */
+</code></pre>
+<h2 id="methord">methord</h2>
+<ul>
+<li>append</li>
+</ul>
+<pre><code class="language-java">    public static void main(String[] args) {
+        //创建
+        StringBuilder bu1=new StringBuilder();
+		
+        //String --&gt; StringBuilder
+        StringBuilder bu2 = bu1.append(&quot;abc&quot;);
+
+        System.out.println(&quot;bu1:&quot;+bu1+&quot; bu2: &quot;+bu2+&quot; &quot;+(bu1==bu2));
+        /*
+        * bu1:abc bu2: abc true
+        * */
+    }
+</code></pre>
+<ul>
+<li>toString()</li>
+</ul>
+<pre><code class="language-java">        //StringBuilder---&gt;String
+        String s=bu1.toString();
+        System.out.println(s);
+</code></pre>
+<h1 id="包装类">包装类</h1>
+<blockquote>
+<p>把基本数据类型打包就可以使用相应的方法</p>
+</blockquote>
+<ul>
+<li>
+<p>int  ===&gt; Integer</p>
+</li>
+<li>
+<p>char ==&gt; Character</p>
+</li>
+<li>
+<p>其余全部为首字母大写</p>
+</li>
+</ul>
+<h2 id="装箱">装箱</h2>
+<pre><code class="language-java">//装箱
+        //构造方法
+        Integer in1 = new Integer(5);
+        Integer in2 = new Integer(&quot;4&quot;);
+
+        System.out.println(&quot;in1: &quot;+in1+&quot; in2: &quot;+in2);
+
+        //静态方法
+        Integer in3 = Integer.valueOf(1);
+        System.out.println(&quot;in3: &quot;+in3);
+
+</code></pre>
+<h2 id="拆箱">拆箱</h2>
+<pre><code class="language-java"> //拆箱
+        int int1=in1.intValue();
+        int int2=in2.intValue();
+        int int3=in3.intValue();
+
+        System.out.println(&quot;in1: &quot;+in1+&quot; in2: &quot;+in2);
+        System.out.println(&quot;in3: &quot;+in3);
+</code></pre>
+<h2 id="自动拆箱于装箱">自动拆箱于装箱</h2>
+<pre><code class="language-java">public static void main(String[] args) {
+        Integer integer = new Integer(5);
+        integer=integer+2;//自动拆箱
+        System.out.println(&quot;integer: &quot;+integer);
+
+        ArrayList&lt;Integer&gt; al1=new ArrayList&lt;&gt;(1);
+        //自动装箱
+        al1.add(1);//al1.add(new Integer(1))
+        int one=al1.get(0);//al1.get(1).valueOf ();
+        int two=al1.get(0).intValue();
+        System.out.println(&quot;one: &quot;+one+&quot; two:&quot;+two);
+
+    }
+</code></pre>
+<h2 id="基本数据类型于字符串之间的相互转换">基本数据类型于字符串之间的相互转换</h2>
+<pre><code class="language-java">    public static void main(String[] args) {
+        //基本类型转换成字符串
+            //1.基本类型的值+“string”
+        int int1 = 100;
+        String s1 = int1 + &quot;200&quot;;
+        System.out.println(&quot;s1: &quot;+s1);
+            //包装类的静态方法toString(args)
+        String s2 = Integer.toString(100);
+        System.out.println(&quot;s2: &quot;+s2+100);
+            //string类的静态方法valueOf()
+        String s3=String.valueOf(200);
+        System.out.println(&quot;s3: &quot;+s3+100);
+
+        //String--&gt;基本类型
+            //使用包装类的静态方法paresXXX()
+        int i = Integer.parseInt(s1);
+        System.out.println(&quot;s1: &quot;+(i-200));
+
+    }
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%B8%B8%E7%94%A8api">常用API</a></li>
+<li><a href="#api">API</a>
+<ul>
+<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
+<li><a href="#api%E4%BD%BF%E7%94%A8%E8%BF%87%E7%A8%8B">API使用过程</a></li>
+</ul>
+</li>
+<li><a href="#scanner%E7%B1%BB">Scanner类</a>
+<ul>
+<li><a href="#%E8%AF%BB%E5%8F%96%E4%B8%80%E4%B8%AA%E6%95%B0">读取一个数</a></li>
+</ul>
+</li>
+<li><a href="#random%E7%B1%BB">Random类</a>
+<ul>
+<li><a href="#%E4%BA%A7%E7%94%9F%E9%9A%8F%E6%9C%BA%E6%95%B0">产生随机数</a></li>
+<li>[产生 <a href="#%E4%BA%A7%E7%94%9F-0n-%E4%B9%8B%E9%97%B4%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0">0，n) 之间的随机数</a></li>
+</ul>
+</li>
+<li><a href="#arraylist%E7%B1%BB">ArrayList类</a>
+<ul>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84">对象数组</a></li>
+<li><a href="#arraylist%E5%AE%B9%E5%99%A8">ArrayList容器</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95">常用方法</a></li>
+</ul>
+</li>
+<li><a href="#string-%E7%B1%BB">String 类</a>
+<ul>
+<li><a href="#%E6%B3%A8%E6%84%8F">注意</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B231%E7%A7%8D">创建字符串<em>3+1</em>种</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0%E5%A0%86%E4%B8%AD">字符串常量池（堆中）</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83">字符串比较</a>
+<ul>
+<li><a href="#%E5%86%85%E5%AE%B9%E6%AF%94%E8%BE%83">内容比较</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96">字符串相关信息获取</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%88%AA%E5%8F%96">字符串的截取</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2">字符串的转换</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%86%E5%89%B2">字符串的分割</a></li>
+</ul>
+</li>
+<li><a href="#static%E9%9D%99%E6%80%81">static静态</a>
+<ul>
+<li><a href="#%E5%85%B3%E9%94%AE%E5%AD%97%E6%A6%82%E8%BF%B0">关键字概述</a></li>
+<li><a href="#%E5%85%B3%E9%94%AE%E5%AD%97%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">关键字修饰成员变量</a></li>
+</ul>
+</li>
+<li><a href="#arrays">Arrays</a>
+<ul>
+<li><a href="#1-%E5%B0%86%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2">1. 将数组转换为字符串</a></li>
+<li><a href="#2%E6%8E%92%E5%BA%8F">2.排序</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+</ul>
+</li>
+<li><a href="#math%E7%B1%BB">Math类</a>
+<ul>
+<li><a href="#1abs%E7%BB%9D%E5%AF%B9%E5%80%BC">1.abs绝对值</a></li>
+<li><a href="#2-ceil-%E5%90%91%E4%B8%8A%E5%8F%96%E6%95%B4">2. ceil 向上取整</a></li>
+<li><a href="#3-floor-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4">3. floor 向下取整</a></li>
+<li><a href="#4-round-%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5">4. round 四舍五入</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0-2">练习</a></li>
+</ul>
+</li>
+<li><a href="#objects">objects</a>
+<ul>
+<li><a href="#1-tostring%E6%96%B9%E6%B3%95">1. toString方法</a></li>
+<li><a href="#2equals%E6%96%B9%E6%B3%95">2.equals方法</a></li>
+<li><a href="#%E7%A9%BA%E6%8C%87%E9%92%88%E5%AE%89%E5%85%A8">空指针安全</a></li>
+</ul>
+</li>
+<li><a href="#data%E7%B1%BB">Data类</a>
+<ul>
+<li><a href="#dataformat%E7%B1%BB%E6%8A%BD%E8%B1%A1%E7%B1%BB">DataFormat类(抽象类)</a></li>
+</ul>
+</li>
+<li><a href="#system%E7%B1%BB">System类</a>
+<ul>
+<li><a href="#%E8%8E%B7%E5%8F%96ms">获取ms</a></li>
+<li><a href="#copy-%E6%95%B0%E7%BB%84">copy 数组</a></li>
+</ul>
+</li>
+<li><a href="#stringbuilder">StringBuilder</a>
+<ul>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#methord">methord</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%85%E8%A3%85%E7%B1%BB">包装类</a>
+<ul>
+<li><a href="#%E8%A3%85%E7%AE%B1">装箱</a></li>
+<li><a href="#%E6%8B%86%E7%AE%B1">拆箱</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E6%8B%86%E7%AE%B1%E4%BA%8E%E8%A3%85%E7%AE%B1">自动拆箱于装箱</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2">基本数据类型于字符串之间的相互转换</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://bgst009.github.io/post/面向对象和封装/">
+              <h3 class="post-title">
+                面向对象和封装
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://bgst009.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
